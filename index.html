@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PipDeck: Oh My Pi (OMP) High-Contrast Hardware Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700;800&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-black: #000000;
+      --border-green: #00ff41;
+      --border-subtle: #27272a;
+      
+      /* High-Contrast Colors */
+      --text-white: #ffffff;
+      --text-silver: #e2e8f0;
+      --text-muted: #a1a1aa;
+      --matrix-green: #00ff41;
+      --matrix-green-neon: #39ff14;
+      --matrix-yellow: #facc15;
+      --matrix-cyan: #38bdf8;
+      --matrix-orange: #fb923c;
+      --matrix-purple: #c084fc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #000000;
+      color: var(--text-white);
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+    }
+
+    /* Header */
+    header {
+      background: #000000;
+      border-bottom: 2px solid var(--matrix-green);
+      padding: 32px 0 24px;
+      margin-bottom: 32px;
+    }
+    .header-content {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .badge-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1.5px solid var(--matrix-green);
+      background: #000000;
+      color: var(--matrix-green);
+    }
+    .tag-yellow { border-color: var(--matrix-yellow); color: var(--matrix-yellow); }
+    
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: var(--text-silver);
+      font-size: 1.05rem;
+      max-width: 840px;
+      line-height: 1.6;
+    }
+
+    /* Section Styling */
+    section {
+      background: #000000;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    h2::before {
+      content: "[#]";
+      color: var(--matrix-green);
+    }
+    h3 {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--matrix-green);
+      margin: 20px 0 10px;
+    }
+    p {
+      margin-bottom: 14px;
+      color: var(--text-silver);
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+    strong { color: #ffffff; }
+
+    /* ========================================================= */
+    /* MAXIMIZED HARDWARE DISPLAY (ESP32-2432S028R)              */
+    /* ========================================================= */
+    .large-hardware-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0 28px;
+    }
+
+    .esp32-pcb {
+      width: 100%;
+      max-width: 840px;
+      background: #000000;
+      border: 3px solid #3f3f46;
+      border-radius: 16px;
+      padding: 28px 24px 20px;
+      position: relative;
+      box-shadow: 0 0 0 1px var(--matrix-green);
+    }
+
+    /* Standoffs */
+    .standoff {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #000 4px, #facc15 5px, #854d0e 9px);
+      border: 1px solid #000;
+      position: absolute;
+    }
+    .standoff.tl { top: 12px; left: 12px; }
+    .standoff.tr { top: 12px; right: 12px; }
+    .standoff.bl { bottom: 12px; left: 12px; }
+    .standoff.br { bottom: 12px; right: 12px; }
+
+    /* Silkscreen */
+    .silkscreen-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+    }
+    .silkscreen-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: #e2e8f0;
+      font-weight: 700;
+    }
+
+    /* Ambient Hardware LED */
+    .hw-rgb-led {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: var(--matrix-green);
+      box-shadow: 0 0 16px var(--matrix-green);
+      border: 2px solid #ffffff;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    /* Physical Screen Bezel */
+    .esp-screen-bezel {
+      background: #000000;
+      border: 3px solid #52525b;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .esp-screen-inner {
+      background: #000000;
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      border: 2px solid var(--matrix-green);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Clean Touch Tab Navigation (13px Font) */
+    .touch-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #000000;
+      border-bottom: 2px solid var(--matrix-green);
+      z-index: 10;
+    }
+    .touch-tab {
+      padding: 10px 4px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #ffffff;
+      background: #000000;
+      border: none;
+      border-right: 1px solid #27272a;
+      cursor: pointer;
+      font-family: 'Fira Code', monospace;
+      transition: all 0.15s;
+    }
+    .touch-tab:last-child { border-right: none; }
+    .touch-tab:hover { background: #27272a; color: var(--matrix-green); }
+    .touch-tab.active {
+      color: #000000;
+      background: #ffffff;
+      font-weight: 800;
+    }
+
+    /* Main Screen Work Area */
+    .screen-work-area {
+      flex: 1;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 10;
+      background: #000000;
+    }
+
+    /* Clean OMP Header Line (13px Bold) */
+    .screen-status-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000000;
+      border: 1.5px solid var(--matrix-green);
+      padding: 7px 12px;
+      font-size: 0.88rem;
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    /* VIEW 1: DASHBOARD (Maximized Typography & Full-Bleed Mascot Arena) */
+    .view-dashboard {
+      display: grid;
+      grid-template-columns: 185px 1fr;
+      gap: 14px;
+      flex: 1;
+      margin: 10px 0;
+      min-height: 220px;
+    }
+    .mascot-viewport {
+      background: #000000;
+      border: 2px solid var(--matrix-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+    .mascot-viewport img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .telemetry-viewport {
+      background: #000000;
+      border: 2px solid var(--matrix-green);
+      border-radius: 4px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* High-Legibility Telemetry Rows */
+    .t-row-thread {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--matrix-cyan);
+      border-bottom: 1.5px solid #27272a;
+      padding-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .t-row-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin: 4px 0;
+    }
+
+    .t-cmd-box {
+      background: #000000;
+      border: 1.5px solid var(--matrix-green);
+      color: var(--matrix-yellow);
+      padding: 7px 10px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 4px 0;
+      border-radius: 3px;
+    }
+
+    /* Subagent Badge List (12px Bold) */
+    .subagent-list-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .subagent-pill {
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border: 1.5px solid #3f3f46;
+      color: #ffffff;
+      background: #000000;
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .subagent-pill.active {
+      border-color: var(--matrix-green);
+      color: #000000;
+      background: var(--matrix-green);
+    }
+
+    /* VIEW 2: SUBAGENTS */
+    .view-subagents {
+      display: none;
+      flex: 1;
+      margin: 10px 0;
+      background: #000000;
+      border: 2px solid var(--matrix-green);
+      padding: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .agent-card {
+      border: 1.5px solid #3f3f46;
+      padding: 10px 12px;
+      background: #000000;
+      font-size: 0.85rem;
+    }
+    .agent-card.active { border-color: var(--matrix-green); }
+
+    /* VIEW 3: TODO & LOGS */
+    .view-logs {
+      display: none;
+      flex: 1;
+      margin: 10px 0;
+      background: #000000;
+      border: 2px solid var(--matrix-green);
+      padding: 12px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      overflow: hidden;
+      flex-direction: column;
+      justify-content: flex-end;
+      line-height: 1.6;
+    }
+
+    /* Screen Footer Bar (13px Font) */
+    .screen-footer-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #000000;
+      border: 1.5px solid var(--matrix-green);
+      padding: 6px 12px;
+      font-size: 0.88rem;
+      color: #ffffff;
+      font-weight: 800;
+    }
+    .progress-track {
+      width: 140px;
+      height: 10px;
+      background: #000000;
+      border: 1.5px solid #ffffff;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--matrix-green);
+      width: 48%;
+    }
+
+    /* Stepper Scale Controls for 5-Agent Increments */
+    .increment-stepper-box {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 840px;
+      background: #000000;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+    .stepper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+    .stepper-btn-group {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .step-btn {
+      background: #000000;
+      border: 1.5px solid #3f3f46;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 10px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .step-btn:hover { border-color: var(--matrix-green); color: var(--matrix-green); }
+    .step-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      font-weight: 900;
+    }
+
+    /* Lifecycle Buttons */
+    .state-trigger-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 840px;
+    }
+    .state-btn {
+      background: #000000;
+      border: 1.5px solid #3f3f46;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .state-btn:hover { border-color: var(--matrix-green); color: var(--matrix-green); }
+    .state-btn.active {
+      background: var(--matrix-green);
+      color: #000000;
+      border-color: var(--matrix-green);
+      font-weight: 800;
+    }
+
+    /* Provider Grid */
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .provider-card {
+      background: #000000;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .provider-icon-badge {
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 8px;
+      background: #09090b;
+      border: 1px solid #3f3f46;
+      border-radius: 6px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 0.95rem;
+      background: #000000;
+    }
+    th, td {
+      padding: 12px 14px;
+      border: 1px solid #27272a;
+      text-align: left;
+    }
+    th {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      border-color: var(--matrix-green);
+      border-bottom: 2px solid var(--matrix-green);
+    }
+    td { color: var(--text-silver); }
+    td strong { color: #ffffff; }
+    td code {
+      color: var(--matrix-green);
+      background: #000000;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #3f3f46;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 36px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 36px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div>
+        <div class="badge-bar">
+          <span class="tag">OMP COMPANION PRD</span>
+          <span class="tag tag-yellow">5-AGENT INCREMENTS STEPPER</span>
+          <span class="tag">ESP32-2432S028R</span>
+        </div>
+        <h1>PipDeck: Desktop Agent Companion</h1>
+        <p class="subtitle">High-contrast Matrix terminal display for Oh My Pi (OMP). Observe the swarm density scale from 1 to 32 nodes in 5-agent increments while Pip maintains a 100% persistent, large mascot size.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- SECTION 1: NATIVE OMP DISPLAY RECREATION WITH INCREMENT STEPPER -->
+    <section>
+      <h2>Swarm Concurrency Scale in 5-Agent Increments ($320 \times 240$ Native TUI)</h2>
+      <p>Use the <strong>5-Agent Swarm Concurrency Stepper</strong> below to watch the orbital constellation transition from 1 sparse node to an ultra-crowded 32-node particle storm. <strong>Pip's size remains large and persistent across all states.</strong></p>
+
+      <div class="large-hardware-wrapper">
+        <!-- Physical Board -->
+        <div class="esp32-pcb">
+          <div class="standoff tl"></div>
+          <div class="standoff tr"></div>
+          <div class="standoff bl"></div>
+          <div class="standoff br"></div>
+
+          <!-- Silkscreen Header -->
+          <div class="silkscreen-top">
+            <span>[ ESP32-2432S028R / CYD DEV ]</span>
+            <span>OH MY PI (OMP) DESKTOP COMPANION</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span>RGB:</span>
+              <div class="hw-rgb-led" id="hwLed"></div>
+            </div>
+          </div>
+
+          <!-- Physical Screen Bezel -->
+          <div class="esp-screen-bezel">
+            <div class="esp-screen-inner">
+              
+              <!-- Clean Touch Tab Navigation -->
+              <div class="touch-tabs-bar">
+                <button class="touch-tab active" onclick="switchTab('dash')">[1. DASHBOARD]</button>
+                <button class="touch-tab" onclick="switchTab('subagents')">[2. SUBAGENTS]</button>
+                <button class="touch-tab" onclick="switchTab('logs')">[3. TODO &amp; LOGS]</button>
+              </div>
+
+              <!-- Main Screen Work Area -->
+              <div class="screen-work-area">
+                <!-- Header Status Bar with Provider Icon + Provider Name + Model -->
+                <div class="screen-status-line">
+                  <span id="dspModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
+                  <span id="dspBranch" style="color: var(--matrix-green);">git:main*</span>
+                  <span id="dspClock" style="color: var(--matrix-yellow);">12:45:02</span>
+                </div>
+
+                <!-- VIEW 1: DASHBOARD (Maximized Typography & Full Bleed Swarm Viewport) -->
+                <div class="view-dashboard" id="viewDash">
+                  <div class="mascot-viewport">
+                    <img id="dspMascot" src="assets/animations/pip-swarm-32.svg" alt="Pip Mascot">
+                  </div>
+                  <div class="telemetry-viewport">
+                    <div>
+                      <!-- Large Bold Thread Name -->
+                      <div class="t-row-thread" id="dspThread">
+                        <span>🧵</span> <span>#cleanse-workspace-diagnostics</span>
+                      </div>
+                      <!-- Status & Todo Phase (13px Font) -->
+                      <div class="t-row-status">
+                        <span style="color: var(--matrix-green);" id="dspState">● PARALLEL SWARM</span>
+                        <span style="color: #ffffff;" id="dspPhase">📋 Phase 3: Parallel Fix</span>
+                      </div>
+                      <!-- Active Command Box (13px Font) -->
+                      <div class="t-cmd-box" id="dspCmd">&gt;_ omp task[Scout, Coder, Reviewer, Sonic]</div>
+                    </div>
+
+                    <div>
+                      <div style="font-size: 0.78rem; color: #ffffff; font-weight: 800; margin-bottom: 3px;">AGENTS:</div>
+                      <div class="subagent-list-row" id="subagentRow">
+                        <span class="subagent-pill active">✨ Google Scout</span>
+                        <span class="subagent-pill active">🏺 Anthropic Coder</span>
+                        <span class="subagent-pill active">🌀 OpenAI Review</span>
+                        <span class="subagent-pill active">🦙 Local Sonic</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- VIEW 2: SUBAGENTS -->
+                <div class="view-subagents" id="viewSubagents">
+                  <div class="agent-card active">
+                    <div style="color: #ffffff; font-weight: 800;">✨ Google Scout [smol]</div>
+                    <div style="color: var(--matrix-cyan); font-size: 0.8rem; margin: 2px 0;">✨ Google gemini-3.7-flash</div>
+                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ grep "authProvider"</div>
+                  </div>
+                  <div class="agent-card active">
+                    <div style="color: #ffffff; font-weight: 800;">🏺 Anthropic Coder [default]</div>
+                    <div style="color: var(--matrix-orange); font-size: 0.8rem; margin: 2px 0;">🏺 Anthropic claude-3-7-sonnet</div>
+                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ edit src/auth.ts</div>
+                  </div>
+                  <div class="agent-card active">
+                    <div style="color: #ffffff; font-weight: 800;">🌀 OpenAI Reviewer [slow]</div>
+                    <div style="color: var(--matrix-green); font-size: 0.8rem; margin: 2px 0;">🌀 OpenAI gpt-5.2-reasoning</div>
+                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ lsp diagnostics</div>
+                  </div>
+                  <div class="agent-card">
+                    <div style="color: #71717a; font-weight: 700;">🦙 Local Sonic [sonic]</div>
+                    <div style="color: #71717a; font-size: 0.8rem; margin: 2px 0;">🦙 Local/Ollama qwen2.5-coder-7b</div>
+                    <div style="color: #71717a; font-size: 0.8rem;">Status: standby pool</div>
+                  </div>
+                </div>
+
+                <!-- VIEW 3: TODO & LOGS -->
+                <div class="view-logs" id="viewLogs">
+                  <div><span style="color: var(--matrix-green); font-weight:800;">[TODO]</span> Phase 1: Foundation ✓ <span style="color:#a1a1aa;">(2/2 done)</span></div>
+                  <div><span style="color: var(--matrix-yellow); font-weight:800;">[TODO]</span> Phase 2: Auth Flow ⚡ <span style="color:#ffffff;">(in_progress 3/5)</span></div>
+                  <div style="margin-top: 8px; border-top: 1.5px dashed #3f3f46; padding-top: 6px;">
+                    <div><span style="color: var(--matrix-green);">[12:45:00]</span> <strong>[✨ Google Scout]:</strong> grep "auth" (24 matches)</div>
+                    <div><span style="color: var(--matrix-orange);">[12:45:01]</span> <strong>[🏺 Anthropic Coder]:</strong> edit +42 lines in src/auth.ts</div>
+                    <div style="color: #ffffff;"><span style="color: var(--matrix-green);">[12:45:02]</span> <strong>[🌀 OpenAI Reviewer]:</strong> bash "cargo test --lib" (RUNNING)</div>
+                  </div>
+                </div>
+
+                <!-- Footer Bar -->
+                <div class="screen-footer-line">
+                  <div style="display:flex; align-items:center; gap: 8px;">
+                    <span>CTX:</span>
+                    <div class="progress-track">
+                      <div class="progress-fill" id="dspProgBar" style="width: 62%;"></div>
+                    </div>
+                    <span id="dspCtxText" style="color: var(--matrix-green); font-weight: 800;">62%</span>
+                  </div>
+                  <div>
+                    <span style="color: var(--matrix-yellow); font-weight: 800;" id="dspCost">$0.38</span>
+                    <span style="color: #71717a; margin: 0 4px;">|</span>
+                    <span id="dspTokens" style="font-weight: 800;">114.5k tok</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Silkscreen Footer -->
+          <div class="silkscreen-bottom">
+            <span>[RESET / BOOT]</span>
+            <span>USB-C / CH340 UART @ 921600 BAUD</span>
+            <span>LDR: IO34 · DAC: IO26</span>
+          </div>
+        </div>
+
+        <!-- 5-Agent Increments Stepper Box -->
+        <div class="increment-stepper-box">
+          <div class="stepper-header">
+            <span>⚡ SWARM CONCURRENCY SCALE (5-AGENT INCREMENTS)</span>
+            <span style="color:var(--matrix-green);" id="stepperRatio">32/32 (MAX CROWD)</span>
+          </div>
+          <div class="stepper-btn-group">
+            <button class="step-btn" onclick="setSwarmIncrement(1)">[1 Node]</button>
+            <button class="step-btn" onclick="setSwarmIncrement(5)">[5 Nodes]</button>
+            <button class="step-btn" onclick="setSwarmIncrement(10)">[10 Nodes]</button>
+            <button class="step-btn" onclick="setSwarmIncrement(15)">[15 Nodes]</button>
+            <button class="step-btn" onclick="setSwarmIncrement(20)">[20 Nodes]</button>
+            <button class="step-btn" onclick="setSwarmIncrement(25)">[25 Nodes]</button>
+            <button class="step-btn active" onclick="setSwarmIncrement(32)">[32 MAX]</button>
+          </div>
+        </div>
+
+        <!-- Lifecycle State Triggers -->
+        <div class="state-trigger-bar">
+          <button class="state-btn" onclick="setOmpState('idle')">
+            <span>💤</span> [1] IDLE / SLEEP
+          </button>
+          <button class="state-btn" onclick="setOmpState('thinking')">
+            <span>🧠</span> [2] THINKING
+          </button>
+          <button class="state-btn" onclick="setOmpState('bash')">
+            <span>⌨️</span> [3] TOOL: BASH
+          </button>
+          <button class="state-btn active" onclick="setOmpState('swarm')">
+            <span>🚀</span> [4] TASK: SWARM (32)
+          </button>
+          <button class="state-btn" onclick="setOmpState('alert')">
+            <span>⚠️</span> [5] ASK USER
+          </button>
+          <button class="state-btn" onclick="setOmpState('victory')">
+            <span>🏆</span> [6] JOB PASSED
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 5-AGENT INCREMENTAL SWARM SPECIFICATION -->
+    <section>
+      <h2>Swarm Scaling &amp; Mascot Size Invariance Specification</h2>
+      <p>PipDeck maintains a <strong>persistent, large mascot bounding box ($48 \times 48\text{px}$) centered at $(80, 100)$</strong> across all swarm levels, while square node sprites scale progressively in 5-agent increments:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Swarm Level</th>
+            <th>Mascot Bounding Box</th>
+            <th>Orbiting Node Count &amp; Constellation Pattern</th>
+            <th>Visual Density Feeling</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1 Node (Solo)</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>1 node rotating at $R=56\text{px}$ with a single direct laser link.</td>
+            <td>Spacious, minimal, quiet.</td>
+          </tr>
+          <tr>
+            <td><strong>5 Nodes</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>5 nodes forming an orbiting pentagon web ($R=58\text{px}$).</td>
+            <td>Clean geometrical constellation.</td>
+          </tr>
+          <tr>
+            <td><strong>10 Nodes</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>10 nodes split into dual counter-spinning rings ($R=40\text{px}$, $R=64\text{px}$).</td>
+            <td>Balanced dual-orbital flow.</td>
+          </tr>
+          <tr>
+            <td><strong>15 Nodes</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>15 nodes in 3 counter-spinning rings ($R=34\text{px}$, $R=50\text{px}$, $R=68\text{px}$).</td>
+            <td>Active multi-agent web.</td>
+          </tr>
+          <tr>
+            <td><strong>20 Nodes</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>20 nodes in 3 dense rings ($R=36\text{px}$, $R=52\text{px}$, $R=68\text{px}$).</td>
+            <td>Dense, humming swarm hive.</td>
+          </tr>
+          <tr>
+            <td><strong>25 Nodes</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>25 nodes in 4 dense rings ($R=28\text{px}$, $R=42\text{px}$, $R=56\text{px}$, $R=70\text{px}$).</td>
+            <td>Heavily crowded particle matrix.</td>
+          </tr>
+          <tr>
+            <td><strong>32 Nodes (MAX)</strong></td>
+            <td>Persistent Large ($48 \times 48\text{px}$)</td>
+            <td>32 nodes in 4 bounded rings with full cascading matrix rain &amp; lightning arcs.</td>
+            <td><strong>Maximum Swarm Crowding</strong> (controlled chaos).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>PipDeck Open Source Project · Built for Oh My Pi (OMP) · Released under MIT License</p>
+  </footer>
+
+  <script>
+    const swarmIncrementData = {
+      1: {
+        img: 'assets/animations/pip-swarm-1.svg',
+        ratio: '1/32 (Solo Node)',
+        threads: '1 Worker Active',
+        cmd: '$ omp task[Scout]',
+        tokens: '12.4k tok',
+        cost: '$0.04',
+        ctx: '18%'
+      },
+      5: {
+        img: 'assets/animations/pip-swarm-5.svg',
+        ratio: '5/32 (Pentagon Wave)',
+        threads: '5 Workers Active',
+        cmd: '$ omp task[Scout1-2, Coder1-2, Rev1]',
+        tokens: '38.2k tok',
+        cost: '$0.12',
+        ctx: '28%'
+      },
+      10: {
+        img: 'assets/animations/pip-swarm-10.svg',
+        ratio: '10/32 (Dual Orbit)',
+        threads: '10 Workers Active',
+        cmd: '$ omp task[Scout1-3, Coder1-4, Rev1-3]',
+        tokens: '68.5k tok',
+        cost: '$0.22',
+        ctx: '42%'
+      },
+      15: {
+        img: 'assets/animations/pip-swarm-15.svg',
+        ratio: '15/32 (Triple Ring)',
+        threads: '15 Workers Active',
+        cmd: '$ omp task[Scout1-4, Coder1-7, Rev1-4]',
+        tokens: '102.1k tok',
+        cost: '$0.34',
+        ctx: '54%'
+      },
+      20: {
+        img: 'assets/animations/pip-swarm-20.svg',
+        ratio: '20/32 (Dense Hive)',
+        threads: '20 Workers Active',
+        cmd: '$ omp task[Scout1-5, Coder1-10, Rev1-5]',
+        tokens: '144.8k tok',
+        cost: '$0.48',
+        ctx: '68%'
+      },
+      25: {
+        img: 'assets/animations/pip-swarm-25.svg',
+        ratio: '25/32 (Crowded Matrix)',
+        threads: '25 Workers Active',
+        cmd: '$ omp task[Scout1-6, Coder1-13, Rev1-6]',
+        tokens: '198.4k tok',
+        cost: '$0.66',
+        ctx: '78%'
+      },
+      32: {
+        img: 'assets/animations/pip-swarm-32.svg',
+        ratio: '32/32 (MAX CROWD)',
+        threads: '32 Workers Active (100%)',
+        cmd: '$ omp task[Scout, Coder, Reviewer, Sonic]',
+        tokens: '284.5k tok',
+        cost: '$0.94',
+        ctx: '88%'
+      }
+    };
+
+    function setSwarmIncrement(count) {
+      document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const data = swarmIncrementData[count];
+      if (!data) return;
+
+      document.getElementById('dspMascot').src = data.img;
+      document.getElementById('stepperRatio').innerText = data.ratio;
+      document.getElementById('dspCmd').innerText = `>_ ${data.cmd.replace('$ ', '')}`;
+      document.getElementById('dspTokens').innerText = data.tokens;
+      document.getElementById('dspCost').innerText = data.cost;
+      document.getElementById('dspProgBar').style.width = data.ctx;
+      document.getElementById('dspCtxText').innerText = data.ctx;
+    }
+
+    const ompStateData = {
+      idle: {
+        img: 'assets/animations/pip-idle.svg',
+        thread: '🧵 #workspace-idle',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● IDLE / READY',
+        phase: '📋 Awaiting prompt',
+        cmd: '>_ omp --ready',
+        subagents: [false, false, false, false],
+        ctx: '12%',
+        tokens: '0 tok',
+        cost: '$0.00',
+        led: '#15803d'
+      },
+      thinking: {
+        img: 'assets/animations/pip-thinking.svg',
+        thread: '🧵 #refactor-auth-flow',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● THINKING',
+        phase: '📋 Phase 1: Architecture Plan',
+        cmd: '>_ omp planning: evaluate tools',
+        subagents: [true, true, true, false],
+        ctx: '34%',
+        tokens: '42.8k tok',
+        cost: '$0.14',
+        led: '#00ff41'
+      },
+      bash: {
+        img: 'assets/animations/pip-hacking.svg',
+        thread: '🧵 #refactor-auth-flow',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● EXECUTING TOOL',
+        phase: '📋 Phase 2: Auth (3/5)',
+        cmd: '>_ cargo test --all --lib (00:03.2s)',
+        subagents: [false, true, false, false],
+        ctx: '48%',
+        tokens: '68.2k tok',
+        cost: '$0.21',
+        led: '#facc15'
+      },
+      swarm: {
+        img: 'assets/animations/pip-swarm-32.svg',
+        thread: '🧵 #cleanse-workspace-diagnostics',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● PARALLEL SWARM',
+        phase: '📋 Phase 3: Parallel Fix',
+        cmd: '>_ omp task[Scout, Coder, Reviewer, Sonic]',
+        subagents: [true, true, true, true],
+        ctx: '62%',
+        tokens: '114.5k tok',
+        cost: '$0.38',
+        led: '#00ff41'
+      },
+      alert: {
+        img: 'assets/animations/pip-alert.svg',
+        thread: '🧵 #git-push-approval',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● ASK USER',
+        phase: '⚠️ Awaiting Confirmation',
+        cmd: '>_ ask "Confirm force push to remote?"',
+        subagents: [false, false, false, false],
+        ctx: '65%',
+        tokens: '120.1k tok',
+        cost: '$0.40',
+        led: '#facc15'
+      },
+      victory: {
+        img: 'assets/animations/pip-victory.svg',
+        thread: '🧵 #refactor-auth-flow',
+        modelTag: 'OMP ❯ 🏺 Anthropic claude-3-7-sonnet',
+        state: '● JOB PASSED',
+        phase: '✓ Verification Done (5/5)',
+        cmd: '>_ cargo check: OK [PASS]',
+        subagents: [false, false, false, false],
+        ctx: '66%',
+        tokens: '124.9k tok',
+        cost: '$0.42',
+        led: '#00ff41'
+      }
+    };
+
+    function setOmpState(key) {
+      document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const data = ompStateData[key];
+      if (!data) return;
+
+      document.getElementById('dspMascot').src = data.img;
+      document.getElementById('dspModel').innerText = data.modelTag;
+      document.getElementById('dspThread').innerHTML = `<span>🧵</span> <span>${data.thread.replace('🧵 ', '')}</span>`;
+      document.getElementById('dspState').innerText = data.state;
+      document.getElementById('dspPhase').innerText = data.phase;
+      document.getElementById('dspCmd').innerText = data.cmd;
+      document.getElementById('dspProgBar').style.width = data.ctx;
+      document.getElementById('dspCtxText').innerText = data.ctx;
+      document.getElementById('dspTokens').innerText = data.tokens;
+      document.getElementById('dspCost').innerText = data.cost;
+
+      const led = document.getElementById('hwLed');
+      led.style.background = data.led;
+      led.style.boxShadow = `0 0 14px ${data.led}`;
+
+      const pills = document.querySelectorAll('.subagent-pill');
+      pills.forEach((p, idx) => {
+        if (data.subagents[idx]) p.className = 'subagent-pill active';
+        else p.className = 'subagent-pill';
+      });
+    }
+
+    function switchTab(tabKey) {
+      document.querySelectorAll('.touch-tab').forEach(t => t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      document.getElementById('viewDash').style.display = 'none';
+      document.getElementById('viewSubagents').style.display = 'none';
+      document.getElementById('viewLogs').style.display = 'none';
+
+      if (tabKey === 'dash') document.getElementById('viewDash').style.display = 'grid';
+      else if (tabKey === 'subagents') document.getElementById('viewSubagents').style.display = 'grid';
+      else if (tabKey === 'logs') document.getElementById('viewLogs').style.display = 'flex';
+    }
+
+    setInterval(() => {
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      const clk = document.getElementById('dspClock');
+      if (clk) clk.innerText = timeStr;
+    }, 1000);
+  </script>
+</body>
+</html>
