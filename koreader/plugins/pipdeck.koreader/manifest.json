@@ -1,0 +1,17 @@
+{
+  "name": "pipdeck",
+  "title": "PipDeck OMP Companion",
+  "version": "0.1.0-alpha",
+  "description": "Live Oh My Pi (OMP) desktop companion telemetry, swarm matrix observability, and retro 8-bit mascot animations on your Kindle e-ink screen. Optimized for older Paperwhite and basic Kindle devices.",
+  "author": "officebeats",
+  "category": "app",
+  "icon": "pipdeck_icon",
+  "homepage": "https://officebeats.github.io/pipdeck",
+  "repository": "https://github.com/officebeats/pipdeck",
+  "compatibility": {
+    "koreader": ">=2022.01",
+    "zenos": ">=3.0",
+    "devices": ["kindle_pw1", "kindle_pw2", "kindle_pw3", "kindle_pw4", "kindle_pw5", "kindle_touch", "kindle_basic", "kindle_oasis", "kindle_scribe"]
+  },
+  "tags": ["omp", "omarchy", "telemetry", "companion", "kindle", "zenos", "koreader", "kual"]
+}

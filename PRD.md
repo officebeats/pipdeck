@@ -3,15 +3,20 @@
 ## 1. Executive Summary & Multi-Platform Mandate (In Perpetuity)
 
 **PipDeck** is an open-source hardware desktop companion display engineered to monitor the **Oh My Pi (OMP)** coding harness.
+- **Current Version**: `v0.1.0-alpha` (Alpha Release for Kindle Paperwhite & KOReader devices)
 - **Canonical Hosted URL (GitHub Pages)**: [https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck)
 - **Short URL (Easy-Type)**: `officebeats.github.io/pipdeck`
 - **GitHub Repository**: [https://github.com/officebeats/pipdeck](https://github.com/officebeats/pipdeck)
+- **Alpha Release Package**: `dist/pipdeck-koreader-paperwhite-v0.1.0-alpha.zip`
 
 ### Multi-Platform Mandate (In Perpetuity)
 AI agents and contributors MUST in perpetuity maintain, support, and test both target hardware tiers across all telemetry protocols, UI layouts, and animation engines:
-1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader & ZenOS**:
-   - Compatible with older 600×800 e-ink devices (Kindle Keyboard K3, Touch, K4, K5, Basic 7/8/10 — most common) and modern 300 PPI readers (Paperwhite 3/4/5, Oasis, Scribe).
-   - Native Lua plugin `koreader/plugins/pipdeck.koplugin/` supporting both standard KOReader Main Menu and **ZenOS** (`zen_ui.koplugin` / ZenPM) App Launcher tiles.
+1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader, ZenOS & KUAL**:
+   - **Target Hardware (Alpha Focus)**: Older Kindle Paperwhite (PW1, PW2, PW3), Touch, Basic, Oasis, and Scribe.
+   - **Triple-Store Integration**:
+     - **KOReader Plugin**: `koreader/plugins/pipdeck.koplugin/` (standard menu).
+     - **ZenOS (ZenUI)**: `package.json` / `manifest.json` for ZenPM in-app Wi-Fi installation.
+     - **KUAL Launcher**: Native Kindle `/extensions/pipdeck/` with `menu.json` and shell action scripts.
    - **1-Click Web USB Drive Installer**: Available directly at `officebeats.github.io/pipdeck` using browser File System Access API.
    - **Light & Dark Mode Support**:
      - **☀️ Light Mode (Day / High-Contrast)**: Pure paper white (`#ffffff`) background with deep black borders, typography, and inverted black-filled active agent chips.

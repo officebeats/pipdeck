@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "name": "PipDeck (OMP Companion)",
+      "priority": 1,
+      "items": [
+        {
+          "name": "▶ Launch PipDeck E-Ink Display",
+          "priority": 1,
+          "action": "./bin/launch.sh"
+        },
+        {
+          "name": "☀️ / 🌙 Toggle Light/Dark Theme",
+          "priority": 2,
+          "action": "./bin/theme.sh"
+        },
+        {
+          "name": "❓ Connection Guide & Tutorial",
+          "priority": 3,
+          "action": "./bin/guide.sh"
+        },
+        {
+          "name": "⚡ Clear Screen Ghosting",
+          "priority": 4,
+          "action": "./bin/flash.sh"
+        }
+      ]
+    }
+  ]
+}

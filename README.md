@@ -1,14 +1,17 @@
 # PipDeck 📖⚡ — Kindle KOReader, ZenOS & Hardware Companion for Oh My Pi (OMP)
 
+[![Release: v0.1.0-alpha](https://img.shields.io/badge/Release-v0.1.0--alpha-facc15.svg?style=flat-square)](https://github.com/officebeats/pipdeck/releases)
 [![Primary Platform: Kindle KOReader & ZenOS](https://img.shields.io/badge/Primary%20Platform-Kindle%20KOReader%20%26%20ZenOS-ffffff.svg?style=flat-square)](https://github.com/koreader/koreader)
+[![Target: Paperwhite & Basic](https://img.shields.io/badge/Target-Kindle%20Paperwhite%20(PW1--5)-38bdf8.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 [![Live Web Simulator & Installer](https://img.shields.io/badge/Live%20Web%20Simulator-officebeats.github.io%2Fpipdeck-00ff41.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
-[![Secondary Platform: ESP32-2432S028R](https://img.shields.io/badge/Secondary%20Platform-ESP32--2432S028R-38bdf8.svg?style=flat-square)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)
 [![Theme: Light & Dark Modes](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Modes-c084fc.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00ff41.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-> **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and instant **Light Mode (Paper Day)** & **Dark Mode (OLED Night)** theme switching.
+> **PipDeck v0.1.0-alpha** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)** with dedicated optimization for **older Kindle Paperwhite devices (PW1, PW2, PW3, PW4, PW5, Basic, Touch)**, plus secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and instant **Light Mode (Paper Day)** & **Dark Mode (OLED Night)** theme switching.
 >
 > 🌐 **Live Web Simulator & 1-Click Installer**: [https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck) *(Type: `officebeats.github.io/pipdeck`)*
+>
+> 📦 **Alpha Release ZIP**: [pipdeck-koreader-paperwhite-v0.1.0-alpha.zip](https://officebeats.github.io/pipdeck/dist/pipdeck-koreader-paperwhite-v0.1.0-alpha.zip)
 
 ---
 
@@ -38,30 +41,30 @@ Experience the live interactive simulator, test stepped animations, or install d
 
 ---
 
-## 🔌 1-Click Zero-Hassle Installation for Non-Technical Kindle Users
+## 🔌 Zero-Hassle Installation for Paperwhite & Kindle Users
 
-Choose the simplest method that fits your workflow:
+PipDeck provides triple-store integration across KOReader, ZenOS, and KUAL:
 
 ### Method 1: 1-Click Web Drive Installer *(Recommended — Zero File Hunting)*
-1. Plug your Kindle into your computer via USB.
+1. Plug your Kindle Paperwhite into your computer via USB.
 2. Open **[officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck)** in Chrome, Edge, or Brave.
 3. Click **`[ ⚡ Install to Kindle Drive ]`** and select your Kindle drive (e.g. `E:\` or `/Volumes/Kindle`).
-4. The browser automatically writes `pipdeck.koplugin` directly into `koreader/plugins/`. Safely eject and launch!
+4. The browser automatically writes `pipdeck.koplugin` to `koreader/plugins/` and the KUAL extension to `extensions/pipdeck/`. Safely eject and launch!
 
 ### Method 2: In-Kindle ZenPM Store *(Zero Cables / Direct Wi-Fi)*
 1. On your Kindle running **ZenOS / ZenUI**, open **ZenPM** (Package Manager).
 2. Search for **"PipDeck"** and tap **`[ Install ]`**.
 
-### Method 3: 1-Step Drag & Drop ZIP
-1. Download **[pipdeck-kindle-easy-install.zip](dist/pipdeck-kindle-easy-install.zip)** (also hosted at [officebeats.github.io/pipdeck/dist/pipdeck-kindle-easy-install.zip](https://officebeats.github.io/pipdeck/dist/pipdeck-kindle-easy-install.zip)).
-2. Drag the unzipped `koreader` folder straight onto your Kindle drive icon.
+### Method 3: 1-Step Drag & Drop Alpha ZIP
+1. Download **[pipdeck-koreader-paperwhite-v0.1.0-alpha.zip](https://officebeats.github.io/pipdeck/dist/pipdeck-koreader-paperwhite-v0.1.0-alpha.zip)**.
+2. Drag the unzipped `koreader` and `extensions` folders straight onto your Kindle drive root.
 
 ---
 
 ## ☀️ Light Mode & 🌙 Dark Mode Architecture
 
 PipDeck supports seamless day/night theme switching on both E-Ink and color LCD hardware:
-- **Kindle E-Ink (KOReader / ZenOS)**:
+- **Kindle E-Ink (KOReader / ZenOS / KUAL)**:
   - **☀️ Light Mode (Day)**: Pure Paper White (`#ffffff`) background with stark black borders and typography.
   - **🌙 Dark Mode (Night)**: Pure Black (`#000000`) background with high-contrast white typography and inverted badges.
 - **ESP32 Color Display**:
@@ -102,8 +105,8 @@ Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)
 
 ## 🛒 Target Hardware & Devices
 
-### 1. Primary Platform: Upcycled E-Ink Reader (Kindle + KOReader / ZenOS)
-- Any jailbroken **Amazon Kindle** (Keyboard K3, Touch, K4, K5, Basic 7/8/10, Paperwhite 1/2/3/4/5, Oasis, Scribe) running [KOReader](https://github.com/koreader/koreader) and optionally [ZenOS / ZenUI](https://github.com/AnthonyGress/zen_ui.koplugin). Connects wirelessly over local Wi-Fi with weeks of battery life and default 12-hour clock.
+### 1. Primary Platform: Upcycled E-Ink Reader (Kindle + KOReader / ZenOS / KUAL)
+- **Flagship Target**: **Amazon Kindle Paperwhite (PW1, PW2, PW3, PW4, PW5)**, plus Kindle Keyboard K3, Touch, Basic, Oasis, and Scribe running [KOReader](https://github.com/koreader/koreader), [ZenOS / ZenUI](https://github.com/AnthonyGress/zen_ui.koplugin), or KUAL. Connects wirelessly over local Wi-Fi with weeks of battery life and default 12-hour clock.
 
 ### 2. Secondary Platform: Dedicated Color Hardware Display (ESP32)
 - **Target Board**: **[AOICRIE ESP32-2432S028R 2.8" SPI TFT LCD (Amazon)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)**  
