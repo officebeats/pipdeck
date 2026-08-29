@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pip: Codex Mascot Pet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    
+    html, body {
+      background: transparent !important;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      -webkit-app-region: drag;
+    }
+
+    .pet-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+    }
+
+    .pet-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 2px 8px rgba(0, 255, 65, 0.5));
+      transition: transform 0.08s steps(2);
+      -webkit-app-region: no-drag;
+    }
+    .pet-img:active {
+      transform: scale(0.92);
+    }
+
+    /* Floating Heart on Pet */
+    .heart {
+      position: absolute;
+      color: #f43f5e;
+      font-size: 16px;
+      font-weight: bold;
+      pointer-events: none;
+      animation: floatUp 0.6s steps(4) forwards;
+      z-index: 20;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(0.8); }
+      50% { opacity: 1; transform: translateY(-16px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-32px) scale(0.9); }
+    }
+
+    /* Floating Token Crumb on Feed */
+    .crumb {
+      position: absolute;
+      color: #facc15;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: bold;
+      pointer-events: none;
+      animation: dropBite 0.5s steps(4) forwards;
+      z-index: 20;
+    }
+    @keyframes dropBite {
+      0% { opacity: 1; transform: translateY(-15px); }
+      100% { opacity: 0; transform: translateY(15px) scale(0.4); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pet-container" id="petBox" title="Click: Pet Pip | Double-Click / F: Feed | Codex Live Sync">
+    <img id="mascot" class="pet-img" src="assets/sprites/pip-idle.svg" alt="Pip Mascot">
+  </div>
+
+  <script>
+    let sound = true;
+    const states = {
+      idle: 'assets/sprites/pip-idle.svg',
+      thinking: 'assets/sprites/pip-thinking.svg',
+      bash: 'assets/sprites/pip-hacking.svg',
+      alert: 'assets/sprites/pip-alert.svg',
+      victory: 'assets/sprites/pip-victory.svg',
+      swarm32: 'assets/sprites/pip-swarm.svg'
+    };
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playTone(freq, type = 'square', dur = 0.08, gainVal = 0.05) {
+      if (!sound) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    function sfxPurr() {
+      playTone(260, 'square', 0.06, 0.05);
+      setTimeout(() => playTone(390, 'square', 0.08, 0.06), 40);
+    }
+
+    function sfxFeed() {
+      playTone(600, 'square', 0.04, 0.06);
+      setTimeout(() => playTone(900, 'square', 0.06, 0.08), 40);
+    }
+
+    const mascot = document.getElementById('mascot');
+    const petBox = document.getElementById('petBox');
+
+    function spawnHeart(x, y) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = '♥';
+      h.style.left = `${x || 50}px`;
+      h.style.top = `${y || 30}px`;
+      petBox.appendChild(h);
+      setTimeout(() => h.remove(), 600);
+    }
+
+    function spawnCrumb(x, y) {
+      const c = document.createElement('div');
+      c.className = 'crumb';
+      c.textContent = '01';
+      c.style.left = `${x || 50}px`;
+      c.style.top = `${y || 40}px`;
+      petBox.appendChild(c);
+      setTimeout(() => c.remove(), 500);
+    }
+
+    function petPip(e) {
+      sfxPurr();
+      const rect = petBox.getBoundingClientRect();
+      const x = e ? e.clientX - rect.left - 4 : rect.width / 2;
+      const y = e ? e.clientY - rect.top - 10 : rect.height / 2 - 10;
+      spawnHeart(x, y);
+    }
+
+    function feedPip() {
+      sfxFeed();
+      const rect = petBox.getBoundingClientRect();
+      spawnCrumb(rect.width / 2 - 6, rect.height / 2);
+    }
+
+    petBox.addEventListener('click', (e) => petPip(e));
+    petBox.addEventListener('dblclick', (e) => { e.preventDefault(); feedPip(); });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'f' || e.key === 'F') feedPip();
+      if (e.key === 'p' || e.key === 'P') petPip();
+      if (e.key === 'm' || e.key === 'M') sound = !sound;
+    });
+
+    // Real-Time SSE Stream Hook for Codex Session Processing
+    function connectEvents() {
+      try {
+        const es = new EventSource('/api/codex/events');
+        es.onmessage = (e) => {
+          try {
+            const data = JSON.parse(e.data);
+            if (data.state && states[data.state]) {
+              mascot.src = states[data.state];
+            }
+          } catch (err) {}
+        };
+        es.onerror = () => {
+          es.close();
+          setTimeout(connectEvents, 1500);
+        };
+      } catch (e) {
+        setTimeout(connectEvents, 2000);
+      }
+    }
+    connectEvents();
+  </script>
+</body>
+</html>

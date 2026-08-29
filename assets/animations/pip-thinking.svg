@@ -48,45 +48,46 @@
     <text x="31" y="11.5" font-family="'Fira Code', monospace" font-size="7.5" font-weight="900" fill="#00ff41" text-anchor="middle">THINKING</text>
   </g>
 
-  <!-- Expanding Psychic Rings (Spanning Top to Bottom) -->
-  <g fill="none" stroke="#00ff41" stroke-width="1.5" stroke-dasharray="3,4">
+  <!-- Expanding Psychic Rings -->
+  <g fill="none" stroke="#7443fa" stroke-width="1.5" stroke-dasharray="3,4">
     <circle cx="80" cy="90" r="32" class="psychic-1"/>
     <circle cx="80" cy="90" r="32" class="psychic-2"/>
   </g>
 
-  <!-- Floating Logic & Calculation Particles Reaching Top -->
-  <g class="tp-1" fill="#38bdf8" transform="translate(0, 75)">
+  <!-- Floating Logic & Calculation Particles -->
+  <g class="tp-1" fill="#22d3ee" transform="translate(0, 75)">
     <rect x="25" y="0" width="3" height="3"/><rect x="132" y="0" width="3" height="3"/><rect x="80" y="-10" width="4" height="4"/>
   </g>
-  <g class="tp-2" fill="#00ff41" transform="translate(0, 85)">
+  <g class="tp-2" fill="#a855f7" transform="translate(0, 85)">
     <rect x="40" y="0" width="3" height="3"/><rect x="118" y="0" width="3" height="3"/>
   </g>
 
-  <!-- Ground Levitation Floor (Squeezed to Bottom) -->
-  <g opacity="0.6" stroke="#00ff41" stroke-width="1">
+  <!-- Ground Levitation Floor -->
+  <g opacity="0.6" stroke="#7443fa" stroke-width="1">
     <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
     <line x1="35" y1="188" x2="125" y2="188"/>
   </g>
-  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#00ff41" opacity="0.25"/>
-  <ellipse cx="80" cy="180" rx="20" ry="2.5" fill="#00ff41" opacity="0.6"/>
+  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#7443fa" opacity="0.25"/>
+  <ellipse cx="80" cy="180" rx="20" ry="2.5" fill="#22d3ee" opacity="0.6"/>
 
-  <!-- Mascot Body -->
+  <!-- Mascot Body (OMP Palette) -->
   <g class="mascot-thinking">
-    <rect x="64" y="84" width="32" height="10" fill="#00ff41"/><rect x="66" y="82" width="28" height="14" fill="#00ff41"/><rect x="62" y="86" width="36" height="6" fill="#00ff41"/>
-    <rect x="68" y="94" width="10" height="22" fill="#00ff41"/><rect x="66" y="114" width="14" height="6" fill="#00ff41"/>
-    <rect x="82" y="94" width="10" height="20" fill="#00ff41"/><rect x="82" y="112" width="16" height="8" fill="#00ff41"/><rect x="94" y="106" width="6" height="10" fill="#00ff41"/>
-    <rect x="70" y="96" width="6" height="18" fill="#000000"/><rect x="71" y="96" width="5" height="18" fill="#00ff41"/><rect x="71" y="96" width="2" height="18" fill="#ffffff"/>
-    <rect x="84" y="96" width="6" height="16" fill="#000000"/><rect x="85" y="96" width="5" height="16" fill="#00ff41"/><rect x="85" y="96" width="2" height="16" fill="#ffffff"/>
+    <rect x="64" y="84" width="32" height="10" fill="#7443fa"/><rect x="66" y="82" width="28" height="14" fill="#7443fa"/><rect x="62" y="86" width="36" height="6" fill="#7443fa"/>
+    <rect x="68" y="94" width="10" height="22" fill="#6437e3"/><rect x="66" y="114" width="14" height="6" fill="#7443fa"/>
+    <rect x="82" y="94" width="10" height="20" fill="#6437e3"/><rect x="82" y="112" width="16" height="8" fill="#7443fa"/><rect x="94" y="106" width="6" height="10" fill="#8b5cf6"/>
+    <rect x="70" y="96" width="6" height="18" fill="#000000"/><rect x="71" y="96" width="5" height="18" fill="#7443fa"/><rect x="71" y="96" width="2" height="18" fill="#ffffff"/>
+    <rect x="84" y="96" width="6" height="16" fill="#000000"/><rect x="85" y="96" width="5" height="16" fill="#7443fa"/><rect x="85" y="96" width="2" height="16" fill="#ffffff"/>
     
-    <rect x="66" y="84" width="28" height="10" fill="#000000"/><rect x="67" y="84" width="26" height="10" fill="#00ff41"/><rect x="67" y="82" width="26" height="2" fill="#ffffff"/>
-    <rect x="69" y="85" width="22" height="7" fill="#000000"/>
+    <rect x="66" y="84" width="28" height="10" fill="#0f0f0f"/><rect x="67" y="84" width="26" height="10" fill="#7443fa"/><rect x="67" y="82" width="26" height="2" fill="#ffffff"/>
+    <rect x="69" y="85" width="22" height="7" fill="#0f0f0f"/>
 
-    <!-- Concentrating / Processing Eyes -->
-    <rect x="72" y="86" width="5" height="5" fill="#38bdf8"/><rect x="73" y="87" width="2" height="2" fill="#ffffff"/>
-    <rect x="83" y="86" width="5" height="5" fill="#38bdf8"/><rect x="84" y="87" width="2" height="2" fill="#ffffff"/>
+    <!-- Concentrating / Processing Eyes (Neon Cyan) -->
+    <rect x="72" y="86" width="5" height="5" fill="#22d3ee"/><rect x="73" y="87" width="2" height="2" fill="#ffffff"/>
+    <rect x="83" y="86" width="5" height="5" fill="#22d3ee"/><rect x="84" y="87" width="2" height="2" fill="#ffffff"/>
 
-    <g fill="#00ff41">
-      <rect x="58" y="86" width="4" height="6"/><rect x="98" y="86" width="4" height="6"/>
+    <g fill="#7443fa">
+      <rect x="58" y="86" width="4" height="6"/><rect x="59" y="87" width="2" height="4" fill="#22d3ee"/>
+      <rect x="98" y="86" width="4" height="6"/><rect x="99" y="87" width="2" height="4" fill="#22d3ee"/>
     </g>
   </g>
 </svg>

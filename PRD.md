@@ -148,3 +148,17 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 | **Groq / Cerebras**| ⚡ / 🧠 | Llama 3.3 70B (800+ tok/s) | Ultra-fast instant text completion |
 | **xAI** | ✖️ / `[✖️ xAI]` | Grok 2, Grok 3 | Web synthesis & alternative reasoning |
 | **Mistral** | 🌪️ / `[🌪️ Mistral]` | Codestral 2501, Mistral Large | Dedicated European coding & multilingual models |
+
+---
+
+## 7. Orca & Codex Native Desktop Companion Sprites (Zero Background / LED Pixel Effect)
+
+PipDeck includes native companion sprite support across both **Orca IDE** and **OpenAI Codex** coding environments:
+- **Built-in Orca Pet Integration**: Upload or select Pip directly from the Orca status-bar pet menu (Experimental Settings) using the transparent SVGs/PNGs in `assets/animations/` (`pip-idle.svg`, `pip-hacking.svg`, `pip-victory.svg`).
+- **Native Floating Companion Window**: 100% true alpha transparent Wayland window with zero gray/white/black background boxes, pinned over the desktop with discrete retro LED pixel animation.
+- **Universal Asset Source (`assets/animations/`)**: Single canonical source of truth for all platforms (Kindle E-Ink, ESP32, Orca, Codex, Web Simulator) with zero asset drift.
+- **Universal Stepped Pacing**: Strictly uses `steps(N)` low-framerate retro LED/LCD timing across all states.
+- **Real-Time Live SSE Stream**: Broadcasts agent lifecycle transitions (idle, thinking, bash/coding, alert, victory, swarm) with sub-10ms latency via Server-Sent Events.
+- **Launchers**:
+  - **Orca Pet**: `./bin/orca-pet {start|stop|status|pet|feed|state}` (Port 8788, SSE stream + WebKit2 native alpha transparent Wayland window).
+  - **Codex Pet**: `./bin/codex-pet {start|stop|status|pet|feed|state}` (Port 8790, SSE stream + WebKit2 native alpha transparent Wayland window).

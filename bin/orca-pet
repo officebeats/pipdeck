@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+PORT=8788
+PET_URL="http://localhost:${PORT}"
+PID_FILE="/tmp/pip-orca-pet-server.pid"
+GUI_PID_FILE="/tmp/pip-orca-pet-gui.pid"
+LOG_FILE="/tmp/pip-orca-pet-server.log"
+STATUS_FILE="/tmp/pip-live-status.json"
+
+is_server_running() {
+  if curl -s -f "http://localhost:${PORT}/api/pet/state" >/dev/null 2>&1; then
+    return 0
+  fi
+  return 1
+}
+
+start_server() {
+  if is_server_running; then
+    echo "[Pip Pet] Server already running at ${PET_URL}"
+  else
+    echo "[Pip Pet] Starting background server at ${PET_URL}..."
+    node --experimental-strip-types "${REPO_DIR}/src/orca-pet/server.ts" > "${LOG_FILE}" 2>&1 &
+    echo $! > "${PID_FILE}"
+    
+    for i in {1..30}; do
+      if is_server_running; then
+        echo "[Pip Pet] Server is live!"
+        break
+      fi
+      sleep 0.1
+    done
+  fi
+}
+
+launch_desktop_window() {
+  echo "[Pip Pet] Configuring Hyprland floating companion rules..."
+  if command -v hyprctl >/dev/null 2>&1; then
+    hyprctl keyword windowrule "float, class:^(pip-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "float, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "pin, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "size 90 110, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "move 100%-110 100%-125, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noborder, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noshadow, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noblur, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+  fi
+
+  echo "[Pip Pet] Launching native 100% transparent LED pixel sprite..."
+  python3 "${REPO_DIR}/src/orca-pet/pet_window.py" >/dev/null 2>&1 &
+  echo $! > "${GUI_PID_FILE}"
+}
+
+launch_orca_tab() {
+  if command -v orca >/dev/null 2>&1; then
+    echo "[Pip Pet] Opening mascot sprite tab inside Orca IDE..."
+    orca tab create --url "${PET_URL}" --json >/dev/null 2>&1 || true
+  fi
+}
+
+send_action() {
+  local action_type="$1"
+  local state="${2:-}"
+  if [ -n "${state}" ]; then
+    curl -s -X POST "${PET_URL}/api/pet/action" \
+      -H "Content-Type: application/json" \
+      -d "{\"type\":\"${action_type}\",\"state\":\"${state}\"}" >/dev/null 2>&1 || true
+  else
+    curl -s -X POST "${PET_URL}/api/pet/action" \
+      -H "Content-Type: application/json" \
+      -d "{\"type\":\"${action_type}\"}" >/dev/null 2>&1 || true
+  fi
+}
+
+stop_all() {
+  echo "[Pip Pet] Stopping server and floating windows..."
+  pkill -f "pet_window.py" || true
+  pkill -f "pip-orca-pet" || true
+  if [ -f "${GUI_PID_FILE}" ]; then
+    kill "$(cat "${GUI_PID_FILE}")" 2>/dev/null || true
+    rm -f "${GUI_PID_FILE}"
+  fi
+  if [ -f "${PID_FILE}" ]; then
+    kill "$(cat "${PID_FILE}")" 2>/dev/null || true
+    rm -f "${PID_FILE}"
+  fi
+  echo "[Pip Pet] Stopped."
+}
+
+case "${1:-start}" in
+  start)
+    start_server
+    launch_desktop_window
+    launch_orca_tab
+    echo "[Pip Pet] ⚡ Pure transparent LED pixel mascot sprite is live."
+    ;;
+  desktop)
+    start_server
+    launch_desktop_window
+    ;;
+  orca)
+    start_server
+    launch_orca_tab
+    ;;
+  server)
+    start_server
+    ;;
+  pet)
+    send_action "pet"
+    ;;
+  feed)
+    send_action "feed"
+    ;;
+  state)
+    send_action "setState" "${2:-idle}"
+    ;;
+  status)
+    curl -s "${PET_URL}/api/pet/state" | jq . || curl -s "${PET_URL}/api/pet/state"
+    ;;
+  stop)
+    stop_all
+    ;;
+  *)
+    echo "Usage: $0 {start|desktop|orca|server|pet|feed|state <name>|status|stop}"
+    exit 1
+    ;;
+esac

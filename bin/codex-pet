@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+PORT=8790
+PET_URL="http://localhost:${PORT}"
+PID_FILE="/tmp/pip-codex-pet-server.pid"
+GUI_PID_FILE="/tmp/pip-codex-pet-gui.pid"
+LOG_FILE="/tmp/pip-codex-pet-server.log"
+STATUS_FILE="/tmp/codex-live-status.json"
+
+is_server_running() {
+  if curl -s -f "http://localhost:${PORT}/api/codex/state" >/dev/null 2>&1; then
+    return 0
+  fi
+  return 1
+}
+
+start_server() {
+  if is_server_running; then
+    echo "[Codex Pet] Server already running at ${PET_URL}"
+  else
+    echo "[Codex Pet] Starting background server at ${PET_URL}..."
+    node --experimental-strip-types "${REPO_DIR}/src/codex-pet/server.ts" > "${LOG_FILE}" 2>&1 &
+    echo $! > "${PID_FILE}"
+    
+    for i in {1..30}; do
+      if is_server_running; then
+        echo "[Codex Pet] Server is live!"
+        break
+      fi
+      sleep 0.1
+    done
+  fi
+}
+
+launch_desktop_window() {
+  echo "[Codex Pet] Configuring Hyprland floating companion rules..."
+  if command -v hyprctl >/dev/null 2>&1; then
+    hyprctl keyword windowrule "float, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "pin, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "size 80 80, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "move 100%-100 100%-110, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noborder, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noshadow, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noblur, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+  fi
+
+  echo "[Codex Pet] Launching native 100% transparent LED pixel sprite..."
+  python3 "${REPO_DIR}/src/codex-pet/pet_window.py" >/dev/null 2>&1 &
+  echo $! > "${GUI_PID_FILE}"
+}
+
+send_action() {
+  local action_type="$1"
+  local state="${2:-}"
+  if [ -n "${state}" ]; then
+    curl -s -X POST "${PET_URL}/api/codex/action" \
+      -H "Content-Type: application/json" \
+      -d "{\"type\":\"${action_type}\",\"state\":\"${state}\"}" >/dev/null 2>&1 || true
+  else
+    curl -s -X POST "${PET_URL}/api/codex/action" \
+      -H "Content-Type: application/json" \
+      -d "{\"type\":\"${action_type}\"}" >/dev/null 2>&1 || true
+  fi
+}
+
+stop_all() {
+  echo "[Codex Pet] Stopping server and floating windows..."
+  pkill -f "pet_window.py" || true
+  pkill -f "pip-codex-pet" || true
+  if [ -f "${GUI_PID_FILE}" ]; then
+    kill "$(cat "${GUI_PID_FILE}")" 2>/dev/null || true
+    rm -f "${GUI_PID_FILE}"
+  fi
+  if [ -f "${PID_FILE}" ]; then
+    kill "$(cat "${PID_FILE}")" 2>/dev/null || true
+    rm -f "${PID_FILE}"
+  fi
+  echo "[Codex Pet] Stopped."
+}
+
+case "${1:-start}" in
+  start)
+    start_server
+    launch_desktop_window
+    echo "[Codex Pet] ⚡ Pure transparent LED pixel mascot sprite is live."
+    ;;
+  desktop)
+    start_server
+    launch_desktop_window
+    ;;
+  server)
+    start_server
+    ;;
+  pet)
+    send_action "pet"
+    ;;
+  feed)
+    send_action "feed"
+    ;;
+  state)
+    send_action "setState" "${2:-idle}"
+    ;;
+  status)
+    curl -s "${PET_URL}/api/codex/state" | jq . || curl -s "${PET_URL}/api/codex/state"
+    ;;
+  stop)
+    stop_all
+    ;;
+  *)
+    echo "Usage: $0 {start|desktop|server|pet|feed|state <name>|status|stop}"
+    exit 1
+    ;;
+esac
