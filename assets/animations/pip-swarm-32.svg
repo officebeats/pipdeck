@@ -1,17 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="100%" height="100%" preserveAspectRatio="none" shape-rendering="crispEdges">
   <style>
-    /* LCD Stepped Frame Timing (Authentic 4-8 FPS Choppy Embedded Matrix Display) */
     @keyframes vortexRing1 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes vortexRing2 { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
     @keyframes vortexRing3 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes vortexRing4 { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
     @keyframes levitateCenter { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
-    @keyframes psychicWaveWide { 0% { transform: scale(0.3); opacity: 0.9; } 50% { opacity: 0.4; } 100% { transform: scale(1.45); opacity: 0; } }
+    @keyframes psychicWaveWide { 0% { transform: scale(0.3); opacity: 0.9; } 50% { opacity: 0.4; } 100% { transform: scale(1.5); opacity: 0; } }
     @keyframes lightningFlicker { 0%, 100% { opacity: 0.15; } 50% { opacity: 1; } }
     @keyframes rainFall1 { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 0.9; } 80% { opacity: 0.9; } 100% { transform: translateY(205px); opacity: 0; } }
     @keyframes rainFall2 { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 0.9; } 80% { opacity: 0.9; } 100% { transform: translateY(205px); opacity: 0; } }
 
-    /* Discrete stepped keyframes for authentic retro LCD stutter */
     .ring-1 { animation: vortexRing1 6s steps(8) infinite; transform-origin: 80px 100px; }
     .ring-2 { animation: vortexRing2 10s steps(10) infinite; transform-origin: 80px 100px; }
     .ring-3 { animation: vortexRing3 14s steps(12) infinite; transform-origin: 80px 100px; }
@@ -28,7 +26,7 @@
 
   <!-- Matrix Grid -->
   <g stroke="#003b00" stroke-width="0.75" opacity="0.4">
-    <line x1="0" y1="25" x2="160" y2="25"/><line x1="0" y1="50" x2="160" y2="50"/><line x1="0" y1="150" x2="160" y2="150"/><line x1="0" y1="175" x2="160" y2="175"/>
+    <line x1="0" y1="15" x2="160" y2="15"/><line x1="0" y1="45" x2="160" y2="45"/><line x1="0" y1="155" x2="160" y2="155"/><line x1="0" y1="185" x2="160" y2="185"/>
     <line x1="25" y1="0" x2="25" y2="200"/><line x1="135" y1="0" x2="135" y2="200"/>
   </g>
   <!-- Reticles -->
@@ -42,32 +40,36 @@
 
   <!-- Telepathic Waves -->
   <g fill="none" stroke="#00ff41" stroke-width="1.5" stroke-dasharray="3,5">
-    <ellipse cx="80" cy="92" rx="38" ry="46" class="psychic-ring-1"/>
-    <ellipse cx="80" cy="92" rx="38" ry="46" class="psychic-ring-2"/>
+    <ellipse cx="80" cy="92" rx="42" ry="52" class="psychic-ring-1"/>
+    <ellipse cx="80" cy="92" rx="42" ry="52" class="psychic-ring-2"/>
   </g>
 
-  <!-- Ground Shadow -->
-  <ellipse cx="80" cy="128" rx="20" ry="4" fill="#00ff41" opacity="0.35"/>
-  <ellipse cx="80" cy="128" rx="12" ry="2" fill="#00ff41" opacity="0.75"/>
+  <!-- Ground Levitation Floor (Squeezed to Bottom) -->
+  <g opacity="0.6" stroke="#00ff41" stroke-width="1">
+    <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
+    <line x1="35" y1="188" x2="125" y2="188"/>
+  </g>
+  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#00ff41" opacity="0.25"/>
+  <ellipse cx="80" cy="180" rx="20" ry="2.5" fill="#00ff41" opacity="0.75"/>
 
   <!-- Lightning Arcs -->
   <g class="lightning-arc" stroke="#00ff41" stroke-width="1" stroke-dasharray="2,3" fill="none">
-    <line x1="80" y1="92" x2="16" y2="36"/><line x1="80" y1="92" x2="144" y2="36"/>
-    <line x1="80" y1="92" x2="16" y2="164"/><line x1="80" y1="92" x2="144" y2="164"/>
-    <line x1="80" y1="92" x2="80" y2="30"/><line x1="80" y1="92" x2="80" y2="170"/>
+    <line x1="80" y1="92" x2="16" y2="30"/><line x1="80" y1="92" x2="144" y2="30"/>
+    <line x1="80" y1="92" x2="16" y2="170"/><line x1="80" y1="92" x2="144" y2="170"/>
+    <line x1="80" y1="92" x2="80" y2="20"/><line x1="80" y1="92" x2="80" y2="180"/>
   </g>
 
-  <!-- RING 4: OUTER BOUNDARY (8 NODES - R=70px) -->
+  <!-- RING 4: OUTER BOUNDARY (8 NODES - R=73px) -->
   <g class="ring-4">
-    <circle cx="80" cy="100" r="70" fill="none" stroke="#15803d" stroke-width="1" stroke-dasharray="2,6" opacity="0.6"/>
-    <g transform="translate(144, 94)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#38bdf8"/></g>
-    <g transform="translate(124, 144)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#fb923c"/></g>
-    <g transform="translate(74, 164)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#f43f5e"/></g>
-    <g transform="translate(25, 144)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#c084fc"/></g>
-    <g transform="translate(5, 94)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#38bdf8"/></g>
-    <g transform="translate(25, 46)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#fb923c"/></g>
-    <g transform="translate(74, 25)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#facc15"/></g>
-    <g transform="translate(124, 46)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#00ff41"/></g>
+    <circle cx="80" cy="100" r="73" fill="none" stroke="#15803d" stroke-width="1" stroke-dasharray="2,6" opacity="0.6"/>
+    <g transform="translate(146, 94)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#38bdf8"/></g>
+    <g transform="translate(126, 147)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#fb923c"/></g>
+    <g transform="translate(74, 167)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#f43f5e"/></g>
+    <g transform="translate(23, 147)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#c084fc"/></g>
+    <g transform="translate(2, 94)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#38bdf8"/></g>
+    <g transform="translate(23, 43)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#fb923c"/></g>
+    <g transform="translate(74, 22)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#facc15"/></g>
+    <g transform="translate(126, 43)"><rect width="11" height="11" fill="#00ff41"/><rect x="1.5" y="1.5" width="8" height="8" fill="#000"/><rect x="3.5" y="3.5" width="4" height="4" fill="#00ff41"/></g>
   </g>
 
   <!-- RING 3: MID-OUTER BELT (10 NODES - R=56px) -->
@@ -121,14 +123,15 @@
     <rect x="68" y="116" width="10" height="2" fill="#000000"/><rect x="69" y="116" width="8" height="2" fill="#00ff41"/>
     <rect x="84" y="96" width="6" height="16" fill="#000000"/><rect x="85" y="96" width="5" height="16" fill="#00ff41"/><rect x="85" y="96" width="2" height="16" fill="#ffffff"/>
     <rect x="84" y="114" width="12" height="4" fill="#000000"/><rect x="85" y="114" width="10" height="3" fill="#00ff41"/><rect x="96" y="108" width="3" height="6" fill="#000000"/><rect x="96" y="109" width="2" height="4" fill="#00ff41"/>
-    <rect x="66" y="84" width="28" height="10" fill="#000000"/><rect x="67" y="84" width="26" height="10" fill="#00ff41"/><rect x="67" y="82" width="26" height="2" fill="#ffffff"/><rect x="66" y="93" width="28" height="1" fill="#000000"/>
+    <rect x="66" y="84" width="28" height="10" fill="#000000"/><rect x="67" y="84" width="26" height="10" fill="#00ff41"/><rect x="67" y="82" width="26" height="2" fill="#ffffff"/>
+    <rect x="66" y="93" width="28" height="1" fill="#000000"/>
     <rect x="69" y="85" width="22" height="7" fill="#000000"/>
     <rect x="72" y="86" width="5" height="4" fill="#00ff41"/><rect x="73" y="86" width="2.5" height="2.5" fill="#ffffff"/>
     <rect x="83" y="86" width="5" height="4" fill="#00ff41"/><rect x="84" y="86" width="2.5" height="2.5" fill="#ffffff"/>
-    <g fill="#00ff41"><rect x="52" y="89" width="7" height="7"/><rect x="53" y="90" width="5" height="5" fill="#ffffff"/><rect x="101" y="89" width="7" height="7"/><rect x="102" y="90" width="5" height="5" fill="#ffffff"/></g>
+    <g fill="#00ff41"><rect x="58" y="86" width="4" height="6"/><rect x="98" y="86" width="4" height="6"/></g>
   </g>
 
-  <!-- Status Tag -->
+  <!-- Top-Right Combo HUD Badge -->
   <g transform="translate(94, 6)">
     <rect width="62" height="16" fill="#000000" stroke="#00ff41" stroke-width="1.5"/>
     <text x="31" y="11.5" font-family="'Fira Code', monospace" font-size="7.5" font-weight="900" fill="#00ff41" text-anchor="middle">32x CROWD</text>

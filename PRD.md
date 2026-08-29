@@ -7,8 +7,10 @@
 ### Multi-Platform Mandate (In Perpetuity)
 AI agents and contributors MUST in perpetuity maintain, support, and test both target hardware tiers across all telemetry protocols, UI layouts, and animation engines:
 1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader & ZenOS**:
-   - Jailbroken Kindle Paperwhite, Oasis, Basic, and Scribe e-ink readers.
+   - Compatible with older 600×800 e-ink devices (Kindle Keyboard K3, Touch, K4, K5, Basic 7/8/10 — most common) and modern 300 PPI readers (Paperwhite 3/4/5, Oasis, Scribe).
    - Native Lua plugin `koreader/plugins/pipdeck.koplugin/` supporting both standard KOReader Main Menu and **ZenOS** (`zen_ui.koplugin` / ZenPM) App Launcher tiles.
+   - **Default 12-Hour Time**: Clock displays standard 12h format with AM/PM (`12:45:02 PM`).
+   - **Maximized Screen Real Estate**: Full-bleed edge-to-edge 4:5 mascot arena and zero letterbox padding.
    - **Zero-Config Local Wi-Fi Pairing**: mDNS auto-discovery on `omp.local:8787` (`_pipdeck._tcp.local`) with manual IP fallback.
    - **Persistent 4-Step In-App Connection Tutorial**: Accessible anytime via `[?] Guide` to onboard non-technical users directly on the Kindle.
    - **Display Engine**: Pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
@@ -29,33 +31,35 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
 
 ---
 
-## 3. Mascot Size Invariance & 5-Agent Incremental Swarm Scaling
+## 3. Mascot Size Invariance, Full-Bleed Squeeze & Top-Right Combo HUD
 
-PipDeck enforces a **strict size invariance rule for the central Pip mascot**: Pip's coordinate dimensions ($48 \times 48\text{px}$ bounding box centered at $(80, 100)$) remain **100% identical and persistently large** across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
+PipDeck enforces a **strict size invariance rule for the central Pip mascot** ($48 \times 48\text{px}$ bounding box centered at $(80, 100)$) across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
+
+All animations expand vertically from $y=12$ to $y=190$ to **eliminate dead padding at top and bottom**, and feature a **standardized top-right combo HUD badge**:
 
 ```
- 1 Node (Solo)            10 Nodes (Dual Orbit)           32 Nodes (MAX Crowd)
-+------------------+     +--------------------+          +--------------------+
-|  [+]        [+]  |     |  [+]    ■    [+]   |          |  [+] ■  ■  ■  [+]  |
-|                  |     |       ■   ■        |          |    ■ ■  ■  ■ ■     |
-|     [ LARGE ]    | --> |    ■ [ LARGE ] ■   |   --->   |  ■ ■ [ LARGE ] ■ ■ |
-|     [  PIP  ] ■  |     |       ■   ■        |          |    ■ ■  ■  ■ ■     |
-|                  |     |         ■          |          |  ■   ■  ■  ■   ■   |
-|  [+]        [+]  |     |  [+]          [+]  |          |  [+]          [+]  |
-+------------------+     +--------------------+          +--------------------+
++───────────────────────────────────────────────────────────+
+| [+] Reticle                        [ 32x CROWD ]  Reticle [+]| <-- Top-Right Combo HUD
+|      ■               ■               ■                       |
+|   ■                                      ■                   |
+| ■              [ LARGE PIP 48px ]            ■               |
+|   ■                                      ■                   |
+|      ■               ■               ■                       |
+| ═══════════════[ Ground Levitation Floor ]═════════════════| <-- Squeezed to Bottom
++───────────────────────────────────────────────────────────+
 ```
 
 ### 5-Agent Incremental Swarm Hierarchy
 
-| Swarm Level | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
-| :--- | :--- | :--- | :--- |
-| **1 Node** | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
-| **5 Nodes** | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
-| **10 Nodes** | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
-| **15 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
-| **20 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
-| **25 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` / `12s steps(10)` / `16s steps(12)` / `22s steps(14)` | Heavily crowded particle matrix. |
-| **32 Nodes (MAX)**| Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `8s steps(8)` to `28s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
+| Swarm Level | Combo HUD Tag | Mascot Invariant | Stepped Animation Timing | Visual Density Feeling |
+| :--- | :--- | :--- | :--- | :--- |
+| **1 Node** | `[ 1x SOLO ]` | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
+| **5 Nodes** | `[ 5x SWARM ]` | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
+| **10 Nodes** | `[ 10x DUAL ]` | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
+| **15 Nodes** | `[ 15x TRIPLE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
+| **20 Nodes** | `[ 20x HIVE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
+| **25 Nodes** | `[ 25x MATRIX ]` | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` to `22s steps(14)` | Heavily crowded particle matrix. |
+| **32 Nodes (MAX)**| `[ 32x CROWD ]` | Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `6s steps(8)` to `18s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
 
 ---
 
@@ -69,16 +73,17 @@ A 4-step interactive connection guide is available inside the KOReader plugin an
 
 ---
 
-## 5. Hardware Screen Layouts
+## 5. Hardware Screen Layouts & Default 12-Hour Time
 
 ### A. Primary Platform: Kindle KOReader & ZenOS E-Ink (Portrait & Landscape)
 ```
 +------------------------------------------------------------------------+
-| OMP ❯ 🏺 Anthropic claude-3-7-sonnet                          12:45:02 |
+| OMP ❯ 🏺 Anthropic claude-3-7-sonnet                       12:45:02 PM | <-- 12-Hour Time Default
 +------------------------------------------------------------------------+
 |                  ┌─ Centered 4:5 Mascot Arena ─────┐                   |
 |                  │    [ 8-Bit Pixel Pip Mascot ]   │                   |
-|                  │       (100% In-Frame Swarm)     │                   |
+|                  │       [ 32x CROWD ] Top-Right   │                   |
+|                  │       (Full-Bleed Swarm)        │                   |
 |                  └─────────────────────────────────┘                   |
 | 🧵 #cleanse-workspace-diagnostics                                      |
 +------------------------------------------------------------------------+
@@ -98,18 +103,18 @@ A 4-step interactive connection guide is available inside the KOReader plugin an
 +------------------------------------------------------------------------+
 | [1. DASHBOARD]            [2. SETUP GUIDE]          [3. TODO & LOGS]   | <-- Touch Tabs
 +------------------------------------------------------------------------+
-| OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*           12:45:02 | <-- White Separator
+| OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*        12:45:02 PM | <-- 12-Hour Time Default
 +------------------------------------------------------------------------+
 | ┌─ Mascot Canvas ─────────┐ ┌─ E-Ink Mirrored Telemetry Column ──────┐ |
-| │                         │ │ 🧵 #cleanse-workspace-diagnostics      │ |
-| │   [ 8-Bit Pixel Pip ]   │ │ ● PARALLEL SWARM   📋 Phase 3: Fix     │ |
-| │     (Pure Black)        │ │ >_ omp task[Scout, Coder, Rev, Sonic]  │ |
+| │   [ 8-Bit Pixel Pip ]   │ │ 🧵 #cleanse-workspace-diagnostics      │ |
+| │   [ 32x CROWD ]         │ │ ● PARALLEL SWARM   📋 Phase 3: Fix     │ |
+| │   (Full-Bleed Squeeze)  │ │ >_ omp task[Scout, Coder, Rev, Sonic]  │ |
 | │   Matrix Green Border   │ │                                        │ |
 | │                         │ │ ACTIVE SUBAGENTS:                      │ |
 | │                         │ │ [✨ Google] [🏺 Anthropic] [🌀 OpenAI]  │ |
 | └─────────────────────────┘ └────────────────────────────────────────┘ |
 +------------------------------------------------------------------------+
-| CTX: 62%                   COST: $0.38                  TOKENS: 114.5k | <-- White Separator
+| CTX: 62%                   COST: $0.38                  TOKENS: 114.5k |
 +------------------------------------------------------------------------+
 ```
 
@@ -128,20 +133,3 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 | **Groq / Cerebras**| ⚡ / 🧠 | Llama 3.3 70B (800+ tok/s) | Ultra-fast instant text completion |
 | **xAI** | ✖️ / `[✖️ xAI]` | Grok 2, Grok 3 | Web synthesis & alternative reasoning |
 | **Mistral** | 🌪️ / `[🌪️ Mistral]` | Codestral 2501, Mistral Large | Dedicated European coding & multilingual models |
-
----
-
-## 7. Software Architecture & Plugin Scaffold
-
-### A. Kindle KOReader & ZenOS Plugin (`koreader/plugins/pipdeck.koplugin/`) - Primary
-- `_meta.lua`: Plugin registration with `is_app = true`, `category = "app"`, `icon = "pipdeck_icon"` for ZenOS launcher and standard KOReader menus.
-- `main.lua`: mDNS network listener, 4-step tutorial modal, orientation-responsive drawing routines, partial/full e-ink refresh controller.
-
-### B. OMP Host Companion Daemon (`firmware/host/pipdeck-server.ts`)
-- Background HTTP server on port `8787` (`http://0.0.0.0:8787`).
-- Broadcasts mDNS service `_pipdeck._tcp.local` and `_omp._tcp.local`.
-- Exposes `/api/status` for JSON telemetry and `/` for Kindle HTML fallback.
-
-### C. ESP32 Firmware (PlatformIO / LovyanGFX) - Secondary
-- **Core 0**: Serial UART / WebSocket parser, state machine, LED/DAC controller.
-- **Core 1**: LovyanGFX DMA framebuffer swap (60 FPS render pipeline).

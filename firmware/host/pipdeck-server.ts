@@ -109,7 +109,6 @@ export class PipDeckServer {
 
   public start(): void {
     this.server = http.createServer((req, res) => {
-      // Enable CORS for local network devices
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
       res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
@@ -134,7 +133,8 @@ export class PipDeckServer {
         return;
       }
 
-      // Simple HTML fallback for Kindle Experimental Browser
+      // Responsive HTML fallback for Kindle Browser (defaults to 12h clock)
+      const timeStr = new Date().toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: '2-digit', second: '2-digit' });
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(`<!DOCTYPE html>
 <html>
@@ -144,20 +144,22 @@ export class PipDeckServer {
   <meta http-equiv="refresh" content="2">
   <title>PipDeck Kindle Companion</title>
   <style>
-    body { font-family: monospace; background: #fff; color: #000; padding: 20px; font-size: 18px; }
-    .box { border: 3px solid #000; padding: 15px; margin-bottom: 15px; }
-    h1 { font-size: 24px; border-bottom: 2px solid #000; padding-bottom: 5px; }
-    .status { font-weight: bold; font-size: 20px; }
-    .chips span { display: inline-block; border: 2px solid #000; padding: 4px 8px; margin: 4px 4px 0 0; }
+    body { font-family: monospace; background: #fff; color: #000; padding: 12px; font-size: 16px; margin: 0; }
+    .box { border: 3px solid #000; padding: 12px; margin-bottom: 10px; }
+    h1 { font-size: 20px; border-bottom: 2px solid #000; padding-bottom: 4px; margin-top: 0; }
+    .status { font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
   <div class="box">
-    <h1>${this.currentTelemetry.model}</h1>
+    <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:6px;">
+      <span>${this.currentTelemetry.model}</span>
+      <span>${timeStr}</span>
+    </div>
     <p class="status">${this.currentTelemetry.state}</p>
     <p>${this.currentTelemetry.thread}</p>
     <p>${this.currentTelemetry.phase}</p>
-    <pre>${this.currentTelemetry.command}</pre>
+    <pre style="background:#000; color:#fff; padding:8px;">${this.currentTelemetry.command}</pre>
     <p>CTX: ${this.currentTelemetry.ctx} | COST: ${this.currentTelemetry.cost} | TOKENS: ${this.currentTelemetry.tokens}</p>
   </div>
 </body>

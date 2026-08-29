@@ -1,69 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="100%" height="100%" preserveAspectRatio="none" shape-rendering="crispEdges">
   <style>
-    @keyframes fastBob { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(2px); } }
-    @keyframes tapLeft { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
-    @keyframes tapRight { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(0px); } }
-    @keyframes matrixStream { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 0.9; } 80% { opacity: 0.9; } 100% { transform: translateY(190px); opacity: 0; } }
-    @keyframes sparkFloat { 0% { opacity: 0; transform: translate(0, 0); } 50% { opacity: 1; } 100% { opacity: 0; transform: translate(4px, -16px); } }
+    @keyframes matrixStream1 { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(205px); opacity: 0; } }
+    @keyframes matrixStream2 { 0% { transform: translateY(-10px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(205px); opacity: 0; } }
+    @keyframes typingHands { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
 
-    .mascot-hack { animation: fastBob 0.22s steps(2) infinite; transform-origin: 80px 100px; }
-    .hand-l { animation: tapLeft 0.18s steps(2) infinite; }
-    .hand-r { animation: tapRight 0.18s steps(2) infinite; }
-    .stream-1 { animation: matrixStream 2.4s steps(8) infinite; }
-    .stream-2 { animation: matrixStream 3.2s steps(8) infinite 1.2s; }
-    .sparkle { animation: sparkFloat 0.8s steps(3) infinite; }
+    .stream-1 { animation: matrixStream1 2s steps(8) infinite; }
+    .stream-2 { animation: matrixStream2 2.6s steps(8) infinite 0.8s; }
+    .mascot-hacking { animation: typingHands 0.4s steps(2) infinite; transform-origin: 80px 100px; }
   </style>
 
   <rect width="160" height="200" fill="#000000"/>
 
+  <!-- Matrix Grid Texture -->
   <g stroke="#003b00" stroke-width="0.75" opacity="0.4">
-    <line x1="0" y1="25" x2="160" y2="25"/><line x1="0" y1="50" x2="160" y2="50"/><line x1="0" y1="150" x2="160" y2="150"/><line x1="0" y1="175" x2="160" y2="175"/>
+    <line x1="0" y1="15" x2="160" y2="15"/><line x1="0" y1="45" x2="160" y2="45"/>
+    <line x1="0" y1="155" x2="160" y2="155"/><line x1="0" y1="185" x2="160" y2="185"/>
     <line x1="25" y1="0" x2="25" y2="200"/><line x1="135" y1="0" x2="135" y2="200"/>
   </g>
+
+  <!-- Corner Reticles -->
   <g stroke="#00ff41" stroke-width="1.5" fill="none">
-    <path d="M2,12 L2,2 L12,2"/><path d="M158,12 L158,2 L148,2"/><path d="M2,188 L2,198 L12,198"/><path d="M158,188 L158,198 L148,198"/>
+    <path d="M2,12 L2,2 L12,2"/><path d="M158,12 L158,2 L148,2"/>
+    <path d="M2,188 L2,198 L12,198"/><path d="M158,188 L158,198 L148,198"/>
   </g>
 
-  <g class="stream-1" fill="#00ff41" opacity="0.8">
-    <rect x="18" y="0" width="2" height="12"/>
-    <rect x="140" y="0" width="2" height="10"/>
-    <rect x="36" y="0" width="2" height="16"/>
-  </g>
-  <g class="stream-2" fill="#39ff14" opacity="0.8">
-    <rect x="122" y="0" width="2" height="14"/>
-    <rect x="78" y="0" width="2" height="8"/>
-    <rect x="148" y="0" width="2" height="12"/>
+  <!-- Top-Right Combo HUD Badge -->
+  <g transform="translate(94, 6)">
+    <rect width="62" height="16" fill="#000000" stroke="#00ff41" stroke-width="1.5"/>
+    <text x="31" y="11.5" font-family="'Fira Code', monospace" font-size="7.5" font-weight="900" fill="#00ff41" text-anchor="middle">BASH</text>
   </g>
 
-  <g class="sparkle" fill="#ffffff">
-    <rect x="52" y="136" width="3" height="3"/>
-    <rect x="106" y="136" width="3" height="3"/>
+  <!-- Matrix Code Rain Streams (Full Bleed Top to Bottom) -->
+  <g class="stream-1" fill="#00ff41">
+    <rect x="15" y="0" width="2" height="10"/><rect x="42" y="0" width="2" height="14"/><rect x="120" y="0" width="2" height="12"/><rect x="145" y="0" width="2" height="8"/>
+  </g>
+  <g class="stream-2" fill="#39ff14">
+    <rect x="28" y="0" width="2" height="16"/><rect x="75" y="0" width="2" height="8"/><rect x="135" y="0" width="2" height="14"/>
   </g>
 
-  <rect x="44" y="162" width="72" height="4" fill="#00ff41" opacity="0.3"/>
-
-  <!-- Mascot Body (Centered at 80, 95) -->
-  <g class="mascot-hack">
-    <rect x="56" y="74" width="48" height="12" fill="#00ff41"/><rect x="60" y="72" width="40" height="16" fill="#00ff41"/><rect x="52" y="76" width="56" height="8" fill="#00ff41"/>
-    <rect x="62" y="86" width="14" height="28" fill="#00ff41"/><rect x="60" y="112" width="18" height="8" fill="#00ff41"/>
-    <rect x="84" y="86" width="14" height="26" fill="#00ff41"/><rect x="84" y="110" width="20" height="10" fill="#00ff41"/><rect x="98" y="104" width="8" height="12" fill="#00ff41"/>
-    <rect x="64" y="88" width="10" height="24" fill="#000000"/><rect x="66" y="88" width="7" height="24" fill="#00ff41"/><rect x="66" y="88" width="2" height="24" fill="#ffffff"/>
-    <rect x="62" y="114" width="14" height="4" fill="#000000"/><rect x="64" y="114" width="10" height="3" fill="#00ff41"/>
-    <rect x="86" y="88" width="10" height="22" fill="#000000"/><rect x="88" y="88" width="7" height="22" fill="#00ff41"/><rect x="88" y="88" width="2" height="22" fill="#ffffff"/>
-    <rect x="86" y="112" width="16" height="6" fill="#000000"/><rect x="88" y="112" width="13" height="4" fill="#00ff41"/><rect x="100" y="106" width="4" height="8" fill="#000000"/><rect x="101" y="107" width="3" height="5" fill="#00ff41"/>
-    <rect x="58" y="74" width="44" height="12" fill="#000000"/><rect x="60" y="74" width="40" height="12" fill="#00ff41"/><rect x="60" y="72" width="40" height="2" fill="#ffffff"/><rect x="58" y="85" width="44" height="1" fill="#000000"/>
-    <rect x="62" y="76" width="36" height="8" fill="#000000"/>
-    <g fill="#00ff41"><rect x="68" y="77" width="6" height="4"/><rect x="72" y="77" width="2" height="4" fill="#ffffff"/><rect x="86" y="77" width="6" height="4"/><rect x="86" y="77" width="2" height="4" fill="#ffffff"/></g>
+  <!-- Terminal Keyboard Surface (Squeezed to Bottom) -->
+  <g transform="translate(36, 150)">
+    <rect width="88" height="24" fill="#000000" stroke="#00ff41" stroke-width="1.5"/>
+    <line x1="10" y1="6" x2="78" y2="6" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <line x1="10" y1="12" x2="78" y2="12" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <line x1="10" y1="18" x2="78" y2="18" stroke="#15803d" stroke-width="1.5" stroke-dasharray="3,2"/>
   </g>
 
-  <!-- Mechanical Keyboard -->
-  <g>
-    <rect x="36" y="132" width="88" height="18" fill="#00ff41"/>
-    <rect x="38" y="134" width="84" height="14" fill="#000000"/>
-    <rect x="42" y="137" width="10" height="6" fill="#00ff41"/><rect x="56" y="137" width="10" height="6" fill="#39ff14"/>
-    <rect x="70" y="137" width="20" height="6" fill="#00ff41"/><rect x="94" y="137" width="10" height="6" fill="#38bdf8"/><rect x="108" y="137" width="10" height="6" fill="#00ff41"/>
+  <!-- Ground Levitation Floor -->
+  <g opacity="0.6" stroke="#00ff41" stroke-width="1">
+    <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
+    <line x1="35" y1="188" x2="125" y2="188"/>
   </g>
+  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#00ff41" opacity="0.25"/>
 
-  <g class="hand-l" fill="#00ff41"><rect x="48" y="126" width="10" height="8"/><rect x="50" y="128" width="6" height="4" fill="#ffffff"/></g>
-  <g class="hand-r" fill="#00ff41"><rect x="102" y="126" width="10" height="8"/><rect x="104" y="128" width="6" height="4" fill="#ffffff"/></g>
+  <!-- Mascot Body -->
+  <g class="mascot-hacking">
+    <rect x="64" y="84" width="32" height="10" fill="#00ff41"/><rect x="66" y="82" width="28" height="14" fill="#00ff41"/><rect x="62" y="86" width="36" height="6" fill="#00ff41"/>
+    <rect x="68" y="94" width="10" height="22" fill="#00ff41"/><rect x="66" y="114" width="14" height="6" fill="#00ff41"/>
+    <rect x="82" y="94" width="10" height="20" fill="#00ff41"/><rect x="82" y="112" width="16" height="8" fill="#00ff41"/><rect x="94" y="106" width="6" height="10" fill="#00ff41"/>
+    <rect x="70" y="96" width="6" height="18" fill="#000000"/><rect x="71" y="96" width="5" height="18" fill="#00ff41"/><rect x="71" y="96" width="2" height="18" fill="#ffffff"/>
+    <rect x="84" y="96" width="6" height="16" fill="#000000"/><rect x="85" y="96" width="5" height="16" fill="#00ff41"/><rect x="85" y="96" width="2" height="16" fill="#ffffff"/>
+    
+    <rect x="66" y="84" width="28" height="10" fill="#000000"/><rect x="67" y="84" width="26" height="10" fill="#00ff41"/><rect x="67" y="82" width="26" height="2" fill="#ffffff"/>
+    <rect x="69" y="85" width="22" height="7" fill="#000000"/>
+
+    <!-- Fast Hacking Focus Eyes -->
+    <rect x="72" y="86" width="5" height="4" fill="#facc15"/><rect x="73" y="86" width="2" height="2" fill="#ffffff"/>
+    <rect x="83" y="86" width="5" height="4" fill="#facc15"/><rect x="84" y="86" width="2" height="2" fill="#ffffff"/>
+
+    <g fill="#00ff41">
+      <rect x="58" y="86" width="4" height="6"/><rect x="98" y="86" width="4" height="6"/>
+    </g>
+    <!-- Hands Extended to Keyboard -->
+    <rect x="54" y="128" width="6" height="6" fill="#00ff41"/><rect x="100" y="128" width="6" height="6" fill="#00ff41"/>
+  </g>
 </svg>

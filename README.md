@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-00ff41.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Harness: Oh My Pi](https://img.shields.io/badge/Harness-Oh%20My%20Pi-00ff41.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 
-> **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with an interactive in-app setup tutorial for non-technical users.
+> **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and an interactive in-app setup tutorial.
 
 ---
 
@@ -40,26 +40,26 @@ Every animation across all SVGs, UI widgets, and graphic assets in PipDeck **str
 
 ---
 
-## 5-Agent Incremental Swarm Hierarchy
+## 5-Agent Incremental Swarm Hierarchy (Full-Bleed Canvas & Top-Right HUD)
 
-Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)** centered at $(80, 100)$ across all swarm increments ($1 \to 32$ nodes) and lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`):
+Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)** centered at $(80, 100)$ across all swarm increments ($1 \to 32$ nodes) with full vertical canvas bleed ($y=12$ to $y=190$) and a persistent top-right combo HUD tag:
 
-| Swarm Level | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
-| :--- | :--- | :--- | :--- |
-| **1 Node** | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
-| **5 Nodes** | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
-| **10 Nodes** | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
-| **15 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
-| **20 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
-| **25 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` / `12s steps(10)` / `16s steps(12)` / `22s steps(14)` | Heavily crowded particle matrix. |
-| **32 Nodes (MAX)**| Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `8s steps(8)` to `28s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
+| Swarm Level | Combo HUD Tag | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
+| :--- | :--- | :--- | :--- | :--- |
+| **1 Node** | `[ 1x SOLO ]` | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
+| **5 Nodes** | `[ 5x SWARM ]` | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
+| **10 Nodes** | `[ 10x DUAL ]` | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
+| **15 Nodes** | `[ 15x TRIPLE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
+| **20 Nodes** | `[ 20x HIVE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
+| **25 Nodes** | `[ 25x MATRIX ]` | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` to `22s steps(14)` | Heavily crowded particle matrix. |
+| **32 Nodes (MAX)**| `[ 32x CROWD ]` | Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `6s steps(8)` to `18s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
 
 ---
 
 ## 🛒 Target Hardware & Devices
 
 ### 1. Primary Platform: Upcycled E-Ink Reader (Kindle + KOReader / ZenOS)
-- Any jailbroken **Amazon Kindle** (Paperwhite 2/3/4/5, Oasis, Basic, Scribe) running [KOReader](https://github.com/koreader/koreader) and optionally [ZenOS / ZenUI](https://github.com/AnthonyGress/zen_ui.koplugin). Connects wirelessly over local Wi-Fi with weeks of battery life.
+- Any jailbroken **Amazon Kindle** (Keyboard K3, Touch, K4, K5, Basic 7/8/10, Paperwhite 1/2/3/4/5, Oasis, Scribe) running [KOReader](https://github.com/koreader/koreader) and optionally [ZenOS / ZenUI](https://github.com/AnthonyGress/zen_ui.koplugin). Connects wirelessly over local Wi-Fi with weeks of battery life and default 12-hour clock.
 
 ### 2. Secondary Platform: Dedicated Color Hardware Display (ESP32)
 - **Target Board**: **[AOICRIE ESP32-2432S028R 2.8" SPI TFT LCD (Amazon)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)**  
@@ -97,7 +97,7 @@ cp firmware/host/pipdeck-server.ts ~/.omp/agent/extensions/
 ```
 
 ### 3. Interactive Web Simulator
-Open [index.html](index.html) in any browser to test the **Kindle E-Ink Portrait**, **Kindle E-Ink Landscape**, **ZenOS Launcher Tile**, and **ESP32 2.8" Color LCD** simulators with real-time state controls and interactive tutorial.
+Open [index.html](index.html) in any browser to test the **Kindle E-Ink Portrait**, **Kindle E-Ink Landscape**, **ZenOS Launcher Tile**, and **ESP32 2.8" Color LCD** simulators with 12h time, real-time state controls, and interactive tutorial.
 
 ---
 

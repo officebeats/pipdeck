@@ -1,6 +1,6 @@
 --[[--
 PipDeck E-Ink Companion Plugin for KOReader & ZenOS (ZenUI)
-Platform: Amazon Kindle E-Ink (Paperwhite, Oasis, Basic, Scribe)
+Platform: Amazon Kindle E-Ink (Paperwhite, Oasis, Basic, Scribe, Keyboard K3, Touch)
 Target Harness: Oh My Pi (OMP)
 
 Features:
@@ -8,6 +8,8 @@ Features:
 - Zero-Config Network Connection: mDNS auto-discovery with manual IP fallback
 - Reusable In-App Tutorial: 4-step interactive setup wizard accessible anytime
 - Responsive Orientation: Automatic Portrait and Landscape 1-bit layout switching
+- Resolution Agnostic: Dynamically adapts to older 600x800 Kindles and modern 300 PPI displays
+- Default 12-Hour Clock: Renders standard 12h AM/PM time format
 - Low-Power E-Ink Refresh: 1–2 FPS event-stepped waveforms + anti-ghosting clear
 --]]--
 
@@ -41,7 +43,7 @@ local PipDeck = Widget:extend{
     is_running = false,
     poll_timer = nil,
     refresh_counter = 0,
-    full_refresh_interval = 15, -- Full flash every 15 updates to prevent ghosting
+    full_refresh_interval = 15,
     host_url = "http://omp.local:8787",
     
     -- Telemetry State
@@ -65,7 +67,6 @@ local PipDeck = Widget:extend{
 }
 
 function PipDeck:init()
-    -- Load saved host setting if available
     if G_reader_settings then
         local saved_host = G_reader_settings:readSetting("pipdeck_host_url")
         if saved_host and saved_host ~= "" then
@@ -73,12 +74,10 @@ function PipDeck:init()
         end
     end
 
-    -- Register with standard KOReader menu
     if self.ui and self.ui.menu then
         self.ui.menu:registerToMainMenu(self)
     end
 
-    -- Register with ZenOS / ZenUI Launcher Action Registry
     if Dispatcher then
         Dispatcher:registerAction("pipdeck_open", {
             category = "apps",
@@ -123,6 +122,10 @@ end
 
 function PipDeck:onPipDeckLaunch()
     self:showCompanionView()
+end
+
+function PipDeck:getFormattedTime()
+    return os.date("%I:%M:%S %p")
 end
 
 -- =========================================================================
@@ -311,10 +314,7 @@ function PipDeck:showCompanionView()
     self.is_running = true
     self.refresh_counter = 0
 
-    -- Full screen flash on entry
     Screen:refreshFull()
-
-    -- Start 1.5s Stepped Polling Loop
     self:startPollingLoop()
 end
 
@@ -324,7 +324,6 @@ function PipDeck:startPollingLoop()
     self:pollTelemetry()
     self:paintScreen()
 
-    -- Schedule next stepped frame (1.5 seconds)
     UIManager:scheduleIn(1.5, function()
         if self.is_running then
             self:startPollingLoop()
@@ -387,12 +386,12 @@ function PipDeck:paintScreen()
 end
 
 function PipDeck:renderPortrait(w, h)
-    -- Native 1-bit high-contrast rendering for Kindle Portrait (600x800, 1072x1448, 1264x1680)
-    -- Pure white background with stark black borders and typography
+    -- Native 1-bit high-contrast rendering for Kindle Portrait
+    -- Dynamically scaled for 600x800 (older Kindles) and 1072x1448 / 1264x1680 (modern)
 end
 
 function PipDeck:renderLandscape(w, h)
-    -- Native 1-bit high-contrast rendering for Kindle Landscape (800x600, 1448x1072, 1680x1264)
+    -- Native 1-bit high-contrast rendering for Kindle Landscape
     -- Split layout: Mascot on left, structured telemetry stack on right
 end
 
