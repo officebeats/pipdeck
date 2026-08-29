@@ -43,6 +43,7 @@
     <line x1="25" y1="0" x2="25" y2="200"/><line x1="135" y1="0" x2="135" y2="200"/>
   </g>
 
+  <!-- Corner Reticles -->
   <g stroke="#00ff41" stroke-width="1.5" fill="none">
     <path d="M2,12 L2,2 L12,2"/><path d="M158,12 L158,2 L148,2"/>
     <path d="M2,188 L2,198 L12,198"/><path d="M158,188 L158,198 L148,198"/>
@@ -104,7 +105,7 @@
     <rect x="52" y="74" width="4" height="4" fill="#f43f5e"/>
     <rect x="57" y="74" width="4" height="4" fill="#f43f5e"/>
     <rect x="62" y="74" width="4" height="4" fill="#ec4899"/>
-    <rect x="67" y="74" width="4" height="4" fill="#c026d3"/>
+    <rect x="67" y="74" width="4" height="4" fill="#c084fc"/>
     <rect x="72" y="74" width="4" height="4" fill="#a855f7"/>
     <rect x="77" y="74" width="4" height="4" fill="#9333ea"/>
     <rect x="82" y="74" width="4" height="4" fill="#7c3aed"/>
@@ -130,7 +131,7 @@
     <rect x="62" y="104" width="4" height="4" fill="#9333ea"/>
     <rect x="57" y="109" width="4" height="4" fill="#7e22ce"/>
     <rect x="62" y="109" width="4" height="4" fill="#7e22ce"/>
-    <!-- Left Foot Halftone Base -->
+    <!-- Left Foot Base + Halftone -->
     <rect x="52" y="114" width="4" height="4" fill="#701a75"/>
     <rect x="57" y="114" width="4" height="4" fill="#581c87"/>
     <rect x="62" y="114" width="4" height="4" fill="#581c87"/>
@@ -159,10 +160,10 @@
     <rect x="112" y="109" width="4" height="4" fill="#00f0ff"/>
     <rect x="112" y="104" width="4" height="4" fill="#00f0ff"/>
 
-    <!-- Concentrating Thinking Eyes -->
-    <rect x="67" y="72" width="6" height="5" fill="#00f0ff"/>
-    <rect x="69" y="74" width="2" height="2" fill="#ffffff"/>
-    <rect x="92" y="72" width="6" height="5" fill="#00f0ff"/>
-    <rect x="94" y="74" width="2" height="2" fill="#ffffff"/>
+    <!-- Concentrating Cyan Pixel Visor Eyes -->
+    <rect x="67" y="73" width="5" height="4" fill="#00f0ff"/>
+    <rect x="68" y="74" width="2" height="2" fill="#ffffff"/>
+    <rect x="92" y="73" width="5" height="4" fill="#00f0ff"/>
+    <rect x="93" y="74" width="2" height="2" fill="#ffffff"/>
   </g>
 </svg>

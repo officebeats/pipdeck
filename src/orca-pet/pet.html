@@ -29,7 +29,7 @@
     }
 
     .pet-container {
-      width: 130px;
+      width: 140px;
       height: 140px;
       position: relative;
       cursor: pointer;
@@ -46,7 +46,7 @@
       transition: transform 0.15s ease;
     }
     .pet-container:hover .pet-svg-wrapper {
-      transform: scale(1.08);
+      transform: scale(1.06);
     }
     .pet-container:active .pet-svg-wrapper {
       transform: scale(0.95);
@@ -80,53 +80,116 @@
   <div class="pet-container" id="petBox" onclick="interactPet()">
     <div class="bubble" id="petBubble">Pip is Ready! ⚡</div>
     <div class="pet-svg-wrapper" id="petSvgBox">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="40 60 80 80" width="100%" height="100%" shape-rendering="crispEdges">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="160" viewBox="40 60 84 68" shape-rendering="crispEdges">
         <defs>
-          <pattern id="piHalftone" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
-            <rect width="3" height="3" fill="#180b2c"/>
-            <rect x="0" y="0" width="1" height="1" fill="#c084fc"/>
-            <rect x="2" y="2" width="1" height="1" fill="#c084fc"/>
+          <pattern id="piHalftone" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+            <rect width="4" height="4" fill="#180b2c"/>
+            <rect x="0" y="0" width="2" height="2" fill="#c084fc"/>
+            <rect x="2" y="2" width="2" height="2" fill="#c084fc"/>
           </pattern>
         </defs>
         <style>
           @keyframes pixelBreathe { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
           @keyframes pixelBlink { 0%, 42%, 58%, 100% { opacity: 1; } 45%, 55% { opacity: 0; } }
           @keyframes pixelBlinkClosed { 0%, 42%, 58%, 100% { opacity: 0; } 45%, 55% { opacity: 1; } }
-          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 100px; filter: drop-shadow(0 0 4px #9333ea); }
-          .shadow { transform-origin: 80px 124px; animation: pixelBreathe 2.4s steps(2) infinite reverse; }
+          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 100px; filter: drop-shadow(0 0 5px #9333ea); }
+          .shadow { transform-origin: 80px 123px; animation: pixelBreathe 2.4s steps(2) infinite reverse; }
           .eye-open { animation: pixelBlink 4s steps(1) infinite; }
           .eye-closed { animation: pixelBlinkClosed 4s steps(1) infinite; }
         </style>
-        <ellipse cx="80" cy="124" rx="22" ry="3.5" fill="#9333ea" opacity="0.35" class="shadow"/>
-        <ellipse cx="80" cy="124" rx="12" ry="2" fill="#00f0ff" opacity="0.5" class="shadow"/>
+        <ellipse cx="80" cy="123" rx="24" ry="2" fill="#9333ea" opacity="0.4" class="shadow"/>
+        <ellipse cx="80" cy="123" rx="14" ry="1.2" fill="#00f0ff" opacity="0.7" class="shadow"/>
         <g class="mascot">
-          <rect x="49" y="74" width="9" height="9" fill="#ff4071" stroke="#000" stroke-width="0.75"/>
-          <rect x="58" y="74" width="9" height="9" fill="#f43f5e" stroke="#000" stroke-width="0.75"/>
-          <rect x="67" y="74" width="9" height="9" fill="#c026d3" stroke="#000" stroke-width="0.75"/>
-          <rect x="76" y="74" width="9" height="9" fill="#9333ea" stroke="#000" stroke-width="0.75"/>
-          <rect x="85" y="74" width="9" height="9" fill="#6366f1" stroke="#000" stroke-width="0.75"/>
-          <rect x="94" y="74" width="9" height="9" fill="#0ea5e9" stroke="#000" stroke-width="0.75"/>
-          <rect x="103" y="74" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
+          <!-- Crossbar Row 1 ($y=69$) -->
+          <rect x="42" y="64" width="4" height="4" fill="#ff4071"/>
+          <rect x="42" y="69" width="4" height="4" fill="#ff4071"/>
+          <rect x="42" y="74" width="4" height="4" fill="#ff4071"/>
+          <rect x="47" y="69" width="4" height="4" fill="#ff4071"/>
+          <rect x="52" y="69" width="4" height="4" fill="#f43f5e"/>
+          <rect x="57" y="69" width="4" height="4" fill="#f43f5e"/>
+          <rect x="62" y="69" width="4" height="4" fill="#ec4899"/>
+          <rect x="67" y="69" width="4" height="4" fill="#c084fc"/>
+          <rect x="72" y="69" width="4" height="4" fill="#a855f7"/>
+          <rect x="77" y="69" width="4" height="4" fill="#9333ea"/>
+          <rect x="82" y="69" width="4" height="4" fill="#7c3aed"/>
+          <rect x="87" y="69" width="4" height="4" fill="#6366f1"/>
+          <rect x="92" y="69" width="4" height="4" fill="#3b82f6"/>
+          <rect x="97" y="69" width="4" height="4" fill="#0ea5e9"/>
+          <rect x="102" y="69" width="4" height="4" fill="#06b6d4"/>
+          <rect x="107" y="69" width="4" height="4" fill="#00f0ff"/>
+          <rect x="112" y="69" width="4" height="4" fill="#00f0ff"/>
+          <rect x="117" y="69" width="4" height="4" fill="#00f0ff"/>
+          <rect x="117" y="74" width="4" height="4" fill="#00f0ff"/>
 
-          <rect x="58" y="83" width="9" height="9" fill="#ec4899" stroke="#000" stroke-width="0.75"/>
-          <rect x="58" y="92" width="9" height="9" fill="#a855f7" stroke="#000" stroke-width="0.75"/>
-          <rect x="58" y="101" width="9" height="9" fill="#7e22ce" stroke="#000" stroke-width="0.75"/>
-          <rect x="58" y="110" width="9" height="9" fill="url(#piHalftone)" stroke="#000" stroke-width="0.75"/>
+          <!-- Crossbar Row 2 ($y=74$) -->
+          <rect x="47" y="74" width="4" height="4" fill="#ff4071"/>
+          <rect x="52" y="74" width="4" height="4" fill="#f43f5e"/>
+          <rect x="57" y="74" width="4" height="4" fill="#f43f5e"/>
+          <rect x="62" y="74" width="4" height="4" fill="#ec4899"/>
+          <rect x="67" y="74" width="4" height="4" fill="#c084fc"/>
+          <rect x="72" y="74" width="4" height="4" fill="#a855f7"/>
+          <rect x="77" y="74" width="4" height="4" fill="#9333ea"/>
+          <rect x="82" y="74" width="4" height="4" fill="#7c3aed"/>
+          <rect x="87" y="74" width="4" height="4" fill="#6366f1"/>
+          <rect x="92" y="74" width="4" height="4" fill="#3b82f6"/>
+          <rect x="97" y="74" width="4" height="4" fill="#0ea5e9"/>
+          <rect x="102" y="74" width="4" height="4" fill="#06b6d4"/>
+          <rect x="107" y="74" width="4" height="4" fill="#00f0ff"/>
+          <rect x="112" y="74" width="4" height="4" fill="#00f0ff"/>
 
-          <rect x="85" y="83" width="9" height="9" fill="#7c3aed" stroke="#000" stroke-width="0.75"/>
-          <rect x="85" y="92" width="9" height="9" fill="#2563eb" stroke="#000" stroke-width="0.75"/>
-          <rect x="85" y="101" width="9" height="9" fill="#0284c7" stroke="#000" stroke-width="0.75"/>
-          <rect x="85" y="110" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
+          <!-- Left Leg -->
+          <rect x="57" y="79" width="4" height="4" fill="#f43f5e"/>
+          <rect x="62" y="79" width="4" height="4" fill="#f43f5e"/>
+          <rect x="57" y="84" width="4" height="4" fill="#ec4899"/>
+          <rect x="62" y="84" width="4" height="4" fill="#ec4899"/>
+          <rect x="57" y="89" width="4" height="4" fill="#ec4899"/>
+          <rect x="62" y="89" width="4" height="4" fill="#ec4899"/>
+          <rect x="57" y="94" width="4" height="4" fill="#d946ef"/>
+          <rect x="62" y="94" width="4" height="4" fill="#d946ef"/>
+          <rect x="57" y="99" width="4" height="4" fill="#a855f7"/>
+          <rect x="62" y="99" width="4" height="4" fill="#a855f7"/>
+          <rect x="57" y="104" width="4" height="4" fill="#9333ea"/>
+          <rect x="62" y="104" width="4" height="4" fill="#9333ea"/>
+          <rect x="57" y="109" width="4" height="4" fill="#7e22ce"/>
+          <rect x="62" y="109" width="4" height="4" fill="#7e22ce"/>
+          <rect x="52" y="114" width="4" height="4" fill="#701a75"/>
+          <rect x="57" y="114" width="4" height="4" fill="#581c87"/>
+          <rect x="62" y="114" width="4" height="4" fill="#581c87"/>
+          <rect x="67" y="114" width="4" height="4" fill="#701a75"/>
+          <rect x="52" y="119" width="4" height="4" fill="#3b0764"/>
+          <rect x="57" y="119" width="4" height="4" fill="#c084fc"/>
+          <rect x="62" y="119" width="4" height="4" fill="#3b0764"/>
+          <rect x="67" y="119" width="4" height="4" fill="#c084fc"/>
 
+          <!-- Right Leg -->
+          <rect x="97" y="79" width="4" height="4" fill="#3b82f6"/>
+          <rect x="102" y="79" width="4" height="4" fill="#3b82f6"/>
+          <rect x="97" y="84" width="4" height="4" fill="#2563eb"/>
+          <rect x="102" y="84" width="4" height="4" fill="#2563eb"/>
+          <rect x="97" y="89" width="4" height="4" fill="#1d4ed8"/>
+          <rect x="102" y="89" width="4" height="4" fill="#1d4ed8"/>
+          <rect x="97" y="94" width="4" height="4" fill="#0284c7"/>
+          <rect x="102" y="94" width="4" height="4" fill="#0284c7"/>
+          <rect x="97" y="99" width="4" height="4" fill="#0ea5e9"/>
+          <rect x="102" y="99" width="4" height="4" fill="#0ea5e9"/>
+          <rect x="97" y="104" width="4" height="4" fill="#06b6d4"/>
+          <rect x="102" y="104" width="4" height="4" fill="#06b6d4"/>
+          <rect x="107" y="104" width="4" height="4" fill="#00f0ff"/>
+          <rect x="102" y="109" width="4" height="4" fill="#00f0ff"/>
+          <rect x="107" y="109" width="4" height="4" fill="#00f0ff"/>
+          <rect x="112" y="109" width="4" height="4" fill="#00f0ff"/>
+          <rect x="112" y="104" width="4" height="4" fill="#00f0ff"/>
+
+          <!-- Cute Pixel Art Visor Eyes (Cyan + White Sparkle) -->
           <g class="eye-closed">
-            <rect x="71" y="78" width="4" height="2" fill="#ffffff"/>
-            <rect x="88" y="78" width="4" height="2" fill="#ffffff"/>
+            <rect x="67" y="75" width="5" height="2" fill="#00f0ff"/>
+            <rect x="92" y="75" width="5" height="2" fill="#00f0ff"/>
           </g>
           <g class="eye-open">
-            <rect x="71" y="76" width="4" height="4" fill="#ffffff"/>
-            <rect x="72" y="77" width="2" height="2" fill="#000000"/>
-            <rect x="88" y="76" width="4" height="4" fill="#ffffff"/>
-            <rect x="89" y="77" width="2" height="2" fill="#000000"/>
+            <rect x="67" y="73" width="5" height="4" fill="#00f0ff"/>
+            <rect x="68" y="74" width="2" height="2" fill="#ffffff"/>
+            <rect x="92" y="73" width="5" height="4" fill="#00f0ff"/>
+            <rect x="93" y="74" width="2" height="2" fill="#ffffff"/>
           </g>
         </g>
       </svg>

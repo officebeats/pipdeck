@@ -116,7 +116,7 @@
     <rect x="62" y="104" width="4" height="4" fill="#9333ea"/>
     <rect x="57" y="109" width="4" height="4" fill="#7e22ce"/>
     <rect x="62" y="109" width="4" height="4" fill="#7e22ce"/>
-    <!-- Left Foot Halftone Base -->
+    <!-- Left Foot Base + Halftone -->
     <rect x="52" y="114" width="4" height="4" fill="#701a75"/>
     <rect x="57" y="114" width="4" height="4" fill="#581c87"/>
     <rect x="62" y="114" width="4" height="4" fill="#581c87"/>

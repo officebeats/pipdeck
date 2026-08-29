@@ -82,18 +82,12 @@
   <ellipse cx="80" cy="180" rx="38" ry="5" fill="#f43f5e" opacity="0.25"/>
   <ellipse cx="80" cy="180" rx="22" ry="2.5" fill="#00f0ff" opacity="0.6"/>
 
-  <!-- ========================================================= -->
-  <!-- AUTHENTIC RETRO LCD DOT-MATRIX PI (π) MASCOT (4px DOTS)   -->
-  <!-- ========================================================= -->
+  <!-- Authentic Retro LCD Dot-Matrix Pi Mascot -->
   <g class="mascot-idle">
-    
-    <!-- TOP HORIZONTAL CROSSBAR (16 Dot Columns, Sunset Gradient) -->
-    <!-- Left Hook / Serif -->
+    <!-- Crossbar Row 1 ($y=69$) -->
     <rect x="42" y="64" width="4" height="4" fill="#ff4071"/>
     <rect x="42" y="69" width="4" height="4" fill="#ff4071"/>
     <rect x="42" y="74" width="4" height="4" fill="#ff4071"/>
-    
-    <!-- Crossbar Row 1 ($y=69$) -->
     <rect x="47" y="69" width="4" height="4" fill="#ff4071"/>
     <rect x="52" y="69" width="4" height="4" fill="#f43f5e"/>
     <rect x="57" y="69" width="4" height="4" fill="#f43f5e"/>
@@ -109,7 +103,6 @@
     <rect x="107" y="69" width="4" height="4" fill="#00f0ff"/>
     <rect x="112" y="69" width="4" height="4" fill="#00f0ff"/>
     <rect x="117" y="69" width="4" height="4" fill="#00f0ff"/>
-    <!-- Right Tip Serif -->
     <rect x="117" y="74" width="4" height="4" fill="#00f0ff"/>
 
     <!-- Crossbar Row 2 ($y=74$) -->
@@ -117,7 +110,7 @@
     <rect x="52" y="74" width="4" height="4" fill="#f43f5e"/>
     <rect x="57" y="74" width="4" height="4" fill="#f43f5e"/>
     <rect x="62" y="74" width="4" height="4" fill="#ec4899"/>
-    <rect x="67" y="74" width="4" height="4" fill="#c026d3"/>
+    <rect x="67" y="74" width="4" height="4" fill="#c084fc"/>
     <rect x="72" y="74" width="4" height="4" fill="#a855f7"/>
     <rect x="77" y="74" width="4" height="4" fill="#9333ea"/>
     <rect x="82" y="74" width="4" height="4" fill="#7c3aed"/>
@@ -128,20 +121,7 @@
     <rect x="107" y="74" width="4" height="4" fill="#00f0ff"/>
     <rect x="112" y="74" width="4" height="4" fill="#00f0ff"/>
 
-    <!-- Crossbar Row 3 ($y=79$) -->
-    <rect x="47" y="79" width="4" height="4" fill="#f43f5e"/>
-    <rect x="52" y="79" width="4" height="4" fill="#f43f5e"/>
-    <rect x="67" y="79" width="4" height="4" fill="#c026d3"/>
-    <rect x="72" y="79" width="4" height="4" fill="#a855f7"/>
-    <rect x="77" y="79" width="4" height="4" fill="#9333ea"/>
-    <rect x="82" y="79" width="4" height="4" fill="#7c3aed"/>
-    <rect x="87" y="79" width="4" height="4" fill="#6366f1"/>
-    <rect x="107" y="79" width="4" height="4" fill="#00f0ff"/>
-    <rect x="112" y="79" width="4" height="4" fill="#00f0ff"/>
-
-    <!-- ======================================================= -->
-    <!-- LEFT PI STEM (Descends in Pink -> Magenta -> Deep Violet)-->
-    <!-- ======================================================= -->
+    <!-- Left Leg -->
     <rect x="57" y="79" width="4" height="4" fill="#f43f5e"/>
     <rect x="62" y="79" width="4" height="4" fill="#f43f5e"/>
     <rect x="57" y="84" width="4" height="4" fill="#ec4899"/>
@@ -167,9 +147,7 @@
     <rect x="62" y="119" width="4" height="4" fill="#3b0764"/>
     <rect x="67" y="119" width="4" height="4" fill="#c084fc"/>
 
-    <!-- ======================================================= -->
-    <!-- RIGHT PI STEM (Curving Leg: Violet -> Blue -> Cyan Tail) -->
-    <!-- ======================================================= -->
+    <!-- Right Leg -->
     <rect x="97" y="79" width="4" height="4" fill="#3b82f6"/>
     <rect x="102" y="79" width="4" height="4" fill="#3b82f6"/>
     <rect x="97" y="84" width="4" height="4" fill="#2563eb"/>
@@ -180,29 +158,24 @@
     <rect x="102" y="94" width="4" height="4" fill="#0284c7"/>
     <rect x="97" y="99" width="4" height="4" fill="#0ea5e9"/>
     <rect x="102" y="99" width="4" height="4" fill="#0ea5e9"/>
-    <!-- Curving Outward to the Right -->
     <rect x="97" y="104" width="4" height="4" fill="#06b6d4"/>
     <rect x="102" y="104" width="4" height="4" fill="#06b6d4"/>
     <rect x="107" y="104" width="4" height="4" fill="#00f0ff"/>
-    <!-- Upswept Pi Tail Foot -->
     <rect x="102" y="109" width="4" height="4" fill="#00f0ff"/>
     <rect x="107" y="109" width="4" height="4" fill="#00f0ff"/>
     <rect x="112" y="109" width="4" height="4" fill="#00f0ff"/>
-    <!-- Upward Curl Tip -->
     <rect x="112" y="104" width="4" height="4" fill="#00f0ff"/>
 
-    <!-- ======================================================= -->
-    <!-- INTERACTIVE DOT-MATRIX ROBOT EYES (On Pi Crossbar)     -->
-    <!-- ======================================================= -->
+    <!-- Cute Pixel Art Visor Eyes (Glowing Cyan + White Reflection) -->
     <g class="eye-closed">
-      <rect x="67" y="74" width="6" height="2" fill="#ffffff"/>
-      <rect x="92" y="74" width="6" height="2" fill="#ffffff"/>
+      <rect x="67" y="75" width="5" height="2" fill="#00f0ff"/>
+      <rect x="92" y="75" width="5" height="2" fill="#00f0ff"/>
     </g>
     <g class="eye-open">
-      <rect x="67" y="72" width="6" height="5" fill="#ffffff"/>
-      <rect x="69" y="74" width="2" height="2" fill="#000000"/>
-      <rect x="92" y="72" width="6" height="5" fill="#ffffff"/>
-      <rect x="94" y="74" width="2" height="2" fill="#000000"/>
+      <rect x="67" y="73" width="5" height="4" fill="#00f0ff"/>
+      <rect x="68" y="74" width="2" height="2" fill="#ffffff"/>
+      <rect x="92" y="73" width="5" height="4" fill="#00f0ff"/>
+      <rect x="93" y="74" width="2" height="2" fill="#ffffff"/>
     </g>
   </g>
 </svg>
