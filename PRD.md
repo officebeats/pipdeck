@@ -11,18 +11,18 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
    - Native Lua plugin `koreader/plugins/pipdeck.koreader`, wireless mDNS local Wi-Fi discovery (`omp.local:8787`), pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
 2. **Secondary Platform (Tier 2) — ESP32 Micro-Displays & Embedded Hardware**:
    - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
+   - **Unified High-Contrast Design**: Mirrors the clean, high-contrast, structured hierarchy of the E-Ink design on pure `#000000` OLED black with subtle, tasteful Matrix green structural accents.
 
 ---
 
 ## 2. Universal Low-Framerate Stepped Animation Invariant (LED/LCD Pace)
 
-**Every animation across all SVGs, UI widgets, and graphic assets MUST strictly use discrete stepped keyframes (`steps(N)`)**:
+**Every animation across all SVGs, UI widgets, and graphic assets in PipDeck MUST strictly use discrete stepped keyframes (`steps(N)`)**:
 - **Smooth `linear` and `ease-in-out` transitions are strictly prohibited.**
 - **Mascot levitation & breathing**: `steps(2)` to `steps(4)`.
 - **Orbital rotations (1 to 32 nodes)**: `steps(8)` to `steps(16)`.
 - **Matrix code rain & confetti**: `steps(6)` to `steps(8)`.
 - **Lightning strobe & eye blinks**: `steps(2)`.
-- **Pacing rationale**: Creates authentic, choppy 4–8 FPS embedded LED/LCD motion on ESP32 displays and eliminates ghosting thrashing while delivering 1–2 FPS battery-friendly updates on Kindle KOReader e-ink screens.
 
 ---
 
@@ -42,7 +42,7 @@ PipDeck enforces a **strict size invariance rule for the central Pip mascot**: P
 +------------------+     +--------------------+          +--------------------+
 ```
 
-### 5-Agent Incremental Swarm Hierarchy (All with Stepped LCD/E-Ink Timing)
+### 5-Agent Incremental Swarm Hierarchy
 
 | Swarm Level | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
 | :--- | :--- | :--- | :--- |
@@ -56,49 +56,47 @@ PipDeck enforces a **strict size invariance rule for the central Pip mascot**: P
 
 ---
 
-## 4. Responsive Kindle E-Ink Display Layouts (KOReader Primary)
+## 4. Hardware Screen Layouts
 
-### A. Portrait Orientation (600×800 / 1072×1448 / 1264×1680)
+### A. Primary Platform: Kindle KOReader E-Ink (Portrait & Landscape)
 ```
 +------------------------------------------------------------------------+
-| OMP ❯ 🏺 Anthropic claude-3-7-sonnet                          12:45:02 | <-- Status Header
+| OMP ❯ 🏺 Anthropic claude-3-7-sonnet                          12:45:02 |
 +------------------------------------------------------------------------+
-|                                                                        |
 |                  ┌─ Centered 4:5 Mascot Arena ─────┐                   |
-|                  │                                 │                   |
 |                  │    [ 8-Bit Pixel Pip Mascot ]   │                   |
 |                  │       (100% In-Frame Swarm)     │                   |
-|                  │                                 │                   |
 |                  └─────────────────────────────────┘                   |
-|                                                                        |
-| 🧵 #cleanse-workspace-diagnostics                                      | <-- Thread Name
+| 🧵 #cleanse-workspace-diagnostics                                      |
 +------------------------------------------------------------------------+
-| ● PARALLEL SWARM                           📋 Phase 3: Parallel Fix    | <-- Status & Phase
+| ● PARALLEL SWARM                           📋 Phase 3: Parallel Fix    |
 +------------------------------------------------------------------------+
-| >_ omp task[Scout, Coder, Reviewer, Sonic]                             | <-- Active Tool Box
+| >_ omp task[Scout, Coder, Reviewer, Sonic]                             |
 +------------------------------------------------------------------------+
 | ACTIVE SUBAGENTS:                                                      |
 | [✨ Google Scout]  [🏺 Anthropic Coder]  [🌀 OpenAI Review]  [🦙 Sonic] |
 +------------------------------------------------------------------------+
-| CTX: 62%              COST: $0.38              TOKENS: 114.5k          | <-- Footer
+| CTX: 62%              COST: $0.38              TOKENS: 114.5k          |
 +------------------------------------------------------------------------+
 ```
 
-### B. Landscape Orientation (800×600 / 1448×1072 / 1680×1264)
+### B. Secondary Platform: ESP32 Color LCD (E-Ink Mirrored with Subtle Matrix Green)
 ```
 +------------------------------------------------------------------------+
-| OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*           12:45:02 |
+| [1. DASHBOARD]            [2. SUBAGENTS]            [3. TODO & LOGS]   | <-- Touch Tabs
 +------------------------------------------------------------------------+
-| ┌─ Left Mascot Arena ──────┐ ┌─ Right Telemetry Column ──────────────┐ |
-| │                          │ │ 🧵 #cleanse-workspace-diagnostics     │ |
-| │   [ 8-Bit Pixel Pip ]    │ │ ● PARALLEL SWARM   📋 Phase 3: Fix    │ |
-| │     (Pure Monochrome)    │ │ >_ omp task[Scout, Coder, Rev, Sonic] │ |
-| │     100% In-Frame Swarm  │ │                                       │ |
-| │                          │ │ AGENTS:                               │ |
-| │                          │ │ [✨ Google] [🏺 Anthropic] [🌀 OpenAI] │ |
-| └──────────────────────────┘ └───────────────────────────────────────┘ |
+| OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*           12:45:02 | <-- White Separator
 +------------------------------------------------------------------------+
-| CTX: 62%              COST: $0.38              TOKENS: 114.5k          |
+| ┌─ Mascot Canvas ─────────┐ ┌─ E-Ink Mirrored Telemetry Column ──────┐ |
+| │                         │ │ 🧵 #cleanse-workspace-diagnostics      │ |
+| │   [ 8-Bit Pixel Pip ]   │ │ ● PARALLEL SWARM   📋 Phase 3: Fix     │ |
+| │     (Pure Black)        │ │ >_ omp task[Scout, Coder, Rev, Sonic]  │ |
+| │   Matrix Green Border   │ │                                        │ |
+| │                         │ │ ACTIVE SUBAGENTS:                      │ |
+| │                         │ │ [✨ Google] [🏺 Anthropic] [🌀 OpenAI]  │ |
+| └─────────────────────────┘ └────────────────────────────────────────┘ |
++------------------------------------------------------------------------+
+| CTX: 62%                   COST: $0.38                  TOKENS: 114.5k | <-- White Separator
 +------------------------------------------------------------------------+
 ```
 

@@ -21,8 +21,8 @@ Pure 1-bit high-contrast monochrome rendering with responsive **Portrait** and *
 
 ## 📸 Secondary Platform Showcase: ESP32 2.8" SPI Color LCD (CYD)
 
-High-contrast Matrix phosphor green theme on pure `#000000` OLED black with active RGB underglow:
-[![ESP32 Swarm 32](assets/screenshots/dashboard-swarm-32.webp)](assets/screenshots/dashboard-swarm-32.webp)
+Unified high-contrast design mirroring the clean E-Ink layout on pure `#000000` OLED black with subtle, tasteful Matrix green structural accents:
+[![ESP32 High-Contrast Layout](assets/screenshots/dashboard-swarm-32.webp)](assets/screenshots/dashboard-swarm-32.webp)
 
 ---
 

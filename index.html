@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PipDeck: Kindle KOReader E-Ink Hardware Companion for OMP</title>
+  <title>PipDeck: Multi-Platform Hardware Companion (Kindle E-Ink &amp; ESP32)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,6 +11,7 @@
     :root {
       --bg-black: #000000;
       --border-green: #00ff41;
+      --border-green-dim: #15803d;
       --border-subtle: #27272a;
       
       /* High-Contrast Colors */
@@ -23,12 +24,6 @@
       --matrix-cyan: #38bdf8;
       --matrix-orange: #fb923c;
       --matrix-purple: #c084fc;
-
-      /* E-Ink Palette */
-      --eink-bg: #ffffff;
-      --eink-black: #000000;
-      --eink-gray: #4b5563;
-      --eink-light-gray: #e5e7eb;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -169,7 +164,6 @@
       font-weight: 900;
     }
 
-    /* Container */
     .hardware-wrapper {
       display: flex;
       flex-direction: column;
@@ -205,7 +199,6 @@
       text-transform: uppercase;
     }
 
-    /* Pure 1-Bit Monochrome E-Ink Screen Surface */
     .eink-screen-surface {
       background: #ffffff;
       color: #000000;
@@ -226,7 +219,6 @@
       padding: 16px;
     }
 
-    /* E-Ink Header */
     .eink-header {
       border-bottom: 2px solid #000000;
       padding-bottom: 8px;
@@ -238,7 +230,6 @@
       font-weight: 800;
     }
 
-    /* REVISED: Centered, Proportional 4:5 Mascot Arena for Portrait E-Ink */
     .eink-mascot-box-portrait {
       border: 2.5px solid #000000;
       width: 250px;
@@ -312,7 +303,6 @@
       font-weight: 800;
     }
 
-    /* E-Ink Landscape Split Grid */
     .eink-landscape-split {
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -347,18 +337,18 @@
     }
 
     /* ========================================================= */
-    /* 2. SECONDARY: ESP32 COLOR LCD DISPLAY                     */
+    /* 2. SECONDARY: ESP32 COLOR LCD (E-INK INSPIRED HIGH-CONTRAST)*/
     /* ========================================================= */
     .esp32-pcb {
       display: none;
       width: 100%;
-      max-width: 840px;
+      max-width: 860px;
       background: #000000;
       border: 3px solid #3f3f46;
       border-radius: 16px;
       padding: 28px 24px 20px;
       position: relative;
-      box-shadow: 0 0 0 1px var(--matrix-green);
+      box-shadow: 0 0 0 1.5px var(--border-green);
     }
     .standoff {
       width: 18px;
@@ -409,13 +399,13 @@
       background: #000000;
       border: 3px solid #52525b;
       border-radius: 8px;
-      padding: 10px;
+      padding: 12px;
     }
     .esp-screen-inner {
       background: #000000;
       aspect-ratio: 4 / 3;
       width: 100%;
-      border: 2px solid var(--matrix-green);
+      border: 2px solid var(--border-green);
       border-radius: 4px;
       position: relative;
       overflow: hidden;
@@ -427,17 +417,18 @@
       content: " ";
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.4) 50%);
+      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
       background-size: 100% 4px;
       pointer-events: none;
       z-index: 20;
     }
 
+    /* ESP32 Touch Navigation Bar */
     .touch-tabs-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       background: #000000;
-      border-bottom: 2px solid var(--matrix-green);
+      border-bottom: 2px solid var(--border-green);
       z-index: 10;
     }
     .touch-tab {
@@ -455,9 +446,10 @@
     }
     .touch-tab:last-child { border-right: none; }
     .touch-tab:hover { background: #27272a; color: var(--matrix-green); }
-    .touch-tab.active { color: #000000; background: #ffffff; font-weight: 800; }
+    .touch-tab.active { color: #000000; background: #ffffff; font-weight: 900; }
 
-    .screen-work-area {
+    /* ESP32 Screen Work Area (E-Ink Inspired High-Contrast Layout) */
+    .esp-screen-work-area {
       flex: 1;
       padding: 12px 14px;
       display: flex;
@@ -466,29 +458,31 @@
       z-index: 10;
       background: #000000;
     }
-    .screen-status-line {
+
+    .esp-screen-status-line {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #000000;
-      border: 1.5px solid var(--matrix-green);
-      padding: 7px 12px;
-      font-size: 0.88rem;
+      border-bottom: 2px solid #ffffff;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
       color: #ffffff;
       font-weight: 800;
     }
 
-    .view-dashboard {
+    /* ESP32 Dashboard (E-Ink Inspired Proportional Split) */
+    .esp-view-dashboard {
       display: grid;
-      grid-template-columns: 185px 1fr;
-      gap: 14px;
+      grid-template-columns: 200px 1fr;
+      gap: 16px;
       flex: 1;
-      margin: 10px 0;
-      min-height: 220px;
+      margin: 4px 0 8px;
     }
-    .mascot-viewport {
+    .esp-mascot-viewport {
       background: #000000;
-      border: 2px solid var(--matrix-green);
+      border: 2px solid var(--border-green);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -498,7 +492,7 @@
       width: 100%;
       height: 100%;
     }
-    .mascot-viewport img {
+    .esp-mascot-viewport img {
       width: 100%;
       height: 100%;
       object-fit: fill;
@@ -506,60 +500,60 @@
       image-rendering: crisp-edges;
     }
 
-    .telemetry-viewport {
+    .esp-telemetry-viewport {
       background: #000000;
-      border: 2px solid var(--matrix-green);
-      border-radius: 4px;
-      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-    .t-row-thread {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.98rem;
+
+    /* E-Ink Mirrored High-Contrast Telemetry Elements */
+    .esp-thread-title {
+      font-size: 1.1rem;
       font-weight: 800;
-      color: var(--matrix-cyan);
-      border-bottom: 1.5px solid #27272a;
-      padding-bottom: 6px;
+      color: #ffffff;
+      border-bottom: 2px solid #ffffff;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .t-row-status {
+    .esp-status-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
-      margin: 4px 0;
+      margin-bottom: 6px;
     }
-    .t-cmd-box {
+    .esp-cmd-box {
+      border: 2px solid var(--border-green);
       background: #000000;
-      border: 1.5px solid var(--matrix-green);
       color: var(--matrix-yellow);
       padding: 7px 10px;
       font-size: 0.88rem;
       font-weight: 800;
+      margin-bottom: 8px;
+      border-radius: 3px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin: 4px 0;
-      border-radius: 3px;
     }
-    .subagent-list-row {
+
+    .esp-subagents-row {
       display: flex;
       gap: 6px;
-      margin-top: 4px;
       flex-wrap: wrap;
+      margin-bottom: 4px;
     }
-    .subagent-pill {
+    .esp-subagent-chip {
+      border: 1.5px solid #3f3f46;
+      padding: 3px 8px;
       font-size: 0.8rem;
       font-weight: 800;
-      padding: 3px 8px;
-      border: 1.5px solid #3f3f46;
       color: #ffffff;
       background: #000000;
       border-radius: 3px;
@@ -567,10 +561,22 @@
       align-items: center;
       gap: 4px;
     }
-    .subagent-pill.active {
-      border-color: var(--matrix-green);
-      color: #000000;
+    .esp-subagent-chip.active {
+      border-color: var(--border-green);
       background: var(--matrix-green);
+      color: #000000;
+    }
+
+    /* ESP32 Footer (E-Ink Mirrored High-Contrast) */
+    .esp-screen-footer {
+      border-top: 2px solid #ffffff;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #ffffff;
     }
 
     .view-subagents {
@@ -604,29 +610,6 @@
       flex-direction: column;
       justify-content: flex-end;
       line-height: 1.6;
-    }
-
-    .screen-footer-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #000000;
-      border: 1.5px solid var(--matrix-green);
-      padding: 6px 12px;
-      font-size: 0.88rem;
-      color: #ffffff;
-      font-weight: 800;
-    }
-    .progress-track {
-      width: 140px;
-      height: 10px;
-      background: #000000;
-      border: 1.5px solid #ffffff;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--matrix-green);
-      width: 48%;
     }
 
     /* Stepper Scale Controls */
@@ -759,11 +742,11 @@
         <div class="badge-bar">
           <span class="tag tag-primary">PRIMARY: KINDLE KOREADER E-INK</span>
           <span class="tag">SECONDARY: ESP32 LCD</span>
-          <span class="tag tag-yellow">WIRELESS ZERO-CONFIG</span>
+          <span class="tag tag-yellow">HIGH-CONTRAST HARMONY</span>
           <span class="tag tag-cyan">PORTRAIT &amp; LANDSCAPE</span>
         </div>
         <h1>PipDeck: Multi-Platform Hardware Companion</h1>
-        <p class="subtitle">An open-source companion display engineered in perpetuity for <strong>Amazon Kindle E-Ink Devices running KOReader (Primary)</strong> and <strong>ESP32 Micro-Displays (Secondary)</strong> over local Wi-Fi with mDNS auto-discovery.</p>
+        <p class="subtitle">An open-source companion display engineered in perpetuity for <strong>Amazon Kindle E-Ink Devices running KOReader (Primary)</strong> and <strong>ESP32 Micro-Displays (Secondary)</strong> with unified high-contrast layouts and subtle Matrix green accents.</p>
       </div>
     </div>
   </header>
@@ -773,7 +756,7 @@
     <!-- SECTION 1: INTERACTIVE PLATFORM & DEVICE SWITCHER -->
     <section>
       <h2>Interactive Platform &amp; Device Simulator</h2>
-      <p>Select a device below to test responsive layouts and e-ink/LCD rendering. <strong>Kindle KOReader is the primary target platform.</strong></p>
+      <p>The ESP32 layout now mirrors the clean, high-contrast typography and proportional split of the E-Ink design, with tasteful Matrix green structural accents:</p>
 
       <!-- Platform Selection Buttons (Kindle KOReader First) -->
       <div class="platform-selector-bar">
@@ -798,7 +781,7 @@
           <!-- Pure 1-Bit Monochrome E-Ink Screen Surface -->
           <div class="eink-screen-surface" id="einkSurface">
             
-            <!-- PORTRAIT E-INK LAYOUT (REVISED PROPORTIONAL MASCOT ARENA) -->
+            <!-- PORTRAIT E-INK LAYOUT -->
             <div id="einkPortraitView">
               <div class="eink-header">
                 <span id="einkModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
@@ -896,7 +879,7 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- PLATFORM 2 (SECONDARY): ESP32-2432S028R HARDWARE CHASSIS   -->
+        <!-- PLATFORM 2 (SECONDARY): ESP32 DISPLAY (E-INK INSPIRED)     -->
         <!-- ========================================================= -->
         <div class="esp32-pcb" id="esp32Container">
           <div class="standoff tl"></div>
@@ -923,36 +906,43 @@
                 <button class="touch-tab" onclick="switchTab('logs')">[3. TODO &amp; LOGS]</button>
               </div>
 
-              <div class="screen-work-area">
-                <div class="screen-status-line">
+              <!-- Main Screen Work Area (E-Ink Mirrored High-Contrast Layout) -->
+              <div class="esp-screen-work-area">
+                
+                <!-- Status Line with White Separation Border -->
+                <div class="esp-screen-status-line">
                   <span id="dspModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
                   <span id="dspBranch" style="color: var(--matrix-green);">git:main*</span>
                   <span id="dspClock" style="color: var(--matrix-yellow);">12:45:02</span>
                 </div>
 
-                <div class="view-dashboard" id="viewDash">
-                  <div class="mascot-viewport">
+                <!-- DASHBOARD VIEW (Proportional E-Ink Mirrored Split) -->
+                <div class="esp-view-dashboard" id="viewDash">
+                  <!-- Proportional Mascot Viewport -->
+                  <div class="esp-mascot-viewport">
                     <img id="dspMascot" src="assets/animations/pip-swarm-32.svg" alt="Pip Mascot">
                   </div>
-                  <div class="telemetry-viewport">
+                  
+                  <!-- Clean Telemetry Column (Mirrors E-Ink High-Contrast Stack) -->
+                  <div class="esp-telemetry-viewport">
                     <div>
-                      <div class="t-row-thread" id="dspThread">
+                      <div class="esp-thread-title" id="dspThread">
                         <span>🧵</span> <span>#cleanse-workspace-diagnostics</span>
                       </div>
-                      <div class="t-row-status">
+                      <div class="esp-status-row">
                         <span style="color: var(--matrix-green);" id="dspState">● PARALLEL SWARM</span>
                         <span style="color: #ffffff;" id="dspPhase">📋 Phase 3: Parallel Fix</span>
                       </div>
-                      <div class="t-cmd-box" id="dspCmd">&gt;_ omp task[Scout, Coder, Reviewer, Sonic]</div>
+                      <div class="esp-cmd-box" id="dspCmd">&gt;_ omp task[Scout, Coder, Reviewer, Sonic]</div>
                     </div>
 
                     <div>
-                      <div style="font-size: 0.78rem; color: #ffffff; font-weight: 800; margin-bottom: 3px;">AGENTS:</div>
-                      <div class="subagent-list-row" id="subagentRow">
-                        <span class="subagent-pill active">✨ Google Scout</span>
-                        <span class="subagent-pill active">🏺 Anthropic Coder</span>
-                        <span class="subagent-pill active">🌀 OpenAI Review</span>
-                        <span class="subagent-pill active">🦙 Local Sonic</span>
+                      <div style="font-size: 0.8rem; color: #ffffff; font-weight: 800; margin-bottom: 4px;">ACTIVE SUBAGENTS:</div>
+                      <div class="esp-subagents-row" id="subagentRow">
+                        <span class="esp-subagent-chip active">✨ Google Scout</span>
+                        <span class="esp-subagent-chip active">🏺 Anthropic Coder</span>
+                        <span class="esp-subagent-chip active">🌀 OpenAI Review</span>
+                        <span class="esp-subagent-chip active">🦙 Local Sonic</span>
                       </div>
                     </div>
                   </div>
@@ -991,19 +981,11 @@
                   </div>
                 </div>
 
-                <div class="screen-footer-line">
-                  <div style="display:flex; align-items:center; gap: 8px;">
-                    <span>CTX:</span>
-                    <div class="progress-track">
-                      <div class="progress-fill" id="dspProgBar" style="width: 62%;"></div>
-                    </div>
-                    <span id="dspCtxText" style="color: var(--matrix-green); font-weight: 800;">62%</span>
-                  </div>
-                  <div>
-                    <span style="color: var(--matrix-yellow); font-weight: 800;" id="dspCost">$0.38</span>
-                    <span style="color: #71717a; margin: 0 4px;">|</span>
-                    <span id="dspTokens" style="font-weight: 800;">114.5k tok</span>
-                  </div>
+                <!-- ESP32 High-Contrast Footer (Mirrors E-Ink) -->
+                <div class="esp-screen-footer">
+                  <span>CTX: <strong style="color: var(--matrix-green);" id="dspCtxText">62%</strong></span>
+                  <span>COST: <strong style="color: var(--matrix-yellow);" id="dspCost">$0.38</strong></span>
+                  <span>TOKENS: <strong id="dspTokens">114.5k</strong></span>
                 </div>
               </div>
             </div>
@@ -1140,7 +1122,7 @@
     function triggerEinkFlash() {
       const surface = document.getElementById('einkSurface');
       surface.classList.remove('eink-flashing');
-      void surface.offsetWidth; // trigger reflow
+      void surface.offsetWidth;
       surface.classList.add('eink-flashing');
     }
 
@@ -1150,7 +1132,7 @@
         ratio: '1/32 (Solo Node)',
         threads: '1 Worker Active',
         cmd: '$ omp task[Scout]',
-        tokens: '12.4k tok',
+        tokens: '12.4k',
         cost: '$0.04',
         ctx: '18%'
       },
@@ -1159,7 +1141,7 @@
         ratio: '5/32 (Pentagon Wave)',
         threads: '5 Workers Active',
         cmd: '$ omp task[Scout1-2, Coder1-2, Rev1]',
-        tokens: '38.2k tok',
+        tokens: '38.2k',
         cost: '$0.12',
         ctx: '28%'
       },
@@ -1168,7 +1150,7 @@
         ratio: '10/32 (Dual Orbit)',
         threads: '10 Workers Active',
         cmd: '$ omp task[Scout1-3, Coder1-4, Rev1-3]',
-        tokens: '68.5k tok',
+        tokens: '68.5k',
         cost: '$0.22',
         ctx: '42%'
       },
@@ -1177,7 +1159,7 @@
         ratio: '15/32 (Triple Ring)',
         threads: '15 Workers Active',
         cmd: '$ omp task[Scout1-4, Coder1-7, Rev1-4]',
-        tokens: '102.1k tok',
+        tokens: '102.1k',
         cost: '$0.34',
         ctx: '54%'
       },
@@ -1186,7 +1168,7 @@
         ratio: '20/32 (Dense Hive)',
         threads: '20 Workers Active',
         cmd: '$ omp task[Scout1-5, Coder1-10, Rev1-5]',
-        tokens: '144.8k tok',
+        tokens: '144.8k',
         cost: '$0.48',
         ctx: '68%'
       },
@@ -1195,7 +1177,7 @@
         ratio: '25/32 (Crowded Matrix)',
         threads: '25 Workers Active',
         cmd: '$ omp task[Scout1-6, Coder1-13, Rev1-6]',
-        tokens: '198.4k tok',
+        tokens: '198.4k',
         cost: '$0.66',
         ctx: '78%'
       },
@@ -1204,9 +1186,9 @@
         ratio: '32/32 (MAX CROWD)',
         threads: '32 Workers Active (100%)',
         cmd: '$ omp task[Scout, Coder, Reviewer, Sonic]',
-        tokens: '284.5k tok',
-        cost: '$0.94',
-        ctx: '88%'
+        tokens: '114.5k',
+        cost: '$0.38',
+        ctx: '62%'
       }
     };
 
@@ -1234,7 +1216,6 @@
       document.getElementById('einkCost').innerText = data.cost;
       document.getElementById('einkLandCost').innerText = data.cost;
 
-      document.getElementById('dspProgBar').style.width = data.ctx;
       document.getElementById('dspCtxText').innerText = data.ctx;
       document.getElementById('einkCtx').innerText = data.ctx;
       document.getElementById('einkLandCtx').innerText = data.ctx;
@@ -1263,7 +1244,7 @@
         cmd: '>_ omp planning: evaluate tools',
         subagents: [true, true, true, false],
         ctx: '34%',
-        tokens: '42.8k tok',
+        tokens: '42.8k',
         cost: '$0.14',
         led: '#00ff41'
       },
@@ -1276,7 +1257,7 @@
         cmd: '>_ cargo test --all --lib (00:03.2s)',
         subagents: [false, true, false, false],
         ctx: '48%',
-        tokens: '68.2k tok',
+        tokens: '68.2k',
         cost: '$0.21',
         led: '#facc15'
       },
@@ -1289,7 +1270,7 @@
         cmd: '>_ omp task[Scout, Coder, Reviewer, Sonic]',
         subagents: [true, true, true, true],
         ctx: '62%',
-        tokens: '114.5k tok',
+        tokens: '114.5k',
         cost: '$0.38',
         led: '#00ff41'
       },
@@ -1302,7 +1283,7 @@
         cmd: '>_ ask "Confirm force push to remote?"',
         subagents: [false, false, false, false],
         ctx: '65%',
-        tokens: '120.1k tok',
+        tokens: '120.1k',
         cost: '$0.40',
         led: '#facc15'
       },
@@ -1315,7 +1296,7 @@
         cmd: '>_ cargo check: OK [PASS]',
         subagents: [false, false, false, false],
         ctx: '66%',
-        tokens: '124.9k tok',
+        tokens: '124.9k',
         cost: '$0.42',
         led: '#00ff41'
       }
@@ -1335,7 +1316,6 @@
       document.getElementById('dspState').innerText = data.state;
       document.getElementById('dspPhase').innerText = data.phase;
       document.getElementById('dspCmd').innerText = data.cmd;
-      document.getElementById('dspProgBar').style.width = data.ctx;
       document.getElementById('dspCtxText').innerText = data.ctx;
       document.getElementById('dspTokens').innerText = data.tokens;
       document.getElementById('dspCost').innerText = data.cost;
@@ -1366,10 +1346,10 @@
       led.style.background = data.led;
       led.style.boxShadow = `0 0 14px ${data.led}`;
 
-      const pills = document.querySelectorAll('.subagent-pill');
+      const pills = document.querySelectorAll('.esp-subagent-chip');
       pills.forEach((p, idx) => {
-        if (data.subagents[idx]) p.className = 'subagent-pill active';
-        else p.className = 'subagent-pill';
+        if (data.subagents[idx % 4]) p.className = 'esp-subagent-chip active';
+        else p.className = 'esp-subagent-chip';
       });
 
       const einkChips = document.querySelectorAll('.eink-subagent-chip');
