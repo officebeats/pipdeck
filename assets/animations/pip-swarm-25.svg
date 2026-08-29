@@ -3,16 +3,15 @@
     @keyframes ringCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @keyframes ringCCW { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
     @keyframes levitate { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
-    .r1 { animation: ringCW 8s linear infinite; transform-origin: 80px 100px; }
-    .r2 { animation: ringCCW 12s linear infinite; transform-origin: 80px 100px; }
-    .r3 { animation: ringCW 18s linear infinite; transform-origin: 80px 100px; }
-    .r4 { animation: ringCCW 24s linear infinite; transform-origin: 80px 100px; }
-    .pip-mascot { animation: levitate 1.8s ease-in-out infinite; transform-origin: 80px 100px; }
+    .r1 { animation: ringCW 8s steps(8) infinite; transform-origin: 80px 100px; }
+    .r2 { animation: ringCCW 12s steps(10) infinite; transform-origin: 80px 100px; }
+    .r3 { animation: ringCW 16s steps(12) infinite; transform-origin: 80px 100px; }
+    .r4 { animation: ringCCW 22s steps(14) infinite; transform-origin: 80px 100px; }
+    .pip-mascot { animation: levitate 1.6s steps(2) infinite; transform-origin: 80px 100px; }
   </style>
 
   <rect width="160" height="200" fill="#000000"/>
 
-  <!-- Matrix Grid & Reticles -->
   <g stroke="#003b00" stroke-width="0.75" opacity="0.4">
     <line x1="0" y1="25" x2="160" y2="25"/><line x1="0" y1="50" x2="160" y2="50"/><line x1="0" y1="150" x2="160" y2="150"/><line x1="0" y1="175" x2="160" y2="175"/>
     <line x1="25" y1="0" x2="25" y2="200"/><line x1="135" y1="0" x2="135" y2="200"/>
@@ -21,7 +20,6 @@
     <path d="M2,12 L2,2 L12,2"/><path d="M158,12 L158,2 L148,2"/><path d="M2,188 L2,198 L12,198"/><path d="M158,188 L158,198 L148,198"/>
   </g>
 
-  <!-- Ground Shadow -->
   <ellipse cx="80" cy="138" rx="24" ry="4" fill="#00ff41" opacity="0.3"/>
 
   <!-- Ring 4: Outer Boundary (7 Nodes - R=70px) -->

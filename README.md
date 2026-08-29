@@ -26,14 +26,33 @@ High-contrast Matrix phosphor green theme on pure `#000000` OLED black with acti
 
 ---
 
-## ⚡ Adaptive Refresh Rate & E-Ink Animation Engine
+## ⚡ Universal Low-Framerate Stepped Animation Invariant (LED/LCD Pace)
 
-E-ink electrophoretic microcapsules have physical refresh latency (~250–450ms). PipDeck dynamically adapts its stepped animation pacing based on the target display:
+Every animation across all SVGs, UI widgets, and graphic assets in PipDeck **strictly uses discrete stepped keyframes (`steps(N)`)**:
+- **Smooth `linear` and `ease-in-out` transitions are strictly prohibited.**
+- **Mascot levitation & breathing**: `steps(2)` to `steps(4)`.
+- **Orbital rotations (1 to 32 nodes)**: `steps(8)` to `steps(16)`.
+- **Matrix code rain & confetti**: `steps(6)` to `steps(8)`.
+- **Lightning strobe & eye blinks**: `steps(2)`.
+- **Display Pacing Rationale**:
+  - **Kindle E-Ink (KOReader Primary)**: 1–2 FPS event-stepped low-pace refresh prevents electrophoretic particle fatigue and preserves weeks of battery life.
+  - **ESP32 Micro-Displays (Secondary)**: 4–8 FPS retro LCD stepped motion delivers authentic vintage hardware matrix stutter.
 
-| Platform Tier | Display Tech | Animation Pacing | Ghosting Mitigation |
+---
+
+## 5-Agent Incremental Swarm Hierarchy
+
+Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)** centered at $(80, 100)$ across all swarm increments ($1 \to 32$ nodes) and lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`):
+
+| Swarm Level | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
 | :--- | :--- | :--- | :--- |
-| **Primary (Tier 1): Kindle E-Ink (KOReader)** | 1-Bit Monochrome E-Ink | **1–2 FPS Low-Pace Stepped Waveforms / Event Ticks** | **Automatic Full Flash Waveform Clear every 15 state changes** |
-| **Secondary (Tier 2): ESP32 Micro-Displays** | 2.8" Color SPI TFT | 4–8 FPS Retro LCD Stepped Motion (`steps(8)` to `steps(16)`) | Constant 60 FPS DMA Framebuffer Swap |
+| **1 Node** | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
+| **5 Nodes** | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
+| **10 Nodes** | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
+| **15 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
+| **20 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
+| **25 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` / `12s steps(10)` / `16s steps(12)` / `22s steps(14)` | Heavily crowded particle matrix. |
+| **32 Nodes (MAX)**| Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `8s steps(8)` to `28s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
 
 ---
 
@@ -48,7 +67,7 @@ E-ink electrophoretic microcapsules have physical refresh latency (~250–450ms)
 
 ---
 
-## ✨ Features & Architecture Invariants
+## ✨ Features & Mandatory Formats
 
 ### 1. Mandatory Provider Iconography & Format
 Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model Name]`:
@@ -61,19 +80,7 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 - ✖️ **xAI**: `✖️ xAI grok-2`
 - 🌪️ **Mistral**: `🌪️ Mistral codestral-2501`
 
-### 2. Persistent Large Mascot ($48 \times 48\text{px}$)
-Pip maintains a strictly constant scale and position centered at $(80, 100)$ across all states and swarm increments ($1 \to 32$ nodes).
-
-### 3. 5-Agent Incremental Swarm Scaling ($1 \to 32$ Nodes)
-- **1 Node**: Pip alone with a single orbiting task worker.
-- **5 Nodes**: Orbiting pentagon constellation web.
-- **10 Nodes**: Dual counter-spinning rings.
-- **15 Nodes**: 3-ring active multi-agent web.
-- **20 Nodes**: Dense humming hive.
-- **25 Nodes**: Heavily crowded particle matrix.
-- **32 Nodes (MAX)**: Full-bleed telepathic swarm vortex with cascading matrix rain and laser web.
-
-### 4. Wireless Zero-Config for Non-Technical Users
+### 2. Wireless Zero-Config for Non-Technical Users
 - **mDNS Auto-Discovery**: The Kindle KOReader plugin auto-discovers `omp.local:8787` on your local Wi-Fi.
 - **Terminal QR Code**: Typing `/companion` in `omp` displays an ASCII pairing QR code.
 

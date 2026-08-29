@@ -13,10 +13,20 @@
      - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
 - NEVER drop, forget, or omit either platform when designing features, telemetry protocols, animations, UI layouts, or setup workflows.
 
-## 3. Mandatory Model & Provider Formatting
+## 3. Universal Low-Framerate Stepped Animation Invariant (LED/LCD Pace)
+- **ALL animations in PipDeck MUST strictly use discrete stepped keyframes (`steps(N)`)**.
+- **NEVER use smooth `linear` or `ease-in-out` transitions** anywhere in any SVG, graphic asset, or UI element.
+- Pacing rules:
+  - Mascot levitation & breathing: `steps(2)` to `steps(4)`.
+  - Orbital rotations: `steps(8)` to `steps(16)`.
+  - Rain & confetti drops: `steps(6)` to `steps(8)`.
+  - Lightning strobe & eye blinks: `steps(2)`.
+  - Ensures uniform, choppy retro 4–8 FPS embedded LED/LCD motion on ESP32 and ghosting-free 1–2 FPS rendering on Kindle KOReader e-ink.
+
+## 4. Mandatory Model & Provider Formatting
 - Every model reference in prose, documentation, tables, and UI MUST strictly follow the standard format:
   `[Provider Icon] [Provider Name] [Model Name]`
   (e.g., `🏺 Anthropic claude-3-7-sonnet`, `✨ Google gemini-3.7-flash`, `🌀 OpenAI gpt-5.2-reasoning`, `🦙 Local/Ollama qwen2.5-coder-7b`).
 
-## 4. Hyperlink Delivery Rule
+## 5. Hyperlink Delivery Rule
 - Always format all referenced file paths, created/edited files, generated artifacts, images, documents, and web links as clickable Markdown hyperlinks (`[label](file:///absolute/path/to/file)` or `[label](https://...)`).

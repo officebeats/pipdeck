@@ -14,30 +14,49 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
 
 ---
 
-## 2. Adaptive Frame Rate & E-Ink Stepped Waveform Engine
+## 2. Universal Low-Framerate Stepped Animation Invariant (LED/LCD Pace)
 
-Because e-ink electrophoretic microcapsules have physical refresh latency (~250–450ms partial refresh), PipDeck's **stepped animation architecture** adapts dynamically based on display technology:
-
-```
-+-------------------------------------------------------------------------------+
-|                        ADAPTIVE DISPLAY TIMING ENGINE                         |
-+-------------------------------------------------------------------------------+
-|  PRIMARY: KINDLE E-INK (KOREADER)       |  SECONDARY: ESP32 COLOR LCD (DMA)   |
-|  • 1–2 FPS Ultra-Low-Pace Stepped       |  • 4–8 FPS Retro LCD Stepped Motion |
-|  • Discrete State Ticks on Event        |  • Discrete steps(8)/steps(12)      |
-|  • Periodic Full Flash Waveform Clear   |  • Constant 60 FPS Framebuffer Swap |
-|  • Pure 1-Bit Monochrome High-Contrast  |  • High-Contrast Matrix Phosphor    |
-+-------------------------------------------------------------------------------+
-```
-
-### E-Ink Refresh & Ghosting Mitigation
-- **Partial Fast Refresh (1–2 FPS)**: Updates active tool strings, subagent pills, and rotating mascot nodes without flashing the whole screen.
-- **Full Waveform Flash (Every 15 State Changes)**: Dispatches `Screen:refreshFull()` to clear residual particle ghosting and maintain contrast.
-- **Battery Optimization**: Suspends network polling when OMP session is `IDLE`, preserving Kindle battery for weeks of desktop companion use.
+**Every animation across all SVGs, UI widgets, and graphic assets MUST strictly use discrete stepped keyframes (`steps(N)`)**:
+- **Smooth `linear` and `ease-in-out` transitions are strictly prohibited.**
+- **Mascot levitation & breathing**: `steps(2)` to `steps(4)`.
+- **Orbital rotations (1 to 32 nodes)**: `steps(8)` to `steps(16)`.
+- **Matrix code rain & confetti**: `steps(6)` to `steps(8)`.
+- **Lightning strobe & eye blinks**: `steps(2)`.
+- **Pacing rationale**: Creates authentic, choppy 4–8 FPS embedded LED/LCD motion on ESP32 displays and eliminates ghosting thrashing while delivering 1–2 FPS battery-friendly updates on Kindle KOReader e-ink screens.
 
 ---
 
-## 3. Responsive Kindle E-Ink Display Layouts (KOReader)
+## 3. Mascot Size Invariance & 5-Agent Incremental Swarm Scaling
+
+PipDeck enforces a **strict size invariance rule for the central Pip mascot**: Pip's coordinate dimensions ($48 \times 48\text{px}$ bounding box centered at $(80, 100)$) remain **100% identical and persistently large** across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
+
+```
+ 1 Node (Solo)            10 Nodes (Dual Orbit)           32 Nodes (MAX Crowd)
++------------------+     +--------------------+          +--------------------+
+|  [+]        [+]  |     |  [+]    ■    [+]   |          |  [+] ■  ■  ■  [+]  |
+|                  |     |       ■   ■        |          |    ■ ■  ■  ■ ■     |
+|     [ LARGE ]    | --> |    ■ [ LARGE ] ■   |   --->   |  ■ ■ [ LARGE ] ■ ■ |
+|     [  PIP  ] ■  |     |       ■   ■        |          |    ■ ■  ■  ■ ■     |
+|                  |     |         ■          |          |  ■   ■  ■  ■   ■   |
+|  [+]        [+]  |     |  [+]          [+]  |          |  [+]          [+]  |
++------------------+     +--------------------+          +--------------------+
+```
+
+### 5-Agent Incremental Swarm Hierarchy (All with Stepped LCD/E-Ink Timing)
+
+| Swarm Level | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
+| :--- | :--- | :--- | :--- |
+| **1 Node** | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
+| **5 Nodes** | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
+| **10 Nodes** | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
+| **15 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
+| **20 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
+| **25 Nodes** | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` / `12s steps(10)` / `16s steps(12)` / `22s steps(14)` | Heavily crowded particle matrix. |
+| **32 Nodes (MAX)**| Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `8s steps(8)` to `28s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
+
+---
+
+## 4. Responsive Kindle E-Ink Display Layouts (KOReader Primary)
 
 ### A. Portrait Orientation (600×800 / 1072×1448 / 1264×1680)
 ```
@@ -82,19 +101,6 @@ Because e-ink electrophoretic microcapsules have physical refresh latency (~250�
 | CTX: 62%              COST: $0.38              TOKENS: 114.5k          |
 +------------------------------------------------------------------------+
 ```
-
----
-
-## 4. Wireless Zero-Config Discovery Protocol
-
-1. **mDNS Auto-Discovery**:
-   - The OMP daemon broadcasts service `_pipdeck._tcp.local` on port `8787`.
-   - The Kindle KOReader plugin automatically resolves `omp.local:8787` on startup.
-2. **Terminal QR Code Pairing**:
-   - When running `omp`, typing `/companion` renders an ASCII QR code in the terminal.
-   - Pointing the Kindle browser or scanning with KOReader pairs the device immediately.
-3. **HTTP REST / SSE Fallback**:
-   - Endpoint `/api/status` streams JSON updates with low network overhead.
 
 ---
 
