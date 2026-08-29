@@ -105,20 +105,32 @@ Every animation across all SVGs, UI widgets, and graphic assets in PipDeck **str
 
 ---
 
-## 5-Agent Incremental Swarm Hierarchy (Full-Bleed Canvas & Top-Right HUD)
+## 🤖 Pure Floating Mascot & Reactive Orca Pet Bundle Architecture
 
-Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)** centered at $(80, 100)$ across all swarm increments ($1 \to 32$ nodes) with full vertical canvas bleed ($y=12$ to $y=190$) and a persistent top-right combo HUD tag:
+PipDeck enforces a **pure floating, shadowless 25% scaled $\pi$ mascot** ($43 \times 50\text{px}$ bounding box centered at $(80, 100)$) across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
+
+- **Zero Drop Shadows**: All overlapping ground shadow disks and floor meshes have been eliminated for a weightless floating aesthetic.
+- **Interactive Orca Pet Bundle**: Includes a full 9-row $\times$ 8-column spritesheet bundle (`assets/orca-pet-bundle/`) that dynamically reflects live OMP agent turns and Orca chat activity:
+  - **Row 0 (`idle`)**: Ambient floating levitation when agent is standby / idle.
+  - **Row 1 & 2 (`running-right` / `running-left`)**: Directional tilt and dash when dragged.
+  - **Row 3 (`waving`)**: Crossbar waving greeting.
+  - **Row 4 (`jumping`)**: Golden sparkle victory leap on mouse hover or task completion.
+  - **Row 5 (`failed`)**: Strobe alert and warning triangle on errors / blocked prompt.
+  - **Row 6 (`waiting`)**: Luminous thought ring orbital when agent is thinking or awaiting input.
+  - **Row 7 (`running`)**: Cybernetic typing hands and matrix stream on active tool execution (`bash`, `read`, `edit`, `write`).
+  - **Row 8 (`review`)**: Floating trophy and celebration confetti on `agent_settled` (job passed).
+
+### 5-Agent Incremental Swarm Hierarchy (Full-Bleed Canvas & Top-Right HUD)
 
 | Swarm Level | Combo HUD Tag | Mascot Size Invariant | Stepped Animation Timing | Visual Density Feeling |
 | :--- | :--- | :--- | :--- | :--- |
-| **1 Node** | `[ 1x SOLO ]` | Persistently Large ($48 \times 48\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
-| **5 Nodes** | `[ 5x SWARM ]` | Persistently Large ($48 \times 48\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
-| **10 Nodes** | `[ 10x DUAL ]` | Persistently Large ($48 \times 48\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
-| **15 Nodes** | `[ 15x TRIPLE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
-| **20 Nodes** | `[ 20x HIVE ]` | Persistently Large ($48 \times 48\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
-| **25 Nodes** | `[ 25x MATRIX ]` | Persistently Large ($48 \times 48\text{px}$) | 4 rings: `8s steps(8)` to `22s steps(14)` | Heavily crowded particle matrix. |
-| **32 Nodes (MAX)**| `[ 32x CROWD ]` | Persistently Large ($48 \times 48\text{px}$) | 4 bounded rings: `6s steps(8)` to `18s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
-
+| **1 Node** | `[ 1x SOLO ]` | Persistently Centered ($43 \times 50\text{px}$) | `8s steps(8)` solo orbit | Minimalist, single-turn focus. |
+| **5 Nodes** | `[ 5x SWARM ]` | Persistently Centered ($43 \times 50\text{px}$) | `10s steps(10)` pentagon web | Clean geometric wave. |
+| **10 Nodes** | `[ 10x DUAL ]` | Persistently Centered ($43 \times 50\text{px}$) | Dual rings: `8s steps(8)` / `14s steps(12)` | Balanced dual-orbital flow. |
+| **15 Nodes** | `[ 15x TRIPLE ]` | Persistently Centered ($43 \times 50\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(12)` | Active multi-agent web. |
+| **20 Nodes** | `[ 20x HIVE ]` | Persistently Centered ($43 \times 50\text{px}$) | 3 rings: `8s steps(8)` / `12s steps(10)` / `18s steps(14)` | Dense, humming swarm hive. |
+| **25 Nodes** | `[ 25x MATRIX ]` | Persistently Centered ($43 \times 50\text{px}$) | 4 rings: `8s steps(8)` to `22s steps(14)` | Heavily crowded particle matrix. |
+| **32 Nodes (MAX)**| `[ 32x CROWD ]` | Persistently Centered ($43 \times 50\text{px}$) | 4 bounded rings: `6s steps(8)` to `18s steps(16)` + matrix rain | **Maximum Swarm Crowding** (controlled chaos). |
 ---
 
 ## 🛒 Target Hardware & Devices

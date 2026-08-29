@@ -39,17 +39,28 @@
       justify-content: center;
     }
 
-    .pet-svg-wrapper {
+    .pet-img-wrapper {
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       image-rendering: pixelated;
-      transition: transform 0.15s ease;
+      transition: transform 0.15s steps(2);
     }
-    .pet-container:hover .pet-svg-wrapper {
+    .pet-container:hover .pet-img-wrapper {
       transform: scale(1.06);
     }
-    .pet-container:active .pet-svg-wrapper {
+    .pet-container:active .pet-img-wrapper {
       transform: scale(0.95);
+    }
+
+    .pet-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+      display: block;
     }
 
     .bubble {
@@ -60,16 +71,20 @@
       color: var(--omp-cyan);
       font-size: 10px;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 4px;
       pointer-events: none;
       opacity: 0;
-      transition: all 0.25s ease;
+      transition: all 0.25s steps(3);
       white-space: nowrap;
       z-index: 10;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.8);
     }
     .bubble.show {
-      top: -24px;
+      top: -28px;
       opacity: 1;
     }
   </style>
@@ -78,133 +93,105 @@
 
   <div class="pet-container" id="petBox" onclick="interactPet()">
     <div class="bubble" id="petBubble">Pip is Ready! ⚡</div>
-    <div class="pet-svg-wrapper" id="petSvgBox">
-      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="160" viewBox="40 50 84 80" shape-rendering="crispEdges">
-        <defs>
-          <pattern id="piHalftone" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-            <rect width="4" height="4" fill="#180b2c"/>
-            <rect x="0" y="0" width="2" height="2" fill="#c084fc"/>
-            <rect x="2" y="2" width="2" height="2" fill="#c084fc"/>
-          </pattern>
-        </defs>
-        <style>
-          @keyframes pixelBreathe { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
-          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 100px; filter: drop-shadow(0 0 6px #9333ea); }
-          .shadow { transform-origin: 80px 123px; animation: pixelBreathe 2.4s steps(2) infinite reverse; }
-        </style>
-        <ellipse cx="80" cy="123" rx="22" ry="2" fill="#9333ea" opacity="0.4" class="shadow"/>
-        <ellipse cx="80" cy="123" rx="12" ry="1.2" fill="#00f0ff" opacity="0.7" class="shadow"/>
-        
-        <g class="mascot">
-          <!-- Left Hook -->
-          <rect x="51" y="60" width="4" height="4" fill="#ff4071"/>
-          <rect x="51" y="65" width="4" height="4" fill="#ff4071"/>
-          <rect x="51" y="70" width="4" height="4" fill="#ff4071"/>
-          
-          <!-- Crossbar Row 1 ($y=65$) -->
-          <rect x="56" y="65" width="4" height="4" fill="#ff4071"/>
-          <rect x="61" y="65" width="4" height="4" fill="#f43f5e"/>
-          <rect x="66" y="65" width="4" height="4" fill="#f43f5e"/>
-          <rect x="71" y="65" width="4" height="4" fill="#ec4899"/>
-          <rect x="76" y="65" width="4" height="4" fill="#c026d3"/>
-          <rect x="81" y="65" width="4" height="4" fill="#a855f7"/>
-          <rect x="86" y="65" width="4" height="4" fill="#9333ea"/>
-          <rect x="91" y="65" width="4" height="4" fill="#7c3aed"/>
-          <rect x="96" y="65" width="4" height="4" fill="#3b82f6"/>
-          <rect x="101" y="65" width="4" height="4" fill="#0ea5e9"/>
-          <rect x="106" y="65" width="4" height="4" fill="#00f0ff"/>
-          <rect x="106" y="70" width="4" height="4" fill="#00f0ff"/>
-
-          <!-- Crossbar Row 2 ($y=70$) -->
-          <rect x="56" y="70" width="4" height="4" fill="#ff4071"/>
-          <rect x="61" y="70" width="4" height="4" fill="#f43f5e"/>
-          <rect x="66" y="70" width="4" height="4" fill="#f43f5e"/>
-          <rect x="71" y="70" width="4" height="4" fill="#ec4899"/>
-          <rect x="76" y="70" width="4" height="4" fill="#c026d3"/>
-          <rect x="81" y="70" width="4" height="4" fill="#a855f7"/>
-          <rect x="86" y="70" width="4" height="4" fill="#9333ea"/>
-          <rect x="91" y="70" width="4" height="4" fill="#7c3aed"/>
-          <rect x="96" y="70" width="4" height="4" fill="#3b82f6"/>
-          <rect x="101" y="70" width="4" height="4" fill="#0ea5e9"/>
-
-          <!-- Crossbar Row 3 ($y=75$) -->
-          <rect x="56" y="75" width="4" height="4" fill="#f43f5e"/>
-          <rect x="71" y="75" width="4" height="4" fill="#ec4899"/>
-          <rect x="76" y="75" width="4" height="4" fill="#c026d3"/>
-          <rect x="81" y="75" width="4" height="4" fill="#a855f7"/>
-          <rect x="86" y="75" width="4" height="4" fill="#9333ea"/>
-          <rect x="101" y="75" width="4" height="4" fill="#00f0ff"/>
-
-          <!-- Left Leg -->
-          <rect x="61" y="75" width="4" height="4" fill="#f43f5e"/>
-          <rect x="66" y="75" width="4" height="4" fill="#f43f5e"/>
-          <rect x="61" y="80" width="4" height="4" fill="#ec4899"/>
-          <rect x="66" y="80" width="4" height="4" fill="#ec4899"/>
-          <rect x="61" y="85" width="4" height="4" fill="#ec4899"/>
-          <rect x="66" y="85" width="4" height="4" fill="#ec4899"/>
-          <rect x="61" y="90" width="4" height="4" fill="#d946ef"/>
-          <rect x="66" y="90" width="4" height="4" fill="#d946ef"/>
-          <rect x="61" y="95" width="4" height="4" fill="#c026d3"/>
-          <rect x="66" y="95" width="4" height="4" fill="#c026d3"/>
-          <rect x="61" y="100" width="4" height="4" fill="#a855f7"/>
-          <rect x="66" y="100" width="4" height="4" fill="#a855f7"/>
-          <rect x="61" y="105" width="4" height="4" fill="#9333ea"/>
-          <rect x="66" y="105" width="4" height="4" fill="#9333ea"/>
-          <rect x="61" y="110" width="4" height="4" fill="#7e22ce"/>
-          <rect x="66" y="110" width="4" height="4" fill="#7e22ce"/>
-          <rect x="61" y="115" width="4" height="4" fill="#581c87"/>
-          <rect x="66" y="115" width="4" height="4" fill="#581c87"/>
-          <rect x="56" y="120" width="4" height="4" fill="#701a75"/>
-          <rect x="61" y="120" width="4" height="4" fill="#581c87"/>
-          <rect x="66" y="120" width="4" height="4" fill="#581c87"/>
-          <rect x="71" y="120" width="4" height="4" fill="#701a75"/>
-          <rect x="56" y="125" width="4" height="4" fill="#3b0764"/>
-          <rect x="61" y="125" width="4" height="4" fill="#c084fc"/>
-          <rect x="66" y="125" width="4" height="4" fill="#3b0764"/>
-          <rect x="71" y="125" width="4" height="4" fill="#c084fc"/>
-
-          <!-- Right Leg -->
-          <rect x="91" y="75" width="4" height="4" fill="#7c3aed"/>
-          <rect x="96" y="75" width="4" height="4" fill="#7c3aed"/>
-          <rect x="91" y="80" width="4" height="4" fill="#3b82f6"/>
-          <rect x="96" y="80" width="4" height="4" fill="#3b82f6"/>
-          <rect x="91" y="85" width="4" height="4" fill="#2563eb"/>
-          <rect x="96" y="85" width="4" height="4" fill="#2563eb"/>
-          <rect x="91" y="90" width="4" height="4" fill="#1d4ed8"/>
-          <rect x="96" y="90" width="4" height="4" fill="#1d4ed8"/>
-          <rect x="91" y="95" width="4" height="4" fill="#0284c7"/>
-          <rect x="96" y="95" width="4" height="4" fill="#0284c7"/>
-          <rect x="91" y="100" width="4" height="4" fill="#0ea5e9"/>
-          <rect x="96" y="100" width="4" height="4" fill="#0ea5e9"/>
-          <rect x="91" y="105" width="4" height="4" fill="#06b6d4"/>
-          <rect x="96" y="105" width="4" height="4" fill="#06b6d4"/>
-          <rect x="91" y="110" width="4" height="4" fill="#06b6d4"/>
-          <rect x="96" y="110" width="4" height="4" fill="#00f0ff"/>
-          <rect x="101" y="110" width="4" height="4" fill="#00f0ff"/>
-          <rect x="96" y="115" width="4" height="4" fill="#00f0ff"/>
-          <rect x="101" y="115" width="4" height="4" fill="#00f0ff"/>
-          <rect x="106" y="115" width="4" height="4" fill="#00f0ff"/>
-          <rect x="106" y="110" width="4" height="4" fill="#00f0ff"/>
-        </g>
-      </svg>
+    <div class="pet-img-wrapper" id="petImgBox">
+      <img id="petImage" src="/assets/animations/pip-idle.svg" alt="Pip Mascot">
     </div>
   </div>
 
   <script>
-    const phrases = [
-      "Pip: OMP Active 🚀",
-      "Swarm: 32 Nodes! ⚡",
-      "Coding with Claude & Gemini ✨",
-      "Pip Loves Oh My Pi!"
-    ];
+    const ANIMATIONS = {
+      idle: '/assets/animations/pip-idle.svg',
+      thinking: '/assets/animations/pip-thinking.svg',
+      bash: '/assets/animations/pip-hacking.svg',
+      running: '/assets/animations/pip-hacking.svg',
+      alert: '/assets/animations/pip-alert.svg',
+      failed: '/assets/animations/pip-alert.svg',
+      waiting: '/assets/animations/pip-thinking.svg',
+      victory: '/assets/animations/pip-victory.svg',
+      review: '/assets/animations/pip-victory.svg',
+      swarm: '/assets/animations/pip-swarm-32.svg',
+      swarm32: '/assets/animations/pip-swarm-32.svg'
+    };
 
-    function interactPet() {
+    let currentState = 'idle';
+    let currentModel = '🏺 Anthropic claude-3-7-sonnet';
+    let currentCommand = '>_ omp --ready';
+    let bubbleTimer = null;
+
+    function setMascotState(stateName, command = '', model = '') {
+      if (!stateName) return;
+      const key = stateName.toLowerCase();
+      const nextSvg = ANIMATIONS[key] || ANIMATIONS.idle;
+      const img = document.getElementById('petImage');
+      if (img && img.getAttribute('src') !== nextSvg) {
+        img.setAttribute('src', nextSvg);
+      }
+      currentState = key;
+      if (command) currentCommand = command;
+      if (model) currentModel = model;
+    }
+
+    function showBubble(text, duration = 3000) {
       const bubble = document.getElementById('petBubble');
-      const text = phrases[Math.floor(Math.random() * phrases.length)];
+      if (!bubble) return;
       bubble.innerText = text;
       bubble.classList.add('show');
-      setTimeout(() => bubble.classList.remove('show'), 2400);
+      if (bubbleTimer) clearTimeout(bubbleTimer);
+      bubbleTimer = setTimeout(() => bubble.classList.remove('show'), duration);
     }
+
+    function interactPet() {
+      const phrases = [
+        `Pip: ${currentState.toUpperCase()} ⚡`,
+        currentCommand || 'Pip Loves Oh My Pi!',
+        currentModel || '🏺 Claude & ✨ Gemini',
+        'Swarm Matrix: 32 Nodes! 🚀'
+      ];
+      const text = phrases[Math.floor(Math.random() * phrases.length)];
+      showBubble(text, 2500);
+      
+      fetch('/api/pet/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'pet' })
+      }).catch(() => {});
+    }
+
+    // Connect to Live SSE Stream from OMP Companion / Orca Server
+    function connectEvents() {
+      const evtSource = new EventSource('/api/pet/events');
+      evtSource.onmessage = function(e) {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.state) {
+            setMascotState(data.state, data.command, data.model);
+            if (data.state === 'bash' && data.command) {
+              showBubble(data.command, 2000);
+            }
+          }
+        } catch (err) {}
+      };
+      evtSource.onerror = function() {
+        evtSource.close();
+        setTimeout(connectEvents, 2000);
+      };
+    }
+
+    // Fallback Polling
+    async function pollState() {
+      try {
+        const res = await fetch('/api/pet/state');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.state) {
+            setMascotState(data.state, data.command, data.model);
+          }
+        }
+      } catch (err) {}
+    }
+
+    connectEvents();
+    setInterval(pollState, 3000);
   </script>
 </body>
 </html>

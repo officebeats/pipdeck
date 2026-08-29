@@ -48,23 +48,20 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
 
 ---
 
-## 3. Mascot Size Invariance, Full-Bleed Squeeze & Top-Right Combo HUD
+## 3. Pure Floating Mascot & Reactive Orca Pet Bundle Architecture
 
-PipDeck enforces a **strict size invariance rule for the central Pip mascot** ($48 \times 48\text{px}$ bounding box centered at $(80, 100)$) across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
+PipDeck enforces a **pure floating, shadowless 25% scaled $\pi$ mascot** ($43 \times 50\text{px}$ bounding box centered at $(80, 100)$) across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
 
-All animations expand vertically from $y=12$ to $y=190$ to **eliminate dead padding at top and bottom**, and feature a **standardized top-right combo HUD badge**:
-
-```
-+───────────────────────────────────────────────────────────+
-| [+] Reticle                        [ 32x CROWD ]  Reticle [+]| <-- Top-Right Combo HUD
-|      ■               ■               ■                       |
-|   ■                                      ■                   |
-| ■              [ LARGE PIP 48px ]            ■               |
-|   ■                                      ■                   |
-|      ■               ■               ■                       |
-| ═══════════════[ Ground Levitation Floor ]═════════════════| <-- Squeezed to Bottom
-+───────────────────────────────────────────────────────────+
-```
+- **Zero Drop Shadows**: All overlapping ground shadow disks and floor meshes have been eliminated for a weightless floating aesthetic.
+- **Interactive Orca Pet Bundle**: Includes a full 9-row $\times$ 8-column spritesheet bundle (`assets/orca-pet-bundle/`) that dynamically reflects live OMP agent turns and Orca chat activity:
+  - **Row 0 (`idle`)**: Ambient floating levitation when agent is standby / idle.
+  - **Row 1 & 2 (`running-right` / `running-left`)**: Directional tilt and dash when dragged.
+  - **Row 3 (`waving`)**: Crossbar waving greeting.
+  - **Row 4 (`jumping`)**: Golden sparkle victory leap on mouse hover or task completion.
+  - **Row 5 (`failed`)**: Strobe alert and warning triangle on errors / blocked prompt.
+  - **Row 6 (`waiting`)**: Luminous thought ring orbital when agent is thinking or awaiting input.
+  - **Row 7 (`running`)**: Cybernetic typing hands and matrix stream on active tool execution (`bash`, `read`, `edit`, `write`).
+  - **Row 8 (`review`)**: Floating trophy and celebration confetti on `agent_settled` (job passed).
 
 ### 5-Agent Incremental Swarm Hierarchy
 
