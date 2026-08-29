@@ -17,19 +17,37 @@
 
 ---
 
-## 🖼️ Visual Screenshot Gallery (Direct Web Links)
+## 📸 Primary Platform Showcase: Kindle E-Ink (KOReader & ZenOS)
 
-| 📟 ESP32 2.8" Color LCD (32-Swarm) | 📖 Kindle E-Ink: Portrait (Light Mode) | 🌙 Kindle E-Ink: Dark Mode (Night) |
+Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **Landscape**, **ZenOS App Launcher**, and **Light & Dark Theme** modes:
+
+| 📖 Kindle Portrait (Light Mode) | 🌙 Kindle Portrait (Dark Mode) | 📖 Kindle Landscape Mode |
 | :---: | :---: | :---: |
-| [![ESP32 Display](assets/screenshots/dashboard-swarm-32.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [![Kindle Portrait](assets/screenshots/kindle-portrait.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [![Kindle Dark Mode](assets/screenshots/kindle-dark-mode.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) |
-| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) |
+| [![Kindle Portrait](assets/screenshots/kindle-portrait.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [![Kindle Dark Mode](assets/screenshots/kindle-dark-mode.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) | [![Kindle Landscape](assets/screenshots/kindle-landscape.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) |
 
-| 📖 Kindle E-Ink: Landscape Mode | 🌌 ZenOS 3.2 App Launcher Mode | ❓ In-App Connection Wizard |
+---
+
+## 📸 Secondary Platform Showcase: ESP32 2.8" SPI Color LCD (CYD)
+
+Unified high-contrast design featuring the exact **Oh My Pi (OMP) terminal logo sunset-cyberpunk palette** (`#ff4071` Hot Pink $\to$ `#9333ea` Purple $\to$ `#00f0ff` Cyan):
+
+| 📟 ESP32 32-Node Swarm (`32x CROWD`) | 💤 ESP32 Idle State (`IDLE`) | 🧠 ESP32 Thinking State (`THINKING`) |
 | :---: | :---: | :---: |
-| [![Kindle Landscape](assets/screenshots/kindle-landscape.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) | [![ZenOS Launcher](assets/screenshots/zenos-launcher.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) | [![In-App Tutorial](assets/screenshots/tutorial-guide.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/tutorial-guide.webp) |
-| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/tutorial-guide.webp) |
+| [![ESP32 Swarm 32](assets/screenshots/dashboard-swarm-32.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [![ESP32 Idle](assets/screenshots/dashboard-idle.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-idle.webp) | [![ESP32 Thinking](assets/screenshots/dashboard-thinking.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-thinking.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-idle.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-thinking.webp) |
 
-👉 **[Open Interactive Full-Screen Gallery](https://officebeats.github.io/pipdeck/gallery.html)**
+| ⌨️ ESP32 Tool / Bash (`BASH`) | ⚠️ ESP32 Ask / Alert (`ALERT`) | 🏆 ESP32 Job Passed (`VICTORY`) |
+| :---: | :---: | :---: |
+| [![ESP32 Bash](assets/screenshots/dashboard-bash.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-bash.webp) | [![ESP32 Alert](assets/screenshots/dashboard-alert.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-alert.webp) | [![ESP32 Victory](assets/screenshots/dashboard-victory.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-victory.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-bash.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-alert.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-victory.webp) |
+
+| 👥 ESP32 Subagents Tab View | 📋 ESP32 TODO & Logs Tab View | 🌌 ZenOS 3.2 App Launcher Mode |
+| :---: | :---: | :---: |
+| [![ESP32 Subagents](assets/screenshots/dashboard-subagents.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-subagents.webp) | [![ESP32 Todo Logs](assets/screenshots/dashboard-todo-logs.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-todo-logs.webp) | [![ZenOS Launcher](assets/screenshots/zenos-launcher.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-subagents.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-todo-logs.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) |
+
+👉 **[Open Interactive Full-Screen Visual Gallery](https://officebeats.github.io/pipdeck/gallery.html)**
 
 ---
 

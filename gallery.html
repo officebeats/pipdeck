@@ -28,7 +28,7 @@
       padding: 30px 20px 80px;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
     }
     header {
@@ -55,9 +55,18 @@
       border: 1.5px solid var(--green);
       color: var(--green);
     }
+    .section-heading {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--cyan);
+      margin: 28px 0 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 24px;
     }
     .gallery-card {
@@ -171,25 +180,25 @@
       <div>
         <span class="badge">PIPDECK VISUAL ASSET VIEWER</span>
         <h1>Screenshot &amp; Layout Gallery</h1>
-        <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Click any image to zoom in high resolution, or open directly in new tabs.</p>
+        <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">All screenshots rendered with the authentic Oh My Pi sunset-cyberpunk $\pi$ logo and high-contrast 12h clock.</p>
       </div>
       <div style="display: flex; gap: 10px;">
-        <a class="btn btn-cyan" href="index.html">🎮 Open Interactive Simulator</a>
+        <a class="btn btn-cyan" href="index.html">🎮 Interactive Simulator</a>
         <a class="btn" href="https://github.com/officebeats/pipdeck" target="_blank">🐙 GitHub Repo</a>
       </div>
     </header>
 
+    <div class="section-heading">📟 ESP32 2.8" Color LCD (OMP Sunset-Cyberpunk Palette)</div>
     <div class="gallery-grid">
-
-      <!-- 1. ESP32 SHOWCASE WITH OMP PI LOGO -->
+      <!-- ESP32 Swarm 32 -->
       <div class="gallery-card">
         <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-swarm-32.webp')">
-          <img src="assets/screenshots/dashboard-swarm-32.webp" alt="ESP32 2.8 Color LCD Showcase">
+          <img src="assets/screenshots/dashboard-swarm-32.webp" alt="ESP32 32-Swarm State">
         </div>
         <div class="card-info">
           <div>
-            <div class="card-title">📟 ESP32 2.8" Color LCD (32-Swarm)</div>
-            <div class="card-desc">High-contrast layout on pure OLED black with subtle Matrix green accents, top-right combo HUD, 12h clock, and exact OMP sunset gradient Pi logo.</div>
+            <div class="card-title">🚀 ESP32: Swarm Mode (`32x CROWD`)</div>
+            <div class="card-desc">Max crowd 32-node vortex with OMP block-matrix Pi logo, 12h time, and cyber-yellow task syntax.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/dashboard-swarm-32.webp" target="_blank">🔍 Open Image</a>
@@ -198,15 +207,137 @@
         </div>
       </div>
 
-      <!-- 2. KINDLE PORTRAIT LIGHT MODE -->
+      <!-- ESP32 Idle -->
       <div class="gallery-card">
-        <div class="img-container" onclick="openZoom('assets/screenshots/kindle-portrait.webp')">
-          <img src="assets/screenshots/kindle-portrait.webp" alt="Kindle E-Ink Portrait Mode">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-idle.webp')">
+          <img src="assets/screenshots/dashboard-idle.webp" alt="ESP32 Idle State">
         </div>
         <div class="card-info">
           <div>
-            <div class="card-title">📖 Kindle E-Ink: Portrait (Light Mode)</div>
-            <div class="card-desc">Primary Tier 1 platform on Amazon Kindle. Pure 1-bit high-contrast paper mode with edge-to-edge squeezed 4:5 arena, 12-hour clock, and subagents.</div>
+            <div class="card-title">💤 ESP32: Idle State (`IDLE`)</div>
+            <div class="card-desc">Sleepy floating Pi mascot with rising pink/cyan ZZZ particles and green status indicator.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-idle.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-idle.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Thinking -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-thinking.webp')">
+          <img src="assets/screenshots/dashboard-thinking.webp" alt="ESP32 Thinking State">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">🧠 ESP32: Thinking State (`THINKING`)</div>
+            <div class="card-desc">Pulsing psychic telepathic rings with logic calculation particles and cyan concentration eyes.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-thinking.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-thinking.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Bash -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-bash.webp')">
+          <img src="assets/screenshots/dashboard-bash.webp" alt="ESP32 Bash Tool Execution">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">⌨️ ESP32: Tool Execution (`BASH`)</div>
+            <div class="card-desc">Matrix code stream rain with interactive terminal keyboard and amber hacking focus eyes.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-bash.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-bash.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Alert -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-alert.webp')">
+          <img src="assets/screenshots/dashboard-alert.webp" alt="ESP32 Alert State">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">⚠️ ESP32: Ask / Alert State (`ALERT`)</div>
+            <div class="card-desc">Flashing caution triangle with amber alert glow, wide eyes, and amber task prompt.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-alert.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-alert.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Victory -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-victory.webp')">
+          <img src="assets/screenshots/dashboard-victory.webp" alt="ESP32 Victory State">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">🏆 ESP32: Job Passed (`VICTORY`)</div>
+            <div class="card-desc">Celebratory gold trophy with confetti sparkles, happy curved eyes, and test pass confirmation.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-victory.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-victory.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Subagents Tab -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-subagents.webp')">
+          <img src="assets/screenshots/dashboard-subagents.webp" alt="ESP32 Subagents View">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">👥 ESP32: Active Subagents Matrix</div>
+            <div class="card-desc">Grid cards displaying active subagents with model roles (`smol`, `default`, `slow`, `sonic`).</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-subagents.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-subagents.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESP32 Todo Logs Tab -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-todo-logs.webp')">
+          <img src="assets/screenshots/dashboard-todo-logs.webp" alt="ESP32 Todo and Logs View">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">📋 ESP32: TODO &amp; Telemetry Logs</div>
+            <div class="card-desc">Live streaming task breakdown with real-time phase completion status and command logs.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-todo-logs.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-todo-logs.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-heading">📖 Kindle E-Ink Displays (Pure 1-Bit Monochrome)</div>
+    <div class="gallery-grid">
+      <!-- Kindle Portrait Light -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/kindle-portrait.webp')">
+          <img src="assets/screenshots/kindle-portrait.webp" alt="Kindle E-Ink Portrait Light">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">📖 Kindle: Portrait (Light Mode)</div>
+            <div class="card-desc">High-contrast 1-bit monochrome paper mode for Paperwhite, Basic, and Touch devices.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/kindle-portrait.webp" target="_blank">🔍 Open Image</a>
@@ -215,15 +346,15 @@
         </div>
       </div>
 
-      <!-- 3. KINDLE DARK MODE -->
+      <!-- Kindle Portrait Dark -->
       <div class="gallery-card">
         <div class="img-container" onclick="openZoom('assets/screenshots/kindle-dark-mode.webp')">
           <img src="assets/screenshots/kindle-dark-mode.webp" alt="Kindle E-Ink Dark Mode">
         </div>
         <div class="card-info">
           <div>
-            <div class="card-title">🌙 Kindle E-Ink: Dark Mode (Night)</div>
-            <div class="card-desc">Pure black background with white typography, inverted active subagent chips, and high-contrast e-ink monochrome rendering.</div>
+            <div class="card-title">🌙 Kindle: Dark Mode (Night)</div>
+            <div class="card-desc">Inverted monochrome mode for late-night reading sessions with white typography on black.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/kindle-dark-mode.webp" target="_blank">🔍 Open Image</a>
@@ -232,15 +363,15 @@
         </div>
       </div>
 
-      <!-- 4. KINDLE LANDSCAPE -->
+      <!-- Kindle Landscape -->
       <div class="gallery-card">
         <div class="img-container" onclick="openZoom('assets/screenshots/kindle-landscape.webp')">
-          <img src="assets/screenshots/kindle-landscape.webp" alt="Kindle E-Ink Landscape Mode">
+          <img src="assets/screenshots/kindle-landscape.webp" alt="Kindle Landscape Mode">
         </div>
         <div class="card-info">
           <div>
-            <div class="card-title">📖 Kindle E-Ink: Landscape Mode</div>
-            <div class="card-desc">Horizontal dual-column split view with full-height mascot viewport on the left and structured telemetry stack on the right.</div>
+            <div class="card-title">📖 Kindle: Landscape Mode</div>
+            <div class="card-desc">Dual-column split layout with full-height mascot viewport and right-side telemetry stack.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/kindle-landscape.webp" target="_blank">🔍 Open Image</a>
@@ -249,15 +380,15 @@
         </div>
       </div>
 
-      <!-- 5. ZENOS LAUNCHER APP CARD -->
+      <!-- ZenOS Launcher -->
       <div class="gallery-card">
         <div class="img-container" onclick="openZoom('assets/screenshots/zenos-launcher.webp')">
-          <img src="assets/screenshots/zenos-launcher.webp" alt="ZenOS 3.2 Launcher Mode">
+          <img src="assets/screenshots/zenos-launcher.webp" alt="ZenOS Launcher App Tile">
         </div>
         <div class="card-info">
           <div>
             <div class="card-title">🌌 ZenOS 3.2 App Launcher Mode</div>
-            <div class="card-desc">Native ZenOS / ZenUI (`zen_ui.koplugin` &amp; ZenPM) home screen tile registration, providing a dedicated app card on your Kindle desktop.</div>
+            <div class="card-desc">Native ZenPM package registration showing the dedicated PipDeck application card.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/zenos-launcher.webp" target="_blank">🔍 Open Image</a>
@@ -266,15 +397,15 @@
         </div>
       </div>
 
-      <!-- 6. IN-APP TUTORIAL & DIAGNOSTIC WIZARD -->
+      <!-- Tutorial Wizard -->
       <div class="gallery-card">
         <div class="img-container" onclick="openZoom('assets/screenshots/tutorial-guide.webp')">
           <img src="assets/screenshots/tutorial-guide.webp" alt="In-App Connection Tutorial">
         </div>
         <div class="card-info">
           <div>
-            <div class="card-title">❓ In-App Setup Tutorial &amp; Diagnostics</div>
-            <div class="card-desc">Interactive 4-step wizard accessible anytime via `[?] Guide` directly on the Kindle, with live HTTP ping diagnostics to the OMP host daemon.</div>
+            <div class="card-title">❓ In-App Setup Tutorial &amp; Ping Diagnostic</div>
+            <div class="card-desc">4-step non-technical onboarding wizard accessible anytime on the Kindle with live ping testing.</div>
           </div>
           <div class="card-actions">
             <a class="btn" href="assets/screenshots/tutorial-guide.webp" target="_blank">🔍 Open Image</a>
@@ -282,11 +413,10 @@
           </div>
         </div>
       </div>
-
     </div>
+
   </div>
 
-  <!-- Fullscreen Zoom Modal -->
   <div class="modal" id="zoomModal" onclick="closeZoom()">
     <img id="modalImg" src="" alt="Fullscreen Screenshot">
   </div>

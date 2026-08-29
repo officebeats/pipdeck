@@ -30,6 +30,7 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
    - **Display Engine**: Pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
 2. **Secondary Platform (Tier 2) — ESP32 Micro-Displays & Embedded Hardware**:
    - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
+   - **Official OMP Palette**: Block-matrix Pi logo with Hot Pink (`#ff4071`) $\to$ Purple (`#9333ea`) $\to$ Electric Cyan (`#00f0ff`) gradient and dithered halftone texture.
    - **Light & Dark Theme Engine**:
      - **🌙 Dark Matrix Mode**: Pure OLED `#000000` black with `#00ff41` matrix green borders and `#facc15` cyber-yellow commands.
      - **☀️ Light Terminal Mode**: Pure `#ffffff` white canvas with `#15803d` emerald structural borders and `#854d0e` dark commands.
@@ -117,7 +118,7 @@ A 4-step interactive connection guide is available inside the KOReader plugin an
 ### B. Secondary Platform: ESP32 Color LCD (E-Ink Mirrored with Subtle Matrix Green)
 ```
 +------------------------------------------------------------------------+
-| [1. DASHBOARD]            [2. SETUP GUIDE]          [3. TODO & LOGS]   | <-- Touch Tabs
+| [1. DASHBOARD]            [2. SUBAGENTS]            [3. TODO & LOGS]   | <-- Touch Tabs
 +------------------------------------------------------------------------+
 | OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*        12:45:02 PM | <-- 12-Hour Time Default
 +------------------------------------------------------------------------+

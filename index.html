@@ -1195,9 +1195,9 @@
           <div class="esp-screen-bezel">
             <div class="esp-screen-inner" id="espScreenInner">
               <div class="touch-tabs-bar">
-                <button class="touch-tab active">[1. DASHBOARD]</button>
-                <button class="touch-tab" onclick="openTutorialModal(1)">[2. SETUP GUIDE]</button>
-                <button class="touch-tab">[3. TODO &amp; LOGS]</button>
+                <button class="touch-tab active" onclick="switchEspTab('dash')">[1. DASHBOARD]</button>
+                <button class="touch-tab" onclick="switchEspTab('subagents')">[2. SUBAGENTS]</button>
+                <button class="touch-tab" onclick="switchEspTab('logs')">[3. TODO &amp; LOGS]</button>
               </div>
 
               <div class="esp-screen-work-area">
@@ -1235,7 +1235,38 @@
                     </div>
                   </div>
                 </div>
+                <div class="esp-view-subagents" id="espViewSubagents" style="display:none; flex:1; margin:4px 0; display:none; grid-template-columns:repeat(2, 1fr); gap:8px;">
+                  <div style="border:1.5px solid #3f3f46; padding:8px 10px; background:#000; border-radius:3px;">
+                    <div style="font-weight:800; font-size:0.82rem; color:#ffffff;">✨ Google Scout</div>
+                    <div style="color:var(--matrix-cyan); font-size:0.75rem;">✨ Google gemini-3.7-flash</div>
+                    <div style="color:var(--matrix-yellow); font-size:0.75rem; margin-top:2px;">&gt;_ grep "authProvider"</div>
+                  </div>
+                  <div style="border:1.5px solid #3f3f46; padding:8px 10px; background:#000; border-radius:3px;">
+                    <div style="font-weight:800; font-size:0.82rem; color:#ffffff;">🏺 Anthropic Coder</div>
+                    <div style="color:var(--matrix-orange); font-size:0.75rem;">🏺 Anthropic claude-3-7-sonnet</div>
+                    <div style="color:var(--matrix-yellow); font-size:0.75rem; margin-top:2px;">&gt;_ edit src/auth.ts</div>
+                  </div>
+                  <div style="border:1.5px solid #3f3f46; padding:8px 10px; background:#000; border-radius:3px;">
+                    <div style="font-weight:800; font-size:0.82rem; color:#ffffff;">🌀 OpenAI Reviewer</div>
+                    <div style="color:var(--matrix-green); font-size:0.75rem;">🌀 OpenAI gpt-5.2-reasoning</div>
+                    <div style="color:var(--matrix-yellow); font-size:0.75rem; margin-top:2px;">&gt;_ lsp diagnostics</div>
+                  </div>
+                  <div style="border:1.5px solid #3f3f46; padding:8px 10px; background:#000; border-radius:3px;">
+                    <div style="font-weight:800; font-size:0.82rem; color:#71717a;">🦙 Local Sonic</div>
+                    <div style="color:#71717a; font-size:0.75rem;">🦙 Local/Ollama qwen2.5-coder-7b</div>
+                    <div style="color:#71717a; font-size:0.75rem; margin-top:2px;">Status: Standby pool</div>
+                  </div>
+                </div>
 
+                <div class="esp-view-logs" id="espViewLogs" style="display:none; flex:1; margin:4px 0; border:1.5px solid var(--border-green); background:#000; padding:8px 10px; font-size:0.8rem; flex-direction:column; justify-content:flex-end; line-height:1.5; border-radius:3px;">
+                  <div><span style="color:var(--matrix-green); font-weight:800;">[TODO]</span> Phase 1: Foundation ✓ <span style="color:#a1a1aa;">(2/2 done)</span></div>
+                  <div><span style="color:var(--matrix-yellow); font-weight:800;">[TODO]</span> Phase 2: Auth Flow ⚡ <span style="color:#ffffff;">(in_progress 3/5)</span></div>
+                  <div style="margin-top:6px; border-top:1px dashed #3f3f46; padding-top:4px;">
+                    <div><span style="color:var(--matrix-green);">[12:45:00]</span> [✨ Google Scout]: grep "auth"</div>
+                    <div><span style="color:var(--matrix-orange);">[12:45:01]</span> [🏺 Anthropic Coder]: edit src/auth.ts (+42 lines)</div>
+                    <div><span style="color:var(--matrix-green);">[12:45:02]</span> [🌀 OpenAI Reviewer]: bash "cargo test" (RUNNING)</div>
+                  </div>
+                </div>
                 <div class="esp-screen-footer">
                   <span>CTX: <strong style="color: var(--matrix-green);" id="dspCtxText">62%</strong></span>
                   <span>COST: <strong style="color: var(--matrix-yellow);" id="dspCost">$0.38</strong></span>
@@ -1743,6 +1774,23 @@
         led.style.background = data.led;
         led.style.boxShadow = `0 0 14px ${data.led}`;
       }
+    }
+    function switchEspTab(tabKey) {
+      const tabs = document.querySelectorAll('.touch-tabs-bar .touch-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      if (event && event.currentTarget) event.currentTarget.classList.add('active');
+
+      const dash = document.querySelector('.esp-view-dashboard');
+      const subs = document.getElementById('espViewSubagents');
+      const logs = document.getElementById('espViewLogs');
+
+      if (dash) dash.style.display = 'none';
+      if (subs) subs.style.display = 'none';
+      if (logs) logs.style.display = 'none';
+
+      if (tabKey === 'dash' && dash) dash.style.display = 'grid';
+      else if (tabKey === 'subagents' && subs) subs.style.display = 'grid';
+      else if (tabKey === 'logs' && logs) logs.style.display = 'flex';
     }
 
     setInterval(() => {
