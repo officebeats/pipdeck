@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PipDeck Visual Gallery &amp; Screenshots</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #18181b;
+      --border: #27272a;
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --green: #00ff41;
+      --pink: #ff4071;
+      --cyan: #00f0ff;
+      --yellow: #facc15;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 30px 20px 80px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 2px solid var(--green);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1.5px solid var(--green);
+      color: var(--green);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    .gallery-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    .gallery-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+    .img-container {
+      background: #000000;
+      aspect-ratio: 16 / 11;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1.5px solid var(--border);
+      cursor: zoom-in;
+    }
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+    }
+    .img-container:hover img {
+      transform: scale(1.03);
+    }
+    .card-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .btn {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: #27272a;
+      color: #ffffff;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn:hover {
+      background: var(--green);
+      color: #000000;
+      border-color: var(--green);
+    }
+    .btn-cyan:hover {
+      background: var(--cyan);
+      color: #000000;
+      border-color: var(--cyan);
+    }
+
+    /* Zoom Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal img {
+      max-width: 95vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border: 2px solid var(--cyan);
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div>
+        <span class="badge">PIPDECK VISUAL ASSET VIEWER</span>
+        <h1>Screenshot &amp; Layout Gallery</h1>
+        <p style="color:var(--muted); font-size:0.95rem; margin-top:4px;">Click any image to zoom in high resolution, or open directly in new tabs.</p>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <a class="btn btn-cyan" href="index.html">🎮 Open Interactive Simulator</a>
+        <a class="btn" href="https://github.com/officebeats/pipdeck" target="_blank">🐙 GitHub Repo</a>
+      </div>
+    </header>
+
+    <div class="gallery-grid">
+
+      <!-- 1. ESP32 SHOWCASE WITH OMP PI LOGO -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/dashboard-swarm-32.webp')">
+          <img src="assets/screenshots/dashboard-swarm-32.webp" alt="ESP32 2.8 Color LCD Showcase">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">📟 ESP32 2.8" Color LCD (32-Swarm)</div>
+            <div class="card-desc">High-contrast layout on pure OLED black with subtle Matrix green accents, top-right combo HUD, 12h clock, and exact OMP sunset gradient Pi logo.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/dashboard-swarm-32.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/dashboard-swarm-32.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. KINDLE PORTRAIT LIGHT MODE -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/kindle-portrait.webp')">
+          <img src="assets/screenshots/kindle-portrait.webp" alt="Kindle E-Ink Portrait Mode">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">📖 Kindle E-Ink: Portrait (Light Mode)</div>
+            <div class="card-desc">Primary Tier 1 platform on Amazon Kindle. Pure 1-bit high-contrast paper mode with edge-to-edge squeezed 4:5 arena, 12-hour clock, and subagents.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/kindle-portrait.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/kindle-portrait.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. KINDLE DARK MODE -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/kindle-dark-mode.webp')">
+          <img src="assets/screenshots/kindle-dark-mode.webp" alt="Kindle E-Ink Dark Mode">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">🌙 Kindle E-Ink: Dark Mode (Night)</div>
+            <div class="card-desc">Pure black background with white typography, inverted active subagent chips, and high-contrast e-ink monochrome rendering.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/kindle-dark-mode.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/kindle-dark-mode.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. KINDLE LANDSCAPE -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/kindle-landscape.webp')">
+          <img src="assets/screenshots/kindle-landscape.webp" alt="Kindle E-Ink Landscape Mode">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">📖 Kindle E-Ink: Landscape Mode</div>
+            <div class="card-desc">Horizontal dual-column split view with full-height mascot viewport on the left and structured telemetry stack on the right.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/kindle-landscape.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/kindle-landscape.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. ZENOS LAUNCHER APP CARD -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/zenos-launcher.webp')">
+          <img src="assets/screenshots/zenos-launcher.webp" alt="ZenOS 3.2 Launcher Mode">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">🌌 ZenOS 3.2 App Launcher Mode</div>
+            <div class="card-desc">Native ZenOS / ZenUI (`zen_ui.koplugin` &amp; ZenPM) home screen tile registration, providing a dedicated app card on your Kindle desktop.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/zenos-launcher.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/zenos-launcher.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. IN-APP TUTORIAL & DIAGNOSTIC WIZARD -->
+      <div class="gallery-card">
+        <div class="img-container" onclick="openZoom('assets/screenshots/tutorial-guide.webp')">
+          <img src="assets/screenshots/tutorial-guide.webp" alt="In-App Connection Tutorial">
+        </div>
+        <div class="card-info">
+          <div>
+            <div class="card-title">❓ In-App Setup Tutorial &amp; Diagnostics</div>
+            <div class="card-desc">Interactive 4-step wizard accessible anytime via `[?] Guide` directly on the Kindle, with live HTTP ping diagnostics to the OMP host daemon.</div>
+          </div>
+          <div class="card-actions">
+            <a class="btn" href="assets/screenshots/tutorial-guide.webp" target="_blank">🔍 Open Image</a>
+            <button class="btn btn-cyan" onclick="openZoom('assets/screenshots/tutorial-guide.webp')">🔎 Zoom</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Fullscreen Zoom Modal -->
+  <div class="modal" id="zoomModal" onclick="closeZoom()">
+    <img id="modalImg" src="" alt="Fullscreen Screenshot">
+  </div>
+
+  <script>
+    function openZoom(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('zoomModal').style.display = 'flex';
+    }
+    function closeZoom() {
+      document.getElementById('zoomModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,17 +1,35 @@
 # PipDeck 📖⚡ — Kindle KOReader, ZenOS & Hardware Companion for Oh My Pi (OMP)
 
 [![Release: v0.1.0-alpha](https://img.shields.io/badge/Release-v0.1.0--alpha-facc15.svg?style=flat-square)](https://github.com/officebeats/pipdeck/releases)
+[![Visual Screenshot Gallery](https://img.shields.io/badge/Visual%20Gallery-View%20Screenshots-38bdf8.svg?style=flat-square)](https://officebeats.github.io/pipdeck/gallery.html)
 [![Primary Platform: Kindle KOReader & ZenOS](https://img.shields.io/badge/Primary%20Platform-Kindle%20KOReader%20%26%20ZenOS-ffffff.svg?style=flat-square)](https://github.com/koreader/koreader)
-[![Target: Paperwhite & Basic](https://img.shields.io/badge/Target-Kindle%20Paperwhite%20(PW1--5)-38bdf8.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 [![Live Web Simulator & Installer](https://img.shields.io/badge/Live%20Web%20Simulator-officebeats.github.io%2Fpipdeck-00ff41.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
 [![Theme: Light & Dark Modes](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Modes-c084fc.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00ff41.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 > **PipDeck v0.1.0-alpha** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)** with dedicated optimization for **older Kindle Paperwhite devices (PW1, PW2, PW3, PW4, PW5, Basic, Touch)**, plus secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and instant **Light Mode (Paper Day)** & **Dark Mode (OLED Night)** theme switching.
 >
+> 🖼️ **Visual Screenshot Gallery**: [https://officebeats.github.io/pipdeck/gallery.html](https://officebeats.github.io/pipdeck/gallery.html)
+>
 > 🌐 **Live Web Simulator & 1-Click Installer**: [https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck) *(Type: `officebeats.github.io/pipdeck`)*
 >
 > 📦 **Alpha Release ZIP**: [pipdeck-koreader-paperwhite-v0.1.0-alpha.zip](https://officebeats.github.io/pipdeck/dist/pipdeck-koreader-paperwhite-v0.1.0-alpha.zip)
+
+---
+
+## 🖼️ Visual Screenshot Gallery (Direct Web Links)
+
+| 📟 ESP32 2.8" Color LCD (32-Swarm) | 📖 Kindle E-Ink: Portrait (Light Mode) | 🌙 Kindle E-Ink: Dark Mode (Night) |
+| :---: | :---: | :---: |
+| [![ESP32 Display](assets/screenshots/dashboard-swarm-32.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [![Kindle Portrait](assets/screenshots/kindle-portrait.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [![Kindle Dark Mode](assets/screenshots/kindle-dark-mode.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/dashboard-swarm-32.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-portrait.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-dark-mode.webp) |
+
+| 📖 Kindle E-Ink: Landscape Mode | 🌌 ZenOS 3.2 App Launcher Mode | ❓ In-App Connection Wizard |
+| :---: | :---: | :---: |
+| [![Kindle Landscape](assets/screenshots/kindle-landscape.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) | [![ZenOS Launcher](assets/screenshots/zenos-launcher.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) | [![In-App Tutorial](assets/screenshots/tutorial-guide.webp)](https://officebeats.github.io/pipdeck/assets/screenshots/tutorial-guide.webp) |
+| [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/kindle-landscape.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/zenos-launcher.webp) | [Open Full Resolution](https://officebeats.github.io/pipdeck/assets/screenshots/tutorial-guide.webp) |
+
+👉 **[Open Interactive Full-Screen Gallery](https://officebeats.github.io/pipdeck/gallery.html)**
 
 ---
 
@@ -20,32 +38,6 @@
 PipDeck runs as a KOReader plugin / KUAL extension on Amazon Kindle e-ink hardware.
 - **Requirement**: You must have a **jailbroken Kindle with KOReader installed**.
 - **Don't know what that is?** 👉 **[Let Me Google That For You 🖱️](https://letmegooglethat.com/?q=how+to+jailbreak+kindle+and+install+koreader)**
-
----
-
-## 📸 Primary Platform Showcase: Kindle E-Ink (KOReader & ZenOS)
-
-Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **Landscape**, **ZenOS App Launcher**, and **Light & Dark Theme** modes:
-
-| Kindle Portrait Mode (600×800 / 1072×1448) | Kindle Landscape Mode (800×600 / 1448×1072) |
-| :---: | :---: |
-| [![Kindle Portrait](assets/screenshots/kindle-portrait.webp)](assets/screenshots/kindle-portrait.webp) | [![Kindle Landscape](assets/screenshots/kindle-landscape.webp)](assets/screenshots/kindle-landscape.webp) |
-
----
-
-## 📸 Secondary Platform Showcase: ESP32 2.8" SPI Color LCD (CYD)
-
-Unified high-contrast design mirroring the clean E-Ink layout with instant **Light Terminal Mode** and **Dark Matrix Mode** support:
-[![ESP32 High-Contrast Layout](assets/screenshots/dashboard-swarm-32.webp)](assets/screenshots/dashboard-swarm-32.webp)
-
----
-
-## 🌐 Live Web Simulator & 1-Click Installer (GitHub Pages)
-
-Experience the live interactive simulator, test stepped animations, or install directly to your Kindle via USB at:
-👉 **[https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck)**
-
-*(Short URL to type in browser: `officebeats.github.io/pipdeck`)*
 
 ---
 
@@ -120,20 +112,7 @@ Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)
 - **Target Board**: **[AOICRIE ESP32-2432S028R 2.8" SPI TFT LCD (Amazon)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)**  
   *(ESP32-WROOM-32, 2.8" $320 \times 240$ SPI TFT with ILI9341 driver, XPT2046 resistive touch, onboard RGB LED, light sensor LDR, mono audio DAC speaker header, and USB-C).*
 
-
 ---
-
-## 🐾 Orca & Codex Native Desktop Companion Sprites (Zero Background / LED Pixel Effect)
-
-PipDeck includes native companion sprite support across both **Orca IDE** and **OpenAI Codex** coding environments:
-- **Built-in Orca Pet Integration**: Upload or select Pip directly from the Orca status-bar pet menu (Experimental Settings) using the transparent SVGs/PNGs in `assets/animations/` (`pip-idle.svg`, `pip-hacking.svg`, `pip-victory.svg`).
-- **Native Floating Companion Window**: 100% true alpha transparent Wayland window with zero gray/white/black background boxes, pinned over the desktop with discrete retro LED pixel animation.
-- **Universal Asset Source (`assets/animations/`)**: Single canonical source of truth for all platforms (Kindle E-Ink, ESP32, Orca, Codex, Web Simulator) with zero asset drift.
-- **Universal Stepped Pacing**: Strictly uses `steps(N)` low-framerate retro LED/LCD timing across all states.
-- **Real-Time Live SSE Stream**: Broadcasts agent lifecycle transitions (idle, thinking, bash/coding, alert, victory, swarm) with sub-10ms latency via Server-Sent Events.
-- **Launchers**:
-  - **Orca Pet**: `./bin/orca-pet {start|stop|status|pet|feed|state}` (Port 8788, SSE stream + WebKit2 native alpha transparent Wayland window).
-  - **Codex Pet**: `./bin/codex-pet {start|stop|status|pet|feed|state}` (Port 8790, SSE stream + WebKit2 native alpha transparent Wayland window).
 
 ## 🛠️ Quick Start & Installation
 
