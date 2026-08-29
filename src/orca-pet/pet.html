@@ -5,208 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pip: Orca Mascot Pet</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      outline: none !important;
-      border: none !important;
-      box-shadow: none !important;
+    :root {
+      --bg: #000000;
+      --border-green: #00ff41;
+      --text: #ffffff;
+      --omp-pink: #ff4071;
+      --omp-purple: #9333ea;
+      --omp-cyan: #00f0ff;
     }
-    
-    html, body {
-      background: transparent !important;
-      background-color: rgba(0, 0, 0, 0) !important;
-      width: 100vw;
-      height: 100vh;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: rgba(0, 0, 0, 0);
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      outline: none !important;
-      border: none !important;
-      box-shadow: none !important;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
     }
 
     .pet-container {
-      width: 100%;
-      height: 100%;
+      width: 130px;
+      height: 140px;
       position: relative;
+      cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: transparent !important;
-      outline: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 2px;
     }
 
-    .pet-img {
+    .pet-svg-wrapper {
       width: 100%;
       height: 100%;
-      object-fit: contain;
       image-rendering: pixelated;
-      filter: drop-shadow(0 0 8px rgba(0, 255, 65, 0.6));
-      transition: transform 0.08s steps(2);
-      outline: none !important;
-      border: none !important;
-      box-shadow: none !important;
+      transition: transform 0.15s ease;
     }
-    .pet-img:active {
-      transform: scale(0.92);
+    .pet-container:hover .pet-svg-wrapper {
+      transform: scale(1.08);
     }
-
-    /* Floating Heart on Pet */
-    .heart {
-      position: absolute;
-      color: #f43f5e;
-      font-size: 16px;
-      font-weight: bold;
-      pointer-events: none;
-      animation: floatUp 0.6s steps(4) forwards;
-      z-index: 20;
-    }
-    @keyframes floatUp {
-      0% { opacity: 1; transform: translateY(0) scale(0.8); }
-      50% { opacity: 1; transform: translateY(-16px) scale(1.2); }
-      100% { opacity: 0; transform: translateY(-32px) scale(0.9); }
+    .pet-container:active .pet-svg-wrapper {
+      transform: scale(0.95);
     }
 
-    /* Floating Token Crumb on Feed */
-    .crumb {
+    /* Floating Bubble */
+    .bubble {
       position: absolute;
-      color: #facc15;
-      font-family: monospace;
-      font-size: 11px;
-      font-weight: bold;
+      top: -10px;
+      background: #000000;
+      border: 1.5px solid var(--omp-cyan);
+      color: var(--omp-cyan);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
       pointer-events: none;
-      animation: dropBite 0.5s steps(4) forwards;
-      z-index: 20;
+      opacity: 0;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      z-index: 10;
     }
-    @keyframes dropBite {
-      0% { opacity: 1; transform: translateY(-15px); }
-      100% { opacity: 0; transform: translateY(15px) scale(0.4); }
+    .bubble.show {
+      top: -24px;
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <div class="pet-container" id="petBox" title="Click: Pet Pip | Double-Click / F: Feed | Live Sync Active">
-    <img id="mascot" class="pet-img" src="assets/animations/pip-idle.svg" alt="Pip Mascot">
+  <div class="pet-container" id="petBox" onclick="interactPet()">
+    <div class="bubble" id="petBubble">Pip is Ready! ⚡</div>
+    <div class="pet-svg-wrapper" id="petSvgBox">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="40 60 80 80" width="100%" height="100%" shape-rendering="crispEdges">
+        <defs>
+          <pattern id="piHalftone" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+            <rect width="3" height="3" fill="#180b2c"/>
+            <rect x="0" y="0" width="1" height="1" fill="#c084fc"/>
+            <rect x="2" y="2" width="1" height="1" fill="#c084fc"/>
+          </pattern>
+        </defs>
+        <style>
+          @keyframes pixelBreathe { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
+          @keyframes pixelBlink { 0%, 42%, 58%, 100% { opacity: 1; } 45%, 55% { opacity: 0; } }
+          @keyframes pixelBlinkClosed { 0%, 42%, 58%, 100% { opacity: 0; } 45%, 55% { opacity: 1; } }
+          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 100px; filter: drop-shadow(0 0 4px #9333ea); }
+          .shadow { transform-origin: 80px 124px; animation: pixelBreathe 2.4s steps(2) infinite reverse; }
+          .eye-open { animation: pixelBlink 4s steps(1) infinite; }
+          .eye-closed { animation: pixelBlinkClosed 4s steps(1) infinite; }
+        </style>
+        <ellipse cx="80" cy="124" rx="22" ry="3.5" fill="#9333ea" opacity="0.35" class="shadow"/>
+        <ellipse cx="80" cy="124" rx="12" ry="2" fill="#00f0ff" opacity="0.5" class="shadow"/>
+        <g class="mascot">
+          <rect x="49" y="74" width="9" height="9" fill="#ff4071" stroke="#000" stroke-width="0.75"/>
+          <rect x="58" y="74" width="9" height="9" fill="#f43f5e" stroke="#000" stroke-width="0.75"/>
+          <rect x="67" y="74" width="9" height="9" fill="#c026d3" stroke="#000" stroke-width="0.75"/>
+          <rect x="76" y="74" width="9" height="9" fill="#9333ea" stroke="#000" stroke-width="0.75"/>
+          <rect x="85" y="74" width="9" height="9" fill="#6366f1" stroke="#000" stroke-width="0.75"/>
+          <rect x="94" y="74" width="9" height="9" fill="#0ea5e9" stroke="#000" stroke-width="0.75"/>
+          <rect x="103" y="74" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
+
+          <rect x="58" y="83" width="9" height="9" fill="#ec4899" stroke="#000" stroke-width="0.75"/>
+          <rect x="58" y="92" width="9" height="9" fill="#a855f7" stroke="#000" stroke-width="0.75"/>
+          <rect x="58" y="101" width="9" height="9" fill="#7e22ce" stroke="#000" stroke-width="0.75"/>
+          <rect x="58" y="110" width="9" height="9" fill="url(#piHalftone)" stroke="#000" stroke-width="0.75"/>
+
+          <rect x="85" y="83" width="9" height="9" fill="#7c3aed" stroke="#000" stroke-width="0.75"/>
+          <rect x="85" y="92" width="9" height="9" fill="#2563eb" stroke="#000" stroke-width="0.75"/>
+          <rect x="85" y="101" width="9" height="9" fill="#0284c7" stroke="#000" stroke-width="0.75"/>
+          <rect x="85" y="110" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
+
+          <g class="eye-closed">
+            <rect x="71" y="78" width="4" height="2" fill="#ffffff"/>
+            <rect x="88" y="78" width="4" height="2" fill="#ffffff"/>
+          </g>
+          <g class="eye-open">
+            <rect x="71" y="76" width="4" height="4" fill="#ffffff"/>
+            <rect x="72" y="77" width="2" height="2" fill="#000000"/>
+            <rect x="88" y="76" width="4" height="4" fill="#ffffff"/>
+            <rect x="89" y="77" width="2" height="2" fill="#000000"/>
+          </g>
+        </g>
+      </svg>
+    </div>
   </div>
 
   <script>
-    let sound = true;
-    const states = {
-      idle: 'assets/animations/pip-idle.svg',
-      thinking: 'assets/animations/pip-thinking.svg',
-      bash: 'assets/animations/pip-hacking.svg',
-      alert: 'assets/animations/pip-alert.svg',
-      victory: 'assets/animations/pip-victory.svg',
-      swarm32: 'assets/animations/pip-swarm-32.svg'
-    };
+    const phrases = [
+      "Pip: OMP Active 🚀",
+      "Swarm: 32 Nodes! ⚡",
+      "Coding with Claude & Gemini ✨",
+      "Purring in 8-bit 💚",
+      "Pip Loves Oh My Pi!"
+    ];
 
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function playTone(freq, type = 'square', dur = 0.08, gainVal = 0.05) {
-      if (!sound) return;
-      try {
-        if (!audioCtx) audioCtx = new AudioContext();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + dur);
-      } catch (e) {}
+    function interactPet() {
+      const bubble = document.getElementById('petBubble');
+      const text = phrases[Math.floor(Math.random() * phrases.length)];
+      bubble.innerText = text;
+      bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2400);
     }
-
-    function sfxPurr() {
-      playTone(260, 'square', 0.06, 0.05);
-      setTimeout(() => playTone(390, 'square', 0.08, 0.06), 40);
-    }
-
-    function sfxFeed() {
-      playTone(600, 'square', 0.04, 0.06);
-      setTimeout(() => playTone(900, 'square', 0.06, 0.08), 40);
-    }
-
-    const mascot = document.getElementById('mascot');
-    const petBox = document.getElementById('petBox');
-
-    function spawnHeart(x, y) {
-      const h = document.createElement('div');
-      h.className = 'heart';
-      h.textContent = '♥';
-      h.style.left = `${x || 50}px`;
-      h.style.top = `${y || 30}px`;
-      petBox.appendChild(h);
-      setTimeout(() => h.remove(), 600);
-    }
-
-    function spawnCrumb(x, y) {
-      const c = document.createElement('div');
-      c.className = 'crumb';
-      c.textContent = '01';
-      c.style.left = `${x || 50}px`;
-      c.style.top = `${y || 40}px`;
-      petBox.appendChild(c);
-      setTimeout(() => c.remove(), 500);
-    }
-
-    function petPip(e) {
-      sfxPurr();
-      const rect = petBox.getBoundingClientRect();
-      const x = e ? e.clientX - rect.left - 4 : rect.width / 2;
-      const y = e ? e.clientY - rect.top - 10 : rect.height / 2 - 10;
-      spawnHeart(x, y);
-    }
-
-    function feedPip() {
-      sfxFeed();
-      const rect = petBox.getBoundingClientRect();
-      spawnCrumb(rect.width / 2 - 6, rect.height / 2);
-    }
-
-    petBox.addEventListener('click', (e) => petPip(e));
-    petBox.addEventListener('dblclick', (e) => { e.preventDefault(); feedPip(); });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'f' || e.key === 'F') feedPip();
-      if (e.key === 'p' || e.key === 'P') petPip();
-      if (e.key === 'm' || e.key === 'M') sound = !sound;
-    });
-
-    // Real-Time SSE Stream Hook for Live Chat Processing
-    function connectEvents() {
-      try {
-        const es = new EventSource('/api/pet/events');
-        es.onmessage = (e) => {
-          try {
-            const data = JSON.parse(e.data);
-            if (data.state && states[data.state]) {
-              mascot.src = states[data.state];
-            }
-          } catch (err) {}
-        };
-        es.onerror = () => {
-          es.close();
-          setTimeout(connectEvents, 1500);
-        };
-      } catch (e) {
-        setTimeout(connectEvents, 2000);
-      }
-    }
-    connectEvents();
   </script>
 </body>
 </html>

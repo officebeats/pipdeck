@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="100%" height="100%" preserveAspectRatio="none" shape-rendering="crispEdges">
+  <defs>
+    <!-- Halftone Dither Pattern for Left Leg Bottom Block -->
+    <pattern id="piHalftone" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#180b2c"/>
+      <rect x="0" y="0" width="1" height="1" fill="#c084fc"/>
+      <rect x="2" y="2" width="1" height="1" fill="#c084fc"/>
+    </pattern>
+  </defs>
+
   <style>
     @keyframes pixelBreathe {
       0%, 100% { transform: translateY(0px); }
@@ -54,81 +63,73 @@
     <text x="31" y="11.5" font-family="'Fira Code', monospace" font-size="7.5" font-weight="900" fill="#00ff41" text-anchor="middle">IDLE</text>
   </g>
 
-  <!-- Rising Sleepy ZZZ Particles -->
-  <g class="z-1" fill="#7443fa" transform="translate(100, 75)">
+  <!-- Rising Sleepy ZZZ Particles in Pink/Cyan -->
+  <g class="z-1" fill="#f43f5e" transform="translate(108, 75)">
     <path d="M0,0 H6 L2,6 H6 V8 H0 L4,2 H0 Z"/>
     <path d="M8,-12 H15 L10,-4 H15 V-2 H8 L13,-10 H8 Z"/>
     <path d="M18,-26 H27 L20,-16 H27 V-13 H18 L25,-23 H18 Z"/>
   </g>
-  <g class="z-2" fill="#22d3ee" transform="translate(108, 85)">
+  <g class="z-2" fill="#00f0ff" transform="translate(116, 85)">
     <path d="M0,0 H6 L2,6 H6 V8 H0 L4,2 H0 Z"/>
     <path d="M8,-14 H16 L11,-5 H16 V-3 H8 L13,-12 H8 Z"/>
   </g>
 
   <!-- Ground Levitation Floor -->
-  <g opacity="0.6" stroke="#7443fa" stroke-width="1">
+  <g opacity="0.6" stroke="#c084fc" stroke-width="1">
     <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
     <line x1="35" y1="188" x2="125" y2="188"/>
   </g>
-  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#7443fa" opacity="0.25"/>
-  <ellipse cx="80" cy="180" rx="20" ry="2.5" fill="#22d3ee" opacity="0.6"/>
+  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#f43f5e" opacity="0.25"/>
+  <ellipse cx="80" cy="180" rx="20" ry="2.5" fill="#00f0ff" opacity="0.6"/>
 
-  <!-- Mascot Body (Authentic OMP Purple #7443fa & Neon Cyan #22d3ee Palette) -->
+  <!-- Official Oh My Pi (OMP) Pixel-Grid Pi Logo Mascot -->
   <g class="mascot-idle">
-    <!-- Pi Crown / Head Top -->
-    <rect x="64" y="84" width="32" height="10" fill="#7443fa"/>
-    <rect x="66" y="82" width="28" height="14" fill="#7443fa"/>
-    <rect x="62" y="86" width="36" height="6" fill="#7443fa"/>
-    
-    <!-- Left Leg -->
-    <rect x="68" y="94" width="10" height="22" fill="#6437e3"/>
-    <rect x="66" y="114" width="14" height="6" fill="#7443fa"/>
-    <!-- Right Leg & Foot Curl -->
-    <rect x="82" y="94" width="10" height="20" fill="#6437e3"/>
-    <rect x="82" y="112" width="16" height="8" fill="#7443fa"/>
-    <rect x="94" y="106" width="6" height="10" fill="#8b5cf6"/>
+    <!-- Top Horizontal Crossbar (7 Block Modules, Pink -> Violet -> Cyan) -->
+    <!-- Block 1: Hot Pink -->
+    <rect x="49" y="74" width="9" height="9" fill="#ff4071" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 2: Deep Pink (Leg Left Anchor) -->
+    <rect x="58" y="74" width="9" height="9" fill="#f43f5e" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 3: Magenta/Violet -->
+    <rect x="67" y="74" width="9" height="9" fill="#c026d3" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 4: Rich Purple (Center) -->
+    <rect x="76" y="74" width="9" height="9" fill="#9333ea" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 5: Indigo/Periwinkle (Leg Right Anchor) -->
+    <rect x="85" y="74" width="9" height="9" fill="#6366f1" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 6: Sky Blue -->
+    <rect x="94" y="74" width="9" height="9" fill="#0ea5e9" stroke="#000" stroke-width="0.75"/>
+    <!-- Block 7: Electric Cyan -->
+    <rect x="103" y="74" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
 
-    <!-- Core Highlights & Accents -->
-    <rect x="70" y="96" width="6" height="18" fill="#000000"/>
-    <rect x="71" y="96" width="5" height="18" fill="#7443fa"/>
-    <rect x="71" y="96" width="2" height="18" fill="#ffffff"/>
-    <rect x="68" y="116" width="10" height="2" fill="#000000"/>
-    <rect x="69" y="116" width="8" height="2" fill="#22d3ee"/>
+    <!-- Left Leg (4 Blocks Dropping from Block 2) -->
+    <!-- Leg Block L1: Magenta -->
+    <rect x="58" y="83" width="9" height="9" fill="#ec4899" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block L2: Violet -->
+    <rect x="58" y="92" width="9" height="9" fill="#a855f7" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block L3: Deep Purple -->
+    <rect x="58" y="101" width="9" height="9" fill="#7e22ce" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block L4: Halftone Dithered Foot -->
+    <rect x="58" y="110" width="9" height="9" fill="url(#piHalftone)" stroke="#000" stroke-width="0.75"/>
 
-    <rect x="84" y="96" width="6" height="16" fill="#000000"/>
-    <rect x="85" y="96" width="5" height="16" fill="#7443fa"/>
-    <rect x="85" y="96" width="2" height="16" fill="#ffffff"/>
-    <rect x="84" y="114" width="12" height="4" fill="#000000"/>
-    <rect x="85" y="114" width="10" height="3" fill="#22d3ee"/>
-    <rect x="96" y="108" width="3" height="6" fill="#000000"/>
-    <rect x="96" y="109" width="2" height="4" fill="#8b5cf6"/>
+    <!-- Right Leg (4 Blocks Dropping from Block 5) -->
+    <!-- Leg Block R1: Indigo -->
+    <rect x="85" y="83" width="9" height="9" fill="#7c3aed" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block R2: Blue -->
+    <rect x="85" y="92" width="9" height="9" fill="#2563eb" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block R3: Sky Blue -->
+    <rect x="85" y="101" width="9" height="9" fill="#0284c7" stroke="#000" stroke-width="0.75"/>
+    <!-- Leg Block R4: Luminous Cyan Foot -->
+    <rect x="85" y="110" width="9" height="9" fill="#00f0ff" stroke="#000" stroke-width="0.75"/>
 
-    <!-- Face Screen -->
-    <rect x="66" y="84" width="28" height="10" fill="#0f0f0f"/>
-    <rect x="67" y="84" width="26" height="10" fill="#7443fa"/>
-    <rect x="67" y="82" width="26" height="2" fill="#ffffff"/>
-    <rect x="66" y="93" width="28" height="1" fill="#000000"/>
-    <rect x="69" y="85" width="22" height="7" fill="#0f0f0f"/>
-
-    <!-- Eyes (Sleeping Slits in Neon Cyan #22d3ee) -->
+    <!-- Subtle Robot Pixel Eyes (Integrated into Center Pi Crossbar) -->
     <g class="eye-closed">
-      <rect x="72" y="88" width="5" height="2" fill="#22d3ee"/>
-      <rect x="83" y="88" width="5" height="2" fill="#22d3ee"/>
+      <rect x="71" y="78" width="4" height="2" fill="#ffffff"/>
+      <rect x="88" y="78" width="4" height="2" fill="#ffffff"/>
     </g>
-    <!-- Eyes (Occasional Open Blink with White Glint) -->
     <g class="eye-open">
-      <rect x="72" y="86" width="5" height="4" fill="#22d3ee"/>
-      <rect x="73" y="86" width="2" height="2" fill="#ffffff"/>
-      <rect x="83" y="86" width="5" height="4" fill="#22d3ee"/>
-      <rect x="84" y="86" width="2" height="2" fill="#ffffff"/>
-    </g>
-
-    <!-- Ear Sensors -->
-    <g fill="#7443fa">
-      <rect x="58" y="86" width="4" height="6"/>
-      <rect x="59" y="87" width="2" height="4" fill="#22d3ee"/>
-      <rect x="98" y="86" width="4" height="6"/>
-      <rect x="99" y="87" width="2" height="4" fill="#22d3ee"/>
+      <rect x="71" y="76" width="4" height="4" fill="#ffffff"/>
+      <rect x="72" y="77" width="2" height="2" fill="#000000"/>
+      <rect x="88" y="76" width="4" height="4" fill="#ffffff"/>
+      <rect x="89" y="77" width="2" height="2" fill="#000000"/>
     </g>
   </g>
 </svg>
