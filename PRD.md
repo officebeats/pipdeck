@@ -6,8 +6,11 @@
 
 ### Multi-Platform Mandate (In Perpetuity)
 AI agents and contributors MUST in perpetuity maintain, support, and test both target hardware tiers across all telemetry protocols, UI layouts, and animation engines:
-1. **Tier 1: ESP32 Micro-Displays**: ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA, FreeRTOS).
-2. **Tier 2: Jailbroken Amazon Kindle E-Ink Devices (KOReader)**: Kindle Paperwhite, Oasis, Basic, and Scribe e-ink displays (Native Lua plugin `pipdeck.koreader`, wireless mDNS discovery, 1-bit monochrome dithering, responsive Portrait & Landscape orientations).
+1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader**:
+   - Jailbroken Kindle Paperwhite, Oasis, Basic, and Scribe e-ink readers.
+   - Native Lua plugin `koreader/plugins/pipdeck.koreader`, wireless mDNS local Wi-Fi discovery (`omp.local:8787`), pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
+2. **Secondary Platform (Tier 2) — ESP32 Micro-Displays & Embedded Hardware**:
+   - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
 
 ---
 
@@ -19,11 +22,11 @@ Because e-ink electrophoretic microcapsules have physical refresh latency (~250�
 +-------------------------------------------------------------------------------+
 |                        ADAPTIVE DISPLAY TIMING ENGINE                         |
 +-------------------------------------------------------------------------------+
-|  TIER 1: ESP32 COLOR LCD (DMA)          |  TIER 2: KINDLE E-INK (KOREADER)    |
-|  • 4–8 FPS LCD Stepped Motion           |  • 1–2 FPS Ultra-Low-Pace Stepped   |
-|  • Discrete steps(8) / steps(12) clicks |  • Discrete State Ticks on Event    |
-|  • Constant 60 FPS Framebuffer Swap     |  • Periodic Waveform Full Clear     |
-|  • High-Contrast Matrix Phosphor Green  |  • 1-Bit Pure Monochrome High-Contrast|
+|  PRIMARY: KINDLE E-INK (KOREADER)       |  SECONDARY: ESP32 COLOR LCD (DMA)   |
+|  • 1–2 FPS Ultra-Low-Pace Stepped       |  • 4–8 FPS Retro LCD Stepped Motion |
+|  • Discrete State Ticks on Event        |  • Discrete steps(8)/steps(12)      |
+|  • Periodic Full Flash Waveform Clear   |  • Constant 60 FPS Framebuffer Swap |
+|  • Pure 1-Bit Monochrome High-Contrast  |  • High-Contrast Matrix Phosphor    |
 +-------------------------------------------------------------------------------+
 ```
 
@@ -36,17 +39,19 @@ Because e-ink electrophoretic microcapsules have physical refresh latency (~250�
 
 ## 3. Responsive Kindle E-Ink Display Layouts (KOReader)
 
-### A. Portrait Orientation (e.g. 600×800 / 1072×1448 / 1264×1680)
+### A. Portrait Orientation (600×800 / 1072×1448 / 1264×1680)
 ```
 +------------------------------------------------------------------------+
 | OMP ❯ 🏺 Anthropic claude-3-7-sonnet                          12:45:02 | <-- Status Header
 +------------------------------------------------------------------------+
-| ┌─ 1:1 E-Ink Mascot Canvas ──────────────────────────────────────────┐ |
-| │                                                                    │ |
-| │                    [ 8-Bit Pixel Pip Mascot ]                      │ |
-| │                       (100% In-Frame Swarm)                        │ |
-| │                                                                    │ |
-| └────────────────────────────────────────────────────────────────────┘ |
+|                                                                        |
+|                  ┌─ Centered 4:5 Mascot Arena ─────┐                   |
+|                  │                                 │                   |
+|                  │    [ 8-Bit Pixel Pip Mascot ]   │                   |
+|                  │       (100% In-Frame Swarm)     │                   |
+|                  │                                 │                   |
+|                  └─────────────────────────────────┘                   |
+|                                                                        |
 | 🧵 #cleanse-workspace-diagnostics                                      | <-- Thread Name
 +------------------------------------------------------------------------+
 | ● PARALLEL SWARM                           📋 Phase 3: Parallel Fix    | <-- Status & Phase
@@ -60,7 +65,7 @@ Because e-ink electrophoretic microcapsules have physical refresh latency (~250�
 +------------------------------------------------------------------------+
 ```
 
-### B. Landscape Orientation (e.g. 800×600 / 1448×1072 / 1680×1264)
+### B. Landscape Orientation (800×600 / 1448×1072 / 1680×1264)
 ```
 +------------------------------------------------------------------------+
 | OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*           12:45:02 |
@@ -81,8 +86,6 @@ Because e-ink electrophoretic microcapsules have physical refresh latency (~250�
 ---
 
 ## 4. Wireless Zero-Config Discovery Protocol
-
-For non-technical users, PipDeck connects automatically across the local Wi-Fi network without requiring manual serial flashing or command-line IP entry:
 
 1. **mDNS Auto-Discovery**:
    - The OMP daemon broadcasts service `_pipdeck._tcp.local` on port `8787`.
@@ -111,7 +114,7 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 
 ---
 
-## 6. Hardware Specifications (ESP32-2432S028R)
+## 6. Hardware Specifications (ESP32-2432S028R Secondary Tier)
 
 | Subsystem | Peripheral | GPIO Pin | Bus / Protocol |
 | :--- | :--- | :--- | :--- |
@@ -137,10 +140,10 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 
 ## 7. Software Architecture & Plugin Scaffold
 
-### A. ESP32 Firmware (PlatformIO / LovyanGFX)
-- **Core 0**: Serial UART / WebSocket parser, state machine, LED/DAC controller.
-- **Core 1**: LovyanGFX DMA framebuffer swap (60 FPS render pipeline).
-
-### B. Kindle KOReader Plugin (`koreader/plugins/pipdeck.koreader/`)
+### A. Kindle KOReader Plugin (`koreader/plugins/pipdeck.koreader/`) - Primary
 - `_meta.lua`: Plugin registration.
 - `main.lua`: mDNS network listener, orientation-responsive drawing routines, partial/full e-ink refresh controller.
+
+### B. ESP32 Firmware (PlatformIO / LovyanGFX) - Secondary
+- **Core 0**: Serial UART / WebSocket parser, state machine, LED/DAC controller.
+- **Core 1**: LovyanGFX DMA framebuffer swap (60 FPS render pipeline).
