@@ -76,6 +76,7 @@
     .tag-primary { border-color: #ffffff; color: #000000; background: #ffffff; }
     .tag-yellow { border-color: var(--matrix-yellow); color: var(--matrix-yellow); }
     .tag-cyan { border-color: var(--matrix-cyan); color: var(--matrix-cyan); }
+    .tag-theme { border-color: #a855f7; color: #c084fc; }
     
     h1 {
       font-size: 2.2rem;
@@ -151,6 +152,26 @@
       font-weight: 900;
     }
 
+    .theme-toggle-btn {
+      background: #000000;
+      border: 2px solid #a855f7;
+      color: #c084fc;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .theme-toggle-btn:hover {
+      background: #a855f7;
+      color: #ffffff;
+    }
+
     .btn-tutorial-trigger {
       background: #000000;
       border: 2px solid var(--matrix-yellow);
@@ -206,6 +227,7 @@
       text-transform: uppercase;
     }
 
+    /* E-Ink Surface: Light Mode (Default) vs Dark Mode */
     .eink-screen-surface {
       background: #ffffff;
       color: #000000;
@@ -220,6 +242,12 @@
       flex-direction: column;
       justify-content: space-between;
       box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      transition: background 0.2s, color 0.2s;
+    }
+    .eink-screen-surface.eink-dark-mode {
+      background: #000000;
+      color: #ffffff;
+      border-color: #ffffff;
     }
     .kindle-case.landscape-mode .eink-screen-surface {
       min-height: 400px;
@@ -227,7 +255,7 @@
     }
 
     .eink-header {
-      border-bottom: 2px solid #000000;
+      border-bottom: 2px solid currentColor;
       padding-bottom: 6px;
       margin-bottom: 10px;
       display: flex;
@@ -237,9 +265,9 @@
       font-weight: 800;
     }
 
-    /* Maximized 4:5 Squeezed Mascot Arena (Zero Inner Void) */
+    /* Maximized 4:5 Mascot Arena */
     .eink-mascot-box-portrait {
-      border: 2.5px solid #000000;
+      border: 2.5px solid currentColor;
       width: 100%;
       max-width: 280px;
       aspect-ratio: 4 / 5;
@@ -251,6 +279,10 @@
       border-radius: 2px;
       overflow: hidden;
       padding: 0;
+    }
+    .eink-screen-surface.eink-dark-mode .eink-mascot-box-portrait {
+      border-color: #ffffff;
+      background: #000000;
     }
     .eink-mascot-box-portrait img {
       width: 100%;
@@ -264,7 +296,7 @@
     .eink-thread-title {
       font-size: 1.12rem;
       font-weight: 800;
-      border-bottom: 2px solid #000000;
+      border-bottom: 2px solid currentColor;
       padding-bottom: 4px;
       margin-bottom: 6px;
       white-space: nowrap;
@@ -279,7 +311,7 @@
       margin-bottom: 6px;
     }
     .eink-cmd-box {
-      border: 2px solid #000000;
+      border: 2px solid currentColor;
       background: #000000;
       color: #ffffff;
       padding: 7px 10px;
@@ -290,6 +322,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .eink-screen-surface.eink-dark-mode .eink-cmd-box {
+      background: #ffffff;
+      color: #000000;
+    }
+
     .eink-subagents-row {
       display: flex;
       gap: 6px;
@@ -297,17 +334,24 @@
       margin-bottom: 8px;
     }
     .eink-subagent-chip {
-      border: 1.5px solid #000000;
+      border: 1.5px solid currentColor;
       padding: 3px 8px;
       font-size: 0.82rem;
       font-weight: 800;
+      background: transparent;
+      color: inherit;
     }
     .eink-subagent-chip.active {
       background: #000000;
       color: #ffffff;
     }
+    .eink-screen-surface.eink-dark-mode .eink-subagent-chip.active {
+      background: #ffffff;
+      color: #000000;
+    }
+
     .eink-footer {
-      border-top: 2px solid #000000;
+      border-top: 2px solid currentColor;
       padding-top: 6px;
       display: flex;
       justify-content: space-between;
@@ -322,7 +366,7 @@
       flex: 1;
     }
     .eink-mascot-box-landscape {
-      border: 2.5px solid #000000;
+      border: 2.5px solid currentColor;
       width: 100%;
       height: 100%;
       aspect-ratio: 4 / 5;
@@ -343,7 +387,7 @@
       display: block;
     }
 
-    /* ZenOS Launcher Screen Preview */
+    /* ZenOS Launcher Preview */
     .zenos-home-view {
       display: none;
       height: 100%;
@@ -351,7 +395,7 @@
       justify-content: space-between;
     }
     .zenos-header {
-      border-bottom: 2px solid #000000;
+      border-bottom: 2px solid currentColor;
       padding-bottom: 8px;
       font-size: 0.95rem;
       font-weight: 800;
@@ -365,20 +409,26 @@
       margin: 20px 0;
     }
     .zenos-app-card {
-      border: 2.5px solid #000000;
+      border: 2.5px solid currentColor;
       padding: 16px;
       text-align: center;
       cursor: pointer;
       background: #ffffff;
+      color: #000000;
       transition: all 0.15s;
     }
-    .zenos-app-card:hover {
-      background: #000000;
+    .eink-screen-surface.eink-dark-mode .zenos-app-card {
+      background: #18181b;
       color: #ffffff;
+      border-color: #ffffff;
     }
     .zenos-app-card.featured {
       background: #000000;
       color: #ffffff;
+    }
+    .eink-screen-surface.eink-dark-mode .zenos-app-card.featured {
+      background: #ffffff;
+      color: #000000;
     }
 
     .eink-flashing {
@@ -391,7 +441,7 @@
     }
 
     /* ========================================================= */
-    /* 2. ESP32 COLOR LCD (E-INK INSPIRED HIGH-CONTRAST)         */
+    /* 2. ESP32 DISPLAY (DARK MATRIX VS LIGHT TERMINAL MODE)    */
     /* ========================================================= */
     .esp32-pcb {
       display: none;
@@ -454,6 +504,8 @@
       border-radius: 8px;
       padding: 10px;
     }
+    
+    /* ESP Screen Inner: Dark Matrix (Default) vs Light Terminal Mode */
     .esp-screen-inner {
       background: #000000;
       aspect-ratio: 4 / 3;
@@ -465,12 +517,19 @@
       display: flex;
       flex-direction: column;
       font-family: 'Fira Code', monospace;
+      color: #ffffff;
+      transition: background 0.2s, color 0.2s;
+    }
+    .esp-screen-inner.esp-light-mode {
+      background: #ffffff;
+      color: #09090b;
+      border-color: #15803d;
     }
     .esp-screen-inner::before {
       content: " ";
       position: absolute;
       top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+      background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
       background-size: 100% 4px;
       pointer-events: none;
       z-index: 20;
@@ -483,6 +542,11 @@
       border-bottom: 2px solid var(--border-green);
       z-index: 10;
     }
+    .esp-screen-inner.esp-light-mode .touch-tabs-bar {
+      background: #f4f4f5;
+      border-bottom: 2px solid #15803d;
+    }
+
     .touch-tab {
       padding: 8px 4px;
       text-align: center;
@@ -495,8 +559,14 @@
       cursor: pointer;
       font-family: 'Fira Code', monospace;
     }
+    .esp-screen-inner.esp-light-mode .touch-tab {
+      color: #09090b;
+      background: #f4f4f5;
+      border-right: 1px solid #e4e4e7;
+    }
     .touch-tab:last-child { border-right: none; }
     .touch-tab.active { color: #000000; background: #ffffff; font-weight: 900; }
+    .esp-screen-inner.esp-light-mode .touch-tab.active { color: #ffffff; background: #15803d; }
 
     .esp-screen-work-area {
       flex: 1;
@@ -505,19 +575,21 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 10;
-      background: #000000;
+      background: transparent;
     }
     .esp-screen-status-line {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #000000;
       border-bottom: 2px solid #ffffff;
       padding-bottom: 4px;
       margin-bottom: 6px;
       font-size: 0.88rem;
-      color: #ffffff;
+      color: inherit;
       font-weight: 800;
+    }
+    .esp-screen-inner.esp-light-mode .esp-screen-status-line {
+      border-bottom: 2px solid #09090b;
     }
 
     .esp-view-dashboard {
@@ -540,6 +612,10 @@
       overflow: hidden;
       padding: 0;
     }
+    .esp-screen-inner.esp-light-mode .esp-mascot-viewport {
+      border-color: #15803d;
+      background: #000000;
+    }
     .esp-mascot-viewport img {
       width: 100%;
       height: 100%;
@@ -547,8 +623,8 @@
       image-rendering: pixelated;
       display: block;
     }
+
     .esp-telemetry-viewport {
-      background: #000000;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -556,8 +632,8 @@
     .esp-thread-title {
       font-size: 1.05rem;
       font-weight: 800;
-      color: #ffffff;
-      border-bottom: 2px solid #ffffff;
+      color: inherit;
+      border-bottom: 2px solid currentColor;
       padding-bottom: 4px;
       margin-bottom: 6px;
     }
@@ -578,6 +654,12 @@
       margin-bottom: 6px;
       border-radius: 3px;
     }
+    .esp-screen-inner.esp-light-mode .esp-cmd-box {
+      background: #f4f4f5;
+      border: 2px solid #15803d;
+      color: #854d0e;
+    }
+
     .esp-subagents-row {
       display: flex;
       gap: 6px;
@@ -589,24 +671,33 @@
       padding: 2px 7px;
       font-size: 0.78rem;
       font-weight: 800;
-      color: #ffffff;
-      background: #000000;
+      color: inherit;
+      background: transparent;
       border-radius: 3px;
+    }
+    .esp-screen-inner.esp-light-mode .esp-subagent-chip {
+      border-color: #d4d4d8;
     }
     .esp-subagent-chip.active {
       border-color: var(--border-green);
       background: var(--matrix-green);
       color: #000000;
     }
+    .esp-screen-inner.esp-light-mode .esp-subagent-chip.active {
+      background: #15803d;
+      border-color: #15803d;
+      color: #ffffff;
+    }
+
     .esp-screen-footer {
-      border-top: 2px solid #ffffff;
+      border-top: 2px solid currentColor;
       padding-top: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-size: 0.85rem;
       font-weight: 800;
-      color: #ffffff;
+      color: inherit;
     }
 
     .increment-stepper-box {
@@ -794,11 +885,12 @@
         <div class="badge-bar">
           <span class="tag tag-primary">PRIMARY: KINDLE KOREADER &amp; ZENOS</span>
           <span class="tag">SECONDARY: ESP32 LCD</span>
+          <span class="tag tag-theme">☀️ LIGHT &amp; 🌙 DARK MODES</span>
           <span class="tag tag-yellow">12H CLOCK DEFAULT</span>
           <span class="tag tag-cyan">MAXIMIZED CANVAS</span>
         </div>
         <h1>PipDeck: Multi-Platform Hardware Companion</h1>
-        <p class="subtitle">An open-source desktop companion display engineered for <strong>Kindle KOReader &amp; ZenOS E-Ink (Primary Tier 1)</strong> and <strong>ESP32 Micro-Displays (Secondary Tier 2)</strong> with responsive edge-to-edge canvas real estate and default 12h time.</p>
+        <p class="subtitle">An open-source desktop companion display engineered for <strong>Kindle KOReader &amp; ZenOS E-Ink (Primary Tier 1)</strong> and <strong>ESP32 Micro-Displays (Secondary Tier 2)</strong> with responsive edge-to-edge canvas real estate, default 12h time, and instant Light/Dark mode switching.</p>
       </div>
     </div>
   </header>
@@ -807,7 +899,7 @@
 
     <section>
       <h2>Interactive Multi-Platform Simulator &amp; Connection Wizard</h2>
-      <p>Test the Kindle KOReader, ZenOS Launcher, and ESP32 displays with the full-bleed canvas and 12-hour clock:</p>
+      <p>Test the Kindle KOReader, ZenOS Launcher, and ESP32 displays across both Light Mode (Paper Day) and Dark Mode (OLED Night):</p>
 
       <div class="platform-selector-bar">
         <div class="platform-btns-left">
@@ -825,9 +917,14 @@
           </button>
         </div>
 
-        <button class="btn-tutorial-trigger" onclick="openTutorialModal(1)">
-          <span>❓</span> [Connection Setup &amp; Tutorial]
-        </button>
+        <div style="display: flex; gap: 8px;">
+          <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleGlobalTheme()">
+            <span id="themeIcon">☀️</span> <span id="themeText">[Mode: Light Theme]</span>
+          </button>
+          <button class="btn-tutorial-trigger" onclick="openTutorialModal(1)">
+            <span>❓</span> [Connection Setup &amp; Tutorial]
+          </button>
+        </div>
       </div>
 
       <div class="hardware-wrapper">
@@ -966,6 +1063,9 @@
           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
             <span class="kindle-logo-branding">kindle paperwhite</span>
             <div style="display: flex; gap: 8px;">
+              <button onclick="toggleGlobalTheme()" style="background:#27272a; color:#c084fc; border:1px solid #3f3f46; font-family:'Fira Code', monospace; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:4px; cursor:pointer;">
+                ☀️/🌙 Theme
+              </button>
               <button onclick="openTutorialModal(1)" style="background:#27272a; color:#facc15; border:1px solid #3f3f46; font-family:'Fira Code', monospace; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:4px; cursor:pointer;">
                 ❓ Guide
               </button>
@@ -993,7 +1093,7 @@
           </div>
 
           <div class="esp-screen-bezel">
-            <div class="esp-screen-inner">
+            <div class="esp-screen-inner" id="espScreenInner">
               <div class="touch-tabs-bar">
                 <button class="touch-tab active">[1. DASHBOARD]</button>
                 <button class="touch-tab" onclick="openTutorialModal(1)">[2. SETUP GUIDE]</button>
@@ -1019,13 +1119,13 @@
                       </div>
                       <div class="esp-status-row">
                         <span style="color: var(--matrix-green);" id="dspState">● PARALLEL SWARM</span>
-                        <span style="color: #ffffff;" id="dspPhase">📋 Phase 3: Parallel Fix</span>
+                        <span id="dspPhase">📋 Phase 3: Parallel Fix</span>
                       </div>
                       <div class="esp-cmd-box" id="dspCmd">&gt;_ omp task[Scout, Coder, Reviewer, Sonic]</div>
                     </div>
 
                     <div>
-                      <div style="font-size: 0.8rem; color: #ffffff; font-weight: 800; margin-bottom: 4px;">ACTIVE SUBAGENTS:</div>
+                      <div style="font-size: 0.8rem; font-weight: 800; margin-bottom: 4px;">ACTIVE SUBAGENTS:</div>
                       <div class="esp-subagents-row">
                         <span class="esp-subagent-chip active">✨ Google Scout</span>
                         <span class="esp-subagent-chip active">🏺 Anthropic Coder</span>
@@ -1095,42 +1195,32 @@
 
     <!-- SECTION 2: ARCHITECTURE SPECIFICATION -->
     <section>
-      <h2>Responsive Kindle E-Ink (Old &amp; New) &amp; ESP32 Best Practices</h2>
-      <p>PipDeck dynamically adapts to all Kindle generations (from 600×800 Kindle Keyboard / Touch / Basic to 300 PPI Paperwhite / Oasis / Scribe) with responsive coordinate scaling and default 12-hour time:</p>
+      <h2>Light Mode &amp; Dark Mode Architecture Across Platforms</h2>
+      <p>PipDeck supports full day/night theme switching on both E-Ink and color LCD hardware:</p>
 
       <table>
         <thead>
           <tr>
-            <th>Hardware Generation</th>
-            <th>Native Screen Resolution</th>
-            <th>Responsive Viewport Layout</th>
-            <th>Refresh Pacing</th>
+            <th>Platform</th>
+            <th>☀️ Light Mode (Day / High-Contrast)</th>
+            <th>🌙 Dark Mode (Night / Matrix OLED)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Older Kindles (Most Common)</strong><br>K3, Touch, K4, K5, Basic 7/8/10</td>
-            <td><strong>600×800 (167 PPI)</strong></td>
-            <td>Edge-to-edge 4:5 Arena ($260\times 325\text{px}$), 1–2px integer stroke borders, 12h clock.</td>
-            <td>1.5s Event-stepped Fast Waveform + 15-frame full flash.</td>
+            <td><strong>Kindle E-Ink (KOReader &amp; ZenOS)</strong></td>
+            <td><strong>Paper White (#ffffff)</strong> background, deep black borders and typography, black-filled active agent badges.</td>
+            <td><strong>Pure Black (#000000)</strong> background, pure white typography and reticles, white-filled active agent badges.</td>
           </tr>
           <tr>
-            <td><strong>Mid-Gen Kindles</strong><br>Paperwhite 1 &amp; 2</td>
-            <td><strong>758×1024 (212 PPI)</strong></td>
-            <td>Full-bleed Portrait/Landscape scaling, crisp 2px borders, 12h clock.</td>
-            <td>1.5s Event-stepped Fast Waveform + 15-frame full flash.</td>
+            <td><strong>ESP32 Color Display</strong></td>
+            <td><strong>White (#ffffff)</strong> background, emerald green (#15803d) structural borders, high-contrast dark badges.</td>
+            <td><strong>Pitch Black (#000000)</strong> background, neon Matrix green (#00ff41) borders, cyber-yellow command syntax.</td>
           </tr>
           <tr>
-            <td><strong>Modern High-DPI Kindles</strong><br>Paperwhite 3/4/5, Oasis, Scribe</td>
-            <td><strong>1072×1448 / 1264×1680 (300 PPI)</strong></td>
-            <td>High-density typography, proportional vector mascot scaling, 12h clock.</td>
-            <td>1.0s Event-stepped Fast Waveform + 15-frame full flash.</td>
-          </tr>
-          <tr>
-            <td><strong>Secondary Platform</strong><br>ESP32-2432S028R LCD</td>
-            <td><strong>320×240 (SPI TFT)</strong></td>
-            <td>Mirrored E-Ink layout on pure OLED black with Matrix green accents.</td>
-            <td>4–8 FPS Retro LCD Stepped DMA Framebuffer.</td>
+            <td><strong>Default Clock</strong></td>
+            <td>12-Hour AM/PM (<code>12:45:02 PM</code>)</td>
+            <td>12-Hour AM/PM (<code>12:45:02 PM</code>)</td>
           </tr>
         </tbody>
       </table>
@@ -1165,6 +1255,7 @@
   <script>
     let currentPlatform = 'kindle-portrait';
     let currentTutorialStep = 1;
+    let isDarkMode = false; // Default: Light mode for Kindle E-Ink
 
     function getFormatted12HourTime() {
       const now = new Date();
@@ -1174,6 +1265,30 @@
         minute: '2-digit',
         second: '2-digit'
       });
+    }
+
+    function toggleGlobalTheme() {
+      isDarkMode = !isDarkMode;
+      applyTheme();
+    }
+
+    function applyTheme() {
+      const einkSurface = document.getElementById('einkSurface');
+      const espInner = document.getElementById('espScreenInner');
+      const themeText = document.getElementById('themeText');
+      const themeIcon = document.getElementById('themeIcon');
+
+      if (isDarkMode) {
+        einkSurface.classList.add('eink-dark-mode');
+        espInner.classList.remove('esp-light-mode');
+        themeText.innerText = '[Mode: Dark Theme]';
+        themeIcon.innerText = '🌙';
+      } else {
+        einkSurface.classList.remove('eink-dark-mode');
+        espInner.classList.add('esp-light-mode');
+        themeText.innerText = '[Mode: Light Theme]';
+        themeIcon.innerText = '☀️';
+      }
     }
 
     function switchPlatform(platformKey) {
@@ -1493,6 +1608,9 @@
       const elclk = document.getElementById('einkLandClock');
       if (elclk) elclk.innerText = timeStr;
     }, 1000);
+
+    // Initial Theme Sync
+    applyTheme();
   </script>
 </body>
 </html>

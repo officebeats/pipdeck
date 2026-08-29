@@ -9,6 +9,9 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
 1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader & ZenOS**:
    - Compatible with older 600×800 e-ink devices (Kindle Keyboard K3, Touch, K4, K5, Basic 7/8/10 — most common) and modern 300 PPI readers (Paperwhite 3/4/5, Oasis, Scribe).
    - Native Lua plugin `koreader/plugins/pipdeck.koplugin/` supporting both standard KOReader Main Menu and **ZenOS** (`zen_ui.koplugin` / ZenPM) App Launcher tiles.
+   - **Light & Dark Mode Support**:
+     - **☀️ Light Mode (Day / High-Contrast)**: Pure paper white (`#ffffff`) background with deep black borders, typography, and inverted black-filled active agent chips.
+     - **🌙 Dark Mode (Night / OLED / Inverted)**: Pure black (`#000000`) background with pure white typography, reticles, and white-filled active agent chips.
    - **Default 12-Hour Time**: Clock displays standard 12h format with AM/PM (`12:45:02 PM`).
    - **Maximized Screen Real Estate**: Full-bleed edge-to-edge 4:5 mascot arena and zero letterbox padding.
    - **Zero-Config Local Wi-Fi Pairing**: mDNS auto-discovery on `omp.local:8787` (`_pipdeck._tcp.local`) with manual IP fallback.
@@ -16,7 +19,9 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
    - **Display Engine**: Pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
 2. **Secondary Platform (Tier 2) — ESP32 Micro-Displays & Embedded Hardware**:
    - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
-   - **Unified High-Contrast Design**: Mirrors the clean, high-contrast, structured hierarchy of the E-Ink design on pure `#000000` OLED black with subtle, tasteful Matrix green structural accents.
+   - **Light & Dark Theme Engine**:
+     - **🌙 Dark Matrix Mode**: Pure OLED `#000000` black with `#00ff41` matrix green borders and `#facc15` cyber-yellow commands.
+     - **☀️ Light Terminal Mode**: Pure `#ffffff` white canvas with `#15803d` emerald structural borders and `#854d0e` dark commands.
 
 ---
 

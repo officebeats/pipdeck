@@ -2,16 +2,17 @@
 
 [![Primary Platform: Kindle KOReader & ZenOS](https://img.shields.io/badge/Primary%20Platform-Kindle%20KOReader%20%26%20ZenOS-ffffff.svg?style=flat-square)](https://github.com/koreader/koreader)
 [![Secondary Platform: ESP32-2432S028R](https://img.shields.io/badge/Secondary%20Platform-ESP32--2432S028R-38bdf8.svg?style=flat-square)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)
+[![Theme: Light & Dark Modes](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Modes-c084fc.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00ff41.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![Harness: Oh My Pi](https://img.shields.io/badge/Harness-Oh%20My%20Pi-00ff41.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 
-> **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and an interactive in-app setup tutorial.
+> **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and instant **Light Mode (Paper Day)** & **Dark Mode (OLED Night)** theme switching.
 
 ---
 
 ## 📸 Primary Platform Showcase: Kindle E-Ink (KOReader & ZenOS)
 
-Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **Landscape**, and **ZenOS App Launcher** modes:
+Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **Landscape**, **ZenOS App Launcher**, and **Light & Dark Theme** modes:
 
 | Kindle Portrait Mode (600×800 / 1072×1448) | Kindle Landscape Mode (800×600 / 1448×1072) |
 | :---: | :---: |
@@ -21,8 +22,20 @@ Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **La
 
 ## 📸 Secondary Platform Showcase: ESP32 2.8" SPI Color LCD (CYD)
 
-Unified high-contrast design mirroring the clean E-Ink layout on pure `#000000` OLED black with subtle, tasteful Matrix green structural accents:
+Unified high-contrast design mirroring the clean E-Ink layout with instant **Light Terminal Mode** and **Dark Matrix Mode** support:
 [![ESP32 High-Contrast Layout](assets/screenshots/dashboard-swarm-32.webp)](assets/screenshots/dashboard-swarm-32.webp)
+
+---
+
+## ☀️ Light Mode & 🌙 Dark Mode Architecture
+
+PipDeck supports seamless day/night theme switching on both E-Ink and color LCD hardware:
+- **Kindle E-Ink (KOReader / ZenOS)**:
+  - **☀️ Light Mode (Day)**: Pure Paper White (`#ffffff`) background with stark black borders and typography.
+  - **🌙 Dark Mode (Night)**: Pure Black (`#000000`) background with high-contrast white typography and inverted badges.
+- **ESP32 Color Display**:
+  - **🌙 Dark Matrix Mode**: Pitch black (`#000000`) OLED background with neon matrix green (`#00ff41`) and cyber-yellow accents.
+  - **☀️ Light Terminal Mode**: Pure white (`#ffffff`) background with emerald green (`#15803d`) borders and dark typography.
 
 ---
 
@@ -97,7 +110,7 @@ cp firmware/host/pipdeck-server.ts ~/.omp/agent/extensions/
 ```
 
 ### 3. Interactive Web Simulator
-Open [index.html](index.html) in any browser to test the **Kindle E-Ink Portrait**, **Kindle E-Ink Landscape**, **ZenOS Launcher Tile**, and **ESP32 2.8" Color LCD** simulators with 12h time, real-time state controls, and interactive tutorial.
+Open [index.html](index.html) in any browser to test the **Kindle E-Ink Portrait**, **Kindle E-Ink Landscape**, **ZenOS Launcher Tile**, and **ESP32 2.8" Color LCD** simulators with Light/Dark mode, 12h time, real-time state controls, and interactive tutorial.
 
 ---
 

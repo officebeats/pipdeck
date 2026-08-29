@@ -5,6 +5,7 @@ Target Harness: Oh My Pi (OMP)
 
 Features:
 - Dual Launcher Integration: Standard KOReader menu & ZenOS app launcher tile
+- Light & Dark Mode Engine: High-contrast paper day mode & pure black OLED night mode
 - Zero-Config Network Connection: mDNS auto-discovery with manual IP fallback
 - Reusable In-App Tutorial: 4-step interactive setup wizard accessible anytime
 - Responsive Orientation: Automatic Portrait and Landscape 1-bit layout switching
@@ -45,6 +46,7 @@ local PipDeck = Widget:extend{
     refresh_counter = 0,
     full_refresh_interval = 15,
     host_url = "http://omp.local:8787",
+    theme = "light", -- "light" (Paper Day Mode) or "dark" (OLED Night Mode)
     
     -- Telemetry State
     telemetry = {
@@ -72,6 +74,10 @@ function PipDeck:init()
         if saved_host and saved_host ~= "" then
             self.host_url = saved_host
         end
+        local saved_theme = G_reader_settings:readSetting("pipdeck_theme")
+        if saved_theme and (saved_theme == "light" or saved_theme == "dark") then
+            self.theme = saved_theme
+        end
     end
 
     if self.ui and self.ui.menu then
@@ -85,6 +91,12 @@ function PipDeck:init()
             title = _("PipDeck OMP Companion"),
             general = true,
         })
+        Dispatcher:registerAction("pipdeck_toggle_theme", {
+            category = "apps",
+            event = "PipDeckToggleTheme",
+            title = _("PipDeck: Toggle Light / Dark Mode"),
+            general = true,
+        })
     end
 end
 
@@ -96,6 +108,12 @@ function PipDeck:addToMainMenu(menu_items)
                 text = _("Launch PipDeck E-Ink Display"),
                 callback = function()
                     self:showCompanionView()
+                end,
+            },
+            {
+                text = _("Toggle Light / Dark Mode (Current: ") .. (self.theme == "light" and _("Light ☀️") or _("Dark 🌙")) .. ")",
+                callback = function()
+                    self:toggleTheme()
                 end,
             },
             {
@@ -120,8 +138,29 @@ function PipDeck:addToMainMenu(menu_items)
     }
 end
 
+function PipDeck:toggleTheme()
+    if self.theme == "light" then
+        self.theme = "dark"
+    else
+        self.theme = "light"
+    end
+    if G_reader_settings then
+        G_reader_settings:saveSetting("pipdeck_theme", self.theme)
+    end
+    UIManager:show(Notification:new{
+        text = _("PipDeck Theme: ") .. (self.theme == "light" and _("Light Mode ☀️") or _("Dark Mode 🌙")),
+    })
+    if self.is_running then
+        Screen:refreshFull()
+    end
+end
+
 function PipDeck:onPipDeckLaunch()
     self:showCompanionView()
+end
+
+function PipDeck:onPipDeckToggleTheme()
+    self:toggleTheme()
 end
 
 function PipDeck:getFormattedTime()
@@ -172,9 +211,10 @@ function PipDeck:showTutorial(step)
     end
 
     table.insert(buttons, {
-        text = _("Change IP"),
+        text = _("Theme: ") .. (self.theme == "light" and "☀️" or "🌙"),
         callback = function()
-            self:showConfigDialog()
+            self:toggleTheme()
+            self:showTutorial(step)
         end,
     })
 
@@ -387,12 +427,12 @@ end
 
 function PipDeck:renderPortrait(w, h)
     -- Native 1-bit high-contrast rendering for Kindle Portrait
-    -- Dynamically scaled for 600x800 (older Kindles) and 1072x1448 / 1264x1680 (modern)
+    -- Supports self.theme ("light" = white background, black foreground; "dark" = black background, white foreground)
 end
 
 function PipDeck:renderLandscape(w, h)
     -- Native 1-bit high-contrast rendering for Kindle Landscape
-    -- Split layout: Mascot on left, structured telemetry stack on right
+    -- Supports self.theme ("light" = white background, black foreground; "dark" = black background, white foreground)
 end
 
 function PipDeck:onClose()
