@@ -199,9 +199,7 @@
       margin: 10px 0 24px;
     }
 
-    /* ========================================================= */
-    /* 1. KINDLE KOREADER / ZENOS HARDWARE ENCLOSURE             */
-    /* ========================================================= */
+    /* KINDLE HARDWARE ENCLOSURE */
     .kindle-case {
       display: block;
       width: 100%;
@@ -227,7 +225,6 @@
       text-transform: uppercase;
     }
 
-    /* E-Ink Surface: Light Mode (Default) vs Dark Mode */
     .eink-screen-surface {
       background: #ffffff;
       color: #000000;
@@ -265,7 +262,6 @@
       font-weight: 800;
     }
 
-    /* Maximized 4:5 Mascot Arena */
     .eink-mascot-box-portrait {
       border: 2.5px solid currentColor;
       width: 100%;
@@ -387,7 +383,6 @@
       display: block;
     }
 
-    /* ZenOS Launcher Preview */
     .zenos-home-view {
       display: none;
       height: 100%;
@@ -440,9 +435,7 @@
       100% { filter: invert(0%); }
     }
 
-    /* ========================================================= */
-    /* 2. ESP32 DISPLAY (DARK MATRIX VS LIGHT TERMINAL MODE)    */
-    /* ========================================================= */
+    /* ESP32 DISPLAY */
     .esp32-pcb {
       display: none;
       width: 100%;
@@ -505,7 +498,6 @@
       padding: 10px;
     }
     
-    /* ESP Screen Inner: Dark Matrix (Default) vs Light Terminal Mode */
     .esp-screen-inner {
       background: #000000;
       aspect-ratio: 4 / 3;
@@ -775,6 +767,57 @@
       font-weight: 800;
     }
 
+    /* Easy-Installer Cards */
+    .install-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .install-card {
+      border: 2px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 20px;
+      background: #09090b;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .install-card.featured {
+      border-color: var(--matrix-green);
+      background: #000000;
+    }
+    .install-card h3 {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .install-btn {
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #ffffff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 12px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 14px;
+      text-decoration: none;
+      display: block;
+      transition: all 0.15s;
+    }
+    .install-btn:hover {
+      background: var(--matrix-green);
+      border-color: var(--matrix-green);
+      color: #000000;
+    }
+
     /* Modal */
     .tutorial-modal-backdrop {
       display: none;
@@ -887,16 +930,65 @@
           <span class="tag">SECONDARY: ESP32 LCD</span>
           <span class="tag tag-theme">☀️ LIGHT &amp; 🌙 DARK MODES</span>
           <span class="tag tag-yellow">12H CLOCK DEFAULT</span>
-          <span class="tag tag-cyan">MAXIMIZED CANVAS</span>
+          <span class="tag tag-cyan">1-CLICK WEB INSTALLER</span>
         </div>
         <h1>PipDeck: Multi-Platform Hardware Companion</h1>
-        <p class="subtitle">An open-source desktop companion display engineered for <strong>Kindle KOReader &amp; ZenOS E-Ink (Primary Tier 1)</strong> and <strong>ESP32 Micro-Displays (Secondary Tier 2)</strong> with responsive edge-to-edge canvas real estate, default 12h time, and instant Light/Dark mode switching.</p>
+        <p class="subtitle">An open-source desktop companion display engineered for <strong>Kindle KOReader &amp; ZenOS E-Ink (Primary Tier 1)</strong> and <strong>ESP32 Micro-Displays (Secondary Tier 2)</strong> with 1-click non-technical install, 12h time, and instant Light/Dark mode.</p>
       </div>
     </div>
   </header>
 
   <div class="container">
 
+    <!-- SECTION 1: 1-CLICK EASY INSTALL FOR NON-TECHNICAL USERS -->
+    <section>
+      <h2>Zero-Hassle Installation for Non-Technical Kindle Users</h2>
+      <p>Choose the simplest method that fits your workflow. No terminal commands or complex file hunting required:</p>
+
+      <div class="install-grid">
+        <!-- METHOD A: 1-CLICK WEB USB DRIVE INSTALLER -->
+        <div class="install-card featured">
+          <div>
+            <h3><span>🔌</span> Method 1: 1-Click Web Drive Installer</h3>
+            <p style="font-size:0.9rem; color:#d4d4d8;">Plug your Kindle into your computer via USB, click below, and pick your Kindle drive. Your browser will automatically copy the plugin directly into <code>koreader/plugins/</code>!</p>
+          </div>
+          <div>
+            <button class="install-btn" onclick="runWebDriveInstaller()">
+              ⚡ Install to Kindle Drive
+            </button>
+            <div id="installStatusText" style="font-size:0.8rem; margin-top:8px; color:var(--matrix-green); text-align:center;"></div>
+          </div>
+        </div>
+
+        <!-- METHOD B: ZENPM IN-APP STORE (WI-FI) -->
+        <div class="install-card">
+          <div>
+            <h3><span>🌌</span> Method 2: ZenPM Store (Zero Cables / Wi-Fi)</h3>
+            <p style="font-size:0.9rem; color:#d4d4d8;">If you run <strong>ZenOS</strong> on your Kindle, open <strong>ZenPM</strong> (Package Manager) on your device, search for <strong>"PipDeck"</strong>, and tap <strong>[Install]</strong> over Wi-Fi.</p>
+          </div>
+          <div>
+            <div style="background:#18181b; border:1px solid #3f3f46; padding:10px; border-radius:4px; font-family:'Fira Code', monospace; font-size:0.8rem; text-align:center;">
+              ZenOS &gt; ZenPM &gt; Search "PipDeck" &gt; Install
+            </div>
+          </div>
+        </div>
+
+        <!-- METHOD C: DRAG-AND-DROP ZIP -->
+        <div class="install-card">
+          <div>
+            <h3><span>📦</span> Method 3: 1-Step Drag &amp; Drop ZIP</h3>
+            <p style="font-size:0.9rem; color:#d4d4d8;">Download the pre-structured ZIP package and drag its contents directly to the root of your Kindle drive (e.g. <code>E:\</code> or <code>/Volumes/Kindle</code>).</p>
+          </div>
+          <div>
+            <a class="install-btn" href="dist/pipdeck-kindle-easy-install.zip" download>
+              ⬇️ Download Kindle ZIP
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE HARDWARE SIMULATOR -->
     <section>
       <h2>Interactive Multi-Platform Simulator &amp; Connection Wizard</h2>
       <p>Test the Kindle KOReader, ZenOS Launcher, and ESP32 displays across both Light Mode (Paper Day) and Dark Mode (OLED Night):</p>
@@ -1193,39 +1285,6 @@
       </div>
     </section>
 
-    <!-- SECTION 2: ARCHITECTURE SPECIFICATION -->
-    <section>
-      <h2>Light Mode &amp; Dark Mode Architecture Across Platforms</h2>
-      <p>PipDeck supports full day/night theme switching on both E-Ink and color LCD hardware:</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Platform</th>
-            <th>☀️ Light Mode (Day / High-Contrast)</th>
-            <th>🌙 Dark Mode (Night / Matrix OLED)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Kindle E-Ink (KOReader &amp; ZenOS)</strong></td>
-            <td><strong>Paper White (#ffffff)</strong> background, deep black borders and typography, black-filled active agent badges.</td>
-            <td><strong>Pure Black (#000000)</strong> background, pure white typography and reticles, white-filled active agent badges.</td>
-          </tr>
-          <tr>
-            <td><strong>ESP32 Color Display</strong></td>
-            <td><strong>White (#ffffff)</strong> background, emerald green (#15803d) structural borders, high-contrast dark badges.</td>
-            <td><strong>Pitch Black (#000000)</strong> background, neon Matrix green (#00ff41) borders, cyber-yellow command syntax.</td>
-          </tr>
-          <tr>
-            <td><strong>Default Clock</strong></td>
-            <td>12-Hour AM/PM (<code>12:45:02 PM</code>)</td>
-            <td>12-Hour AM/PM (<code>12:45:02 PM</code>)</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
   </div>
 
   <!-- INTERACTIVE IN-APP SETUP TUTORIAL MODAL -->
@@ -1255,7 +1314,7 @@
   <script>
     let currentPlatform = 'kindle-portrait';
     let currentTutorialStep = 1;
-    let isDarkMode = false; // Default: Light mode for Kindle E-Ink
+    let isDarkMode = false;
 
     function getFormatted12HourTime() {
       const now = new Date();
@@ -1288,6 +1347,52 @@
         espInner.classList.add('esp-light-mode');
         themeText.innerText = '[Mode: Light Theme]';
         themeIcon.innerText = '☀️';
+      }
+    }
+
+    async function runWebDriveInstaller() {
+      const statusText = document.getElementById('installStatusText');
+      if (!('showDirectoryPicker' in window)) {
+        alert('Web File System API is only available in Chrome, Edge, or Brave browsers. Please use Method 3 (Download ZIP) instead!');
+        return;
+      }
+      try {
+        statusText.innerText = 'Select your Kindle drive in the dialog...';
+        const dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        statusText.innerText = 'Installing PipDeck files to Kindle...';
+        
+        let koreaderHandle;
+        try {
+          koreaderHandle = await dirHandle.getDirectoryHandle('koreader', { create: true });
+        } catch (e) {
+          koreaderHandle = await dirHandle.getDirectoryHandle('.koreader', { create: true });
+        }
+        const pluginsHandle = await koreaderHandle.getDirectoryHandle('plugins', { create: true });
+        const pipdeckHandle = await pluginsHandle.getDirectoryHandle('pipdeck.koplugin', { create: true });
+
+        const metaRes = await fetch('koreader/plugins/pipdeck.koplugin/_meta.lua');
+        const metaContent = await metaRes.text();
+        const metaFile = await pipdeckHandle.getFileHandle('_meta.lua', { create: true });
+        const metaWritable = await metaFile.createWritable();
+        await metaWritable.write(metaContent);
+        await metaWritable.close();
+
+        const mainRes = await fetch('koreader/plugins/pipdeck.koplugin/main.lua');
+        const mainContent = await mainRes.text();
+        const mainFile = await pipdeckHandle.getFileHandle('main.lua', { create: true });
+        const mainWritable = await mainFile.createWritable();
+        await mainWritable.write(mainContent);
+        await mainWritable.close();
+
+        statusText.innerHTML = '✓ <strong>SUCCESS!</strong> Installed to koreader/plugins/pipdeck.koplugin. Safely eject Kindle and launch!';
+        alert('✓ Installation Successful!\n\nPipDeck has been copied directly to your Kindle.\n1. Safely eject Kindle USB.\n2. Open KOReader or ZenOS.\n3. Launch PipDeck OMP Companion!');
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          statusText.innerText = 'Installation failed. Try Method 3 (Download ZIP).';
+          console.error(err);
+        } else {
+          statusText.innerText = '';
+        }
       }
     }
 
@@ -1609,7 +1714,6 @@
       if (elclk) elclk.innerText = timeStr;
     }, 1000);
 
-    // Initial Theme Sync
     applyTheme();
   </script>
 </body>
