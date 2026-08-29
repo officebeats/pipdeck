@@ -40,7 +40,7 @@
     <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
     <line x1="35" y1="188" x2="125" y2="188"/>
   </g>
-  <ellipse cx="80" cy="180" rx="38" ry="5" fill="#f43f5e" opacity="0.25"/>
+  <ellipse cx="80" cy="180" rx="34" ry="5" fill="#f43f5e" opacity="0.25"/>
 
   <!-- Ring 2: Outer 6 Nodes -->
   <g class="ring-2">
@@ -62,99 +62,99 @@
     <g transform="translate(75, 55)"><rect width="10" height="10" fill="#00ff41"/><rect x="1.5" y="1.5" width="7" height="7" fill="#000"/><rect x="3" y="3" width="4" height="4" fill="#fbbf24"/></g>
   </g>
 
-  <!-- Retro LCD Dot-Matrix Pi Mascot -->
+  <!-- Sleek Eyeless Pi Mascot -->
   <g class="pip-commander">
-    <!-- Crossbar Row 1 ($y=69$) -->
-    <rect x="42" y="64" width="4" height="4" fill="#ff4071"/>
-    <rect x="42" y="69" width="4" height="4" fill="#ff4071"/>
-    <rect x="42" y="74" width="4" height="4" fill="#ff4071"/>
-    <rect x="47" y="69" width="4" height="4" fill="#ff4071"/>
-    <rect x="52" y="69" width="4" height="4" fill="#f43f5e"/>
-    <rect x="57" y="69" width="4" height="4" fill="#f43f5e"/>
-    <rect x="62" y="69" width="4" height="4" fill="#ec4899"/>
-    <rect x="67" y="69" width="4" height="4" fill="#c026d3"/>
-    <rect x="72" y="69" width="4" height="4" fill="#a855f7"/>
-    <rect x="77" y="69" width="4" height="4" fill="#9333ea"/>
-    <rect x="82" y="69" width="4" height="4" fill="#7c3aed"/>
-    <rect x="87" y="69" width="4" height="4" fill="#6366f1"/>
-    <rect x="92" y="69" width="4" height="4" fill="#3b82f6"/>
-    <rect x="97" y="69" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="102" y="69" width="4" height="4" fill="#06b6d4"/>
-    <rect x="107" y="69" width="4" height="4" fill="#00f0ff"/>
-    <rect x="112" y="69" width="4" height="4" fill="#00f0ff"/>
-    <rect x="117" y="69" width="4" height="4" fill="#00f0ff"/>
-    <rect x="117" y="74" width="4" height="4" fill="#00f0ff"/>
+    <!-- Left Hook -->
+    <rect x="51" y="60" width="4" height="4" fill="#ff4071"/>
+    <rect x="51" y="65" width="4" height="4" fill="#ff4071"/>
+    <rect x="51" y="70" width="4" height="4" fill="#ff4071"/>
+    
+    <!-- Crossbar Row 1 ($y=65$) -->
+    <rect x="56" y="65" width="4" height="4" fill="#ff4071"/>
+    <rect x="61" y="65" width="4" height="4" fill="#f43f5e"/>
+    <rect x="66" y="65" width="4" height="4" fill="#f43f5e"/>
+    <rect x="71" y="65" width="4" height="4" fill="#ec4899"/>
+    <rect x="76" y="65" width="4" height="4" fill="#c026d3"/>
+    <rect x="81" y="65" width="4" height="4" fill="#a855f7"/>
+    <rect x="86" y="65" width="4" height="4" fill="#9333ea"/>
+    <rect x="91" y="65" width="4" height="4" fill="#7c3aed"/>
+    <rect x="96" y="65" width="4" height="4" fill="#3b82f6"/>
+    <rect x="101" y="65" width="4" height="4" fill="#0ea5e9"/>
+    <rect x="106" y="65" width="4" height="4" fill="#00f0ff"/>
+    <rect x="106" y="70" width="4" height="4" fill="#00f0ff"/>
 
-    <!-- Crossbar Row 2 ($y=74$) -->
-    <rect x="47" y="74" width="4" height="4" fill="#ff4071"/>
-    <rect x="52" y="74" width="4" height="4" fill="#f43f5e"/>
-    <rect x="57" y="74" width="4" height="4" fill="#f43f5e"/>
-    <rect x="62" y="74" width="4" height="4" fill="#ec4899"/>
-    <rect x="67" y="74" width="4" height="4" fill="#c084fc"/>
-    <rect x="72" y="74" width="4" height="4" fill="#a855f7"/>
-    <rect x="77" y="74" width="4" height="4" fill="#9333ea"/>
-    <rect x="82" y="74" width="4" height="4" fill="#7c3aed"/>
-    <rect x="87" y="74" width="4" height="4" fill="#6366f1"/>
-    <rect x="92" y="74" width="4" height="4" fill="#3b82f6"/>
-    <rect x="97" y="74" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="102" y="74" width="4" height="4" fill="#06b6d4"/>
-    <rect x="107" y="74" width="4" height="4" fill="#00f0ff"/>
-    <rect x="112" y="74" width="4" height="4" fill="#00f0ff"/>
+    <!-- Crossbar Row 2 ($y=70$) -->
+    <rect x="56" y="70" width="4" height="4" fill="#ff4071"/>
+    <rect x="61" y="70" width="4" height="4" fill="#f43f5e"/>
+    <rect x="66" y="70" width="4" height="4" fill="#f43f5e"/>
+    <rect x="71" y="70" width="4" height="4" fill="#ec4899"/>
+    <rect x="76" y="70" width="4" height="4" fill="#c026d3"/>
+    <rect x="81" y="70" width="4" height="4" fill="#a855f7"/>
+    <rect x="86" y="70" width="4" height="4" fill="#9333ea"/>
+    <rect x="91" y="70" width="4" height="4" fill="#7c3aed"/>
+    <rect x="96" y="70" width="4" height="4" fill="#3b82f6"/>
+    <rect x="101" y="70" width="4" height="4" fill="#0ea5e9"/>
+
+    <!-- Crossbar Row 3 ($y=75$) -->
+    <rect x="56" y="75" width="4" height="4" fill="#f43f5e"/>
+    <rect x="71" y="75" width="4" height="4" fill="#ec4899"/>
+    <rect x="76" y="75" width="4" height="4" fill="#c026d3"/>
+    <rect x="81" y="75" width="4" height="4" fill="#a855f7"/>
+    <rect x="86" y="75" width="4" height="4" fill="#9333ea"/>
+    <rect x="101" y="75" width="4" height="4" fill="#00f0ff"/>
 
     <!-- Left Leg -->
-    <rect x="57" y="79" width="4" height="4" fill="#f43f5e"/>
-    <rect x="62" y="79" width="4" height="4" fill="#f43f5e"/>
-    <rect x="57" y="84" width="4" height="4" fill="#ec4899"/>
-    <rect x="62" y="84" width="4" height="4" fill="#ec4899"/>
-    <rect x="57" y="89" width="4" height="4" fill="#ec4899"/>
-    <rect x="62" y="89" width="4" height="4" fill="#ec4899"/>
-    <rect x="57" y="94" width="4" height="4" fill="#d946ef"/>
-    <rect x="62" y="94" width="4" height="4" fill="#d946ef"/>
-    <rect x="57" y="99" width="4" height="4" fill="#a855f7"/>
-    <rect x="62" y="99" width="4" height="4" fill="#a855f7"/>
-    <rect x="57" y="104" width="4" height="4" fill="#9333ea"/>
-    <rect x="62" y="104" width="4" height="4" fill="#9333ea"/>
-    <rect x="57" y="109" width="4" height="4" fill="#7e22ce"/>
-    <rect x="62" y="109" width="4" height="4" fill="#7e22ce"/>
-    <!-- Left Foot Base + Halftone -->
-    <rect x="52" y="114" width="4" height="4" fill="#701a75"/>
-    <rect x="57" y="114" width="4" height="4" fill="#581c87"/>
-    <rect x="62" y="114" width="4" height="4" fill="#581c87"/>
-    <rect x="67" y="114" width="4" height="4" fill="#701a75"/>
-    <rect x="52" y="119" width="4" height="4" fill="#3b0764"/>
-    <rect x="57" y="119" width="4" height="4" fill="#c084fc"/>
-    <rect x="62" y="119" width="4" height="4" fill="#3b0764"/>
-    <rect x="67" y="119" width="4" height="4" fill="#c084fc"/>
+    <rect x="61" y="75" width="4" height="4" fill="#f43f5e"/>
+    <rect x="66" y="75" width="4" height="4" fill="#f43f5e"/>
+    <rect x="61" y="80" width="4" height="4" fill="#ec4899"/>
+    <rect x="66" y="80" width="4" height="4" fill="#ec4899"/>
+    <rect x="61" y="85" width="4" height="4" fill="#ec4899"/>
+    <rect x="66" y="85" width="4" height="4" fill="#ec4899"/>
+    <rect x="61" y="90" width="4" height="4" fill="#d946ef"/>
+    <rect x="66" y="90" width="4" height="4" fill="#d946ef"/>
+    <rect x="61" y="95" width="4" height="4" fill="#c026d3"/>
+    <rect x="66" y="95" width="4" height="4" fill="#c026d3"/>
+    <rect x="61" y="100" width="4" height="4" fill="#a855f7"/>
+    <rect x="66" y="100" width="4" height="4" fill="#a855f7"/>
+    <rect x="61" y="105" width="4" height="4" fill="#9333ea"/>
+    <rect x="66" y="105" width="4" height="4" fill="#9333ea"/>
+    <rect x="61" y="110" width="4" height="4" fill="#7e22ce"/>
+    <rect x="66" y="110" width="4" height="4" fill="#7e22ce"/>
+    <rect x="61" y="115" width="4" height="4" fill="#581c87"/>
+    <rect x="66" y="115" width="4" height="4" fill="#581c87"/>
+    <rect x="56" y="120" width="4" height="4" fill="#701a75"/>
+    <rect x="61" y="120" width="4" height="4" fill="#581c87"/>
+    <rect x="66" y="120" width="4" height="4" fill="#581c87"/>
+    <rect x="71" y="120" width="4" height="4" fill="#701a75"/>
+    <rect x="56" y="125" width="4" height="4" fill="#3b0764"/>
+    <rect x="61" y="125" width="4" height="4" fill="#c084fc"/>
+    <rect x="66" y="125" width="4" height="4" fill="#3b0764"/>
+    <rect x="71" y="125" width="4" height="4" fill="#c084fc"/>
 
     <!-- Right Leg -->
-    <rect x="97" y="79" width="4" height="4" fill="#3b82f6"/>
-    <rect x="102" y="79" width="4" height="4" fill="#3b82f6"/>
-    <rect x="97" y="84" width="4" height="4" fill="#2563eb"/>
-    <rect x="102" y="84" width="4" height="4" fill="#2563eb"/>
-    <rect x="97" y="89" width="4" height="4" fill="#1d4ed8"/>
-    <rect x="102" y="89" width="4" height="4" fill="#1d4ed8"/>
-    <rect x="97" y="94" width="4" height="4" fill="#0284c7"/>
-    <rect x="102" y="94" width="4" height="4" fill="#0284c7"/>
-    <rect x="97" y="99" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="102" y="99" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="97" y="104" width="4" height="4" fill="#06b6d4"/>
-    <rect x="102" y="104" width="4" height="4" fill="#06b6d4"/>
-    <rect x="107" y="104" width="4" height="4" fill="#00f0ff"/>
-    <rect x="102" y="109" width="4" height="4" fill="#00f0ff"/>
-    <rect x="107" y="109" width="4" height="4" fill="#00f0ff"/>
-    <rect x="112" y="109" width="4" height="4" fill="#00f0ff"/>
-    <rect x="112" y="104" width="4" height="4" fill="#00f0ff"/>
-
-    <!-- Cute Pixel Visor Eyes -->
-    <g class="eye-closed">
-      <rect x="67" y="75" width="5" height="2" fill="#00f0ff"/>
-      <rect x="92" y="75" width="5" height="2" fill="#00f0ff"/>
-    </g>
-    <g class="eye-open">
-      <rect x="67" y="73" width="5" height="4" fill="#00f0ff"/>
-      <rect x="68" y="74" width="2" height="2" fill="#ffffff"/>
-      <rect x="92" y="73" width="5" height="4" fill="#00f0ff"/>
-      <rect x="93" y="74" width="2" height="2" fill="#ffffff"/>
-    </g>
+    <rect x="91" y="75" width="4" height="4" fill="#7c3aed"/>
+    <rect x="96" y="75" width="4" height="4" fill="#7c3aed"/>
+    <rect x="91" y="80" width="4" height="4" fill="#3b82f6"/>
+    <rect x="96" y="80" width="4" height="4" fill="#3b82f6"/>
+    <rect x="91" y="85" width="4" height="4" fill="#2563eb"/>
+    <rect x="96" y="85" width="4" height="4" fill="#2563eb"/>
+    <rect x="91" y="90" width="4" height="4" fill="#1d4ed8"/>
+    <rect x="96" y="90" width="4" height="4" fill="#1d4ed8"/>
+    <rect x="91" y="95" width="4" height="4" fill="#0284c7"/>
+    <rect x="96" y="95" width="4" height="4" fill="#0284c7"/>
+    <rect x="91" y="100" width="4" height="4" fill="#0ea5e9"/>
+    <rect x="96" y="100" width="4" height="4" fill="#0ea5e9"/>
+    <rect x="91" y="105" width="4" height="4" fill="#06b6d4"/>
+    <rect x="96" y="105" width="4" height="4" fill="#06b6d4"/>
+    <!-- Curving Outward to the Right -->
+    <rect x="91" y="110" width="4" height="4" fill="#06b6d4"/>
+    <rect x="96" y="110" width="4" height="4" fill="#00f0ff"/>
+    <rect x="101" y="110" width="4" height="4" fill="#00f0ff"/>
+    <!-- Upswept Pi Tail Foot -->
+    <rect x="96" y="115" width="4" height="4" fill="#00f0ff"/>
+    <rect x="101" y="115" width="4" height="4" fill="#00f0ff"/>
+    <rect x="106" y="115" width="4" height="4" fill="#00f0ff"/>
+    <!-- Upward Curl Tip -->
+    <rect x="106" y="110" width="4" height="4" fill="#00f0ff"/>
   </g>
 </svg>
