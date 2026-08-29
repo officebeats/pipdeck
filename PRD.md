@@ -12,6 +12,7 @@
 ### Multi-Platform Mandate (In Perpetuity)
 AI agents and contributors MUST in perpetuity maintain, support, and test both target hardware tiers across all telemetry protocols, UI layouts, and animation engines:
 1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader, ZenOS & KUAL**:
+   - **Prerequisite**: Jailbroken Kindle with KOReader installed (Help search link: `https://letmegooglethat.com/?q=how+to+jailbreak+kindle+and+install+koreader`).
    - **Target Hardware (Alpha Focus)**: Older Kindle Paperwhite (PW1, PW2, PW3), Touch, Basic, Oasis, and Scribe.
    - **Triple-Store Integration**:
      - **KOReader Plugin**: `koreader/plugins/pipdeck.koplugin/` (standard menu).
@@ -80,7 +81,7 @@ All animations expand vertically from $y=12$ to $y=190$ to **eliminate dead padd
 ## 4. In-App Setup Tutorial & Diagnostic Wizard (Non-Technical Users)
 
 A 4-step interactive connection guide is available inside the KOReader plugin and web simulator:
-1. **Step 1: Network Check**: Verifies Kindle Wi-Fi is active and on the same subnet as the OMP workstation.
+1. **Step 1: Network Check & Jailbreak Prerequisite**: Verifies Kindle Wi-Fi is active, on the same subnet as the OMP workstation, and already jailbroken (with LMGTFY help link).
 2. **Step 2: Start Harness**: Instructs running `$ omp` in terminal (spawns daemon on port 8787).
 3. **Step 3: Auto-Discovery & Pairing**: Discovers `http://omp.local:8787` via mDNS or allows direct manual IP input with auto-save to `settings.reader.lua`.
 4. **Step 4: Live Ping Diagnostic**: Executes instant HTTP test to `/api/status` confirming telemetry streaming.

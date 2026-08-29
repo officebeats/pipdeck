@@ -950,7 +950,15 @@
         <div class="install-card featured">
           <div>
             <h3><span>🔌</span> Method 1: 1-Click Web Drive Installer</h3>
-            <p style="font-size:0.9rem; color:#d4d4d8;">Plug your Kindle into your computer via USB, click below, and pick your Kindle drive. Your browser will automatically copy the plugin directly into <code>koreader/plugins/</code>!</p>
+            <p style="font-size:0.9rem; color:#d4d4d8;">Plug your Kindle Paperwhite into your computer via USB, click below, and pick your Kindle drive. Your browser will automatically copy both the KOReader plugin and KUAL extension!</p>
+            
+            <!-- PREREQUISITE ALERT & PARODY LMGTFY LINK -->
+            <div style="background:#18181b; border:1.5px solid var(--matrix-yellow); padding:10px 12px; border-radius:4px; margin-top:12px; font-size:0.82rem; color:#fef08a;">
+              <div>⚠️ <strong>Prerequisite:</strong> You must have a jailbroken Kindle with KOReader installed!</div>
+              <div style="margin-top:6px; font-weight:700;">
+                Don't know what that is? 👉 <a href="https://letmegooglethat.com/?q=how+to+jailbreak+kindle+and+install+koreader" target="_blank" rel="noopener noreferrer" style="color:var(--matrix-cyan); text-decoration:underline; font-weight:800;">Let Me Google That For You 🖱️</a>
+              </div>
+            </div>
           </div>
           <div>
             <button class="install-btn" onclick="runWebDriveInstaller()">
@@ -980,8 +988,8 @@
             <p style="font-size:0.9rem; color:#d4d4d8;">Download the pre-structured ZIP package and drag its contents directly to the root of your Kindle drive (e.g. <code>E:\</code> or <code>/Volumes/Kindle</code>).</p>
           </div>
           <div>
-            <a class="install-btn" href="dist/pipdeck-kindle-easy-install.zip" download>
-              ⬇️ Download Kindle ZIP
+            <a class="install-btn" href="dist/pipdeck-koreader-paperwhite-v0.1.0-alpha.zip" download>
+              ⬇️ Download Alpha Release ZIP
             </a>
           </div>
         </div>
@@ -1359,7 +1367,7 @@
       try {
         statusText.innerText = 'Select your Kindle drive in the dialog...';
         const dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
-        statusText.innerText = 'Installing PipDeck files to Kindle...';
+        statusText.innerText = 'Installing PipDeck KOReader & KUAL files to Kindle...';
         
         let koreaderHandle;
         try {
@@ -1370,6 +1378,7 @@
         const pluginsHandle = await koreaderHandle.getDirectoryHandle('plugins', { create: true });
         const pipdeckHandle = await pluginsHandle.getDirectoryHandle('pipdeck.koplugin', { create: true });
 
+        // Copy KOReader Plugin Files
         const metaRes = await fetch('koreader/plugins/pipdeck.koplugin/_meta.lua');
         const metaContent = await metaRes.text();
         const metaFile = await pipdeckHandle.getFileHandle('_meta.lua', { create: true });
@@ -1384,8 +1393,38 @@
         await mainWritable.write(mainContent);
         await mainWritable.close();
 
+        const pkgRes = await fetch('koreader/plugins/pipdeck.koplugin/package.json');
+        const pkgContent = await pkgRes.text();
+        const pkgFile = await pipdeckHandle.getFileHandle('package.json', { create: true });
+        const pkgWritable = await pkgFile.createWritable();
+        await pkgWritable.write(pkgContent);
+        await pkgWritable.close();
+
+        // Copy KUAL Extension Files
+        try {
+          const extensionsHandle = await dirHandle.getDirectoryHandle('extensions', { create: true });
+          const kualPipdeckHandle = await extensionsHandle.getDirectoryHandle('pipdeck', { create: true });
+          const binHandle = await kualPipdeckHandle.getDirectoryHandle('bin', { create: true });
+
+          const menuRes = await fetch('extensions/pipdeck/menu.json');
+          const menuContent = await menuRes.text();
+          const menuFile = await kualPipdeckHandle.getFileHandle('menu.json', { create: true });
+          const menuWritable = await menuFile.createWritable();
+          await menuWritable.write(menuContent);
+          await menuWritable.close();
+
+          const launchRes = await fetch('extensions/pipdeck/bin/launch.sh');
+          const launchContent = await launchRes.text();
+          const launchFile = await binHandle.getFileHandle('launch.sh', { create: true });
+          const launchWritable = await launchFile.createWritable();
+          await launchWritable.write(launchContent);
+          await launchWritable.close();
+        } catch (kualErr) {
+          console.log('KUAL folder creation skipped/optional:', kualErr);
+        }
+
         statusText.innerHTML = '✓ <strong>SUCCESS!</strong> Installed to koreader/plugins/pipdeck.koplugin. Safely eject Kindle and launch!';
-        alert('✓ Installation Successful!\n\nPipDeck has been copied directly to your Kindle.\n1. Safely eject Kindle USB.\n2. Open KOReader or ZenOS.\n3. Launch PipDeck OMP Companion!');
+        alert('✓ Installation Successful!\n\nPipDeck has been copied directly to your Kindle Paperwhite.\n\n1. Safely eject Kindle USB.\n2. Open KOReader, ZenOS, or KUAL.\n3. Launch PipDeck OMP Companion!');
       } catch (err) {
         if (err.name !== 'AbortError') {
           statusText.innerText = 'Installation failed. Try Method 3 (Download ZIP).';
@@ -1444,12 +1483,14 @@
     const tutorialSteps = [
       {
         step: 1,
-        title: "Step 1/4: Same Wi-Fi Network",
+        title: "Step 1/4: Same Wi-Fi & Jailbreak Prerequisite",
         content: `
-          <p>Make sure your <strong>Kindle e-ink device</strong> and your <strong>computer/workstation</strong> are connected to the <strong>same Wi-Fi network</strong> or phone hotspot.</p>
-          <div style="background:#f4f4f5; border:1.5px solid #000; padding:10px; border-radius:4px; margin-top:10px;">
+          <p>Make sure your <strong>Kindle Paperwhite / E-Ink device</strong> is <strong>already jailbroken with KOReader installed</strong> and connected to the same Wi-Fi network as your workstation.</p>
+          <div style="background:#f4f4f5; border:1.5px solid #000; padding:10px; border-radius:4px; margin-top:8px;">
             <div>📶 <strong>Kindle Wi-Fi Status:</strong> Connected ✓</div>
-            <div style="font-size:0.85rem; color:#52525b; margin-top:2px;">SSID: HomeNetwork-5G · IP: 192.168.1.142</div>
+            <div style="font-size:0.82rem; color:#52525b; margin-top:4px;">
+              Need help jailbreaking? <a href="https://letmegooglethat.com/?q=how+to+jailbreak+kindle+and+install+koreader" target="_blank" rel="noopener noreferrer" style="color:#0284c7; text-decoration:underline; font-weight:800;">Let Me Google That For You 🖱️</a>
+            </div>
           </div>
         `,
         nextText: "Next: Start OMP ❯"

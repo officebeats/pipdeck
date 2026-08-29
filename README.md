@@ -15,6 +15,14 @@
 
 ---
 
+## ⚠️ Prerequisite for Kindle Users
+
+PipDeck runs as a KOReader plugin / KUAL extension on Amazon Kindle e-ink hardware.
+- **Requirement**: You must have a **jailbroken Kindle with KOReader installed**.
+- **Don't know what that is?** 👉 **[Let Me Google That For You 🖱️](https://letmegooglethat.com/?q=how+to+jailbreak+kindle+and+install+koreader)**
+
+---
+
 ## 📸 Primary Platform Showcase: Kindle E-Ink (KOReader & ZenOS)
 
 Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **Landscape**, **ZenOS App Launcher**, and **Light & Dark Theme** modes:
