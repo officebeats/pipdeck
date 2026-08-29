@@ -1,12 +1,14 @@
 # PipDeck 📖⚡ — Kindle KOReader, ZenOS & Hardware Companion for Oh My Pi (OMP)
 
 [![Primary Platform: Kindle KOReader & ZenOS](https://img.shields.io/badge/Primary%20Platform-Kindle%20KOReader%20%26%20ZenOS-ffffff.svg?style=flat-square)](https://github.com/koreader/koreader)
+[![Live Web Simulator & Installer](https://img.shields.io/badge/Live%20Web%20Simulator-officebeats.github.io%2Fpipdeck-00ff41.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
 [![Secondary Platform: ESP32-2432S028R](https://img.shields.io/badge/Secondary%20Platform-ESP32--2432S028R-38bdf8.svg?style=flat-square)](https://www.amazon.com/AOICRIE-Development-ESP32-2432S028R-Bluetooth-Resistive/dp/B0FFGZTGYN)
-[![Theme: Light & Dark Modes](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Modes-c084fc.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
+[![Theme: Light & Dark Modes](https://img.shields.io/badge/Theme-Light%20%26%20Dark%20Modes-c084fc.svg?style=flat-square)](https://officebeats.github.io/pipdeck)
 [![License: MIT](https://img.shields.io/badge/License-MIT-00ff41.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![Harness: Oh My Pi](https://img.shields.io/badge/Harness-Oh%20My%20Pi-00ff41.svg?style=flat-square)](https://github.com/officebeats/pipdeck)
 
 > **PipDeck** is an open-source hardware companion display engineered primarily for **jailbroken Amazon Kindle e-ink devices running KOReader and ZenOS (Tier 1)**, with secondary support for **ESP32 micro-displays (Tier 2)**. It connects wirelessly over local Wi-Fi with mDNS auto-discovery, delivering real-time agent telemetry, chat thread tracking, subagent swarm matrix status, and 1-bit retro LCD/e-ink mascot animations with a full-bleed canvas, default 12-hour clock, and instant **Light Mode (Paper Day)** & **Dark Mode (OLED Night)** theme switching.
+>
+> 🌐 **Live Web Simulator & 1-Click Installer**: [https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck) *(Type: `officebeats.github.io/pipdeck`)*
 
 ---
 
@@ -24,6 +26,35 @@ Pure 1-bit high-contrast monochrome rendering with responsive **Portrait**, **La
 
 Unified high-contrast design mirroring the clean E-Ink layout with instant **Light Terminal Mode** and **Dark Matrix Mode** support:
 [![ESP32 High-Contrast Layout](assets/screenshots/dashboard-swarm-32.webp)](assets/screenshots/dashboard-swarm-32.webp)
+
+---
+
+## 🌐 Live Web Simulator & 1-Click Installer (GitHub Pages)
+
+Experience the live interactive simulator, test stepped animations, or install directly to your Kindle via USB at:
+👉 **[https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck)**
+
+*(Short URL to type in browser: `officebeats.github.io/pipdeck`)*
+
+---
+
+## 🔌 1-Click Zero-Hassle Installation for Non-Technical Kindle Users
+
+Choose the simplest method that fits your workflow:
+
+### Method 1: 1-Click Web Drive Installer *(Recommended — Zero File Hunting)*
+1. Plug your Kindle into your computer via USB.
+2. Open **[officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck)** in Chrome, Edge, or Brave.
+3. Click **`[ ⚡ Install to Kindle Drive ]`** and select your Kindle drive (e.g. `E:\` or `/Volumes/Kindle`).
+4. The browser automatically writes `pipdeck.koplugin` directly into `koreader/plugins/`. Safely eject and launch!
+
+### Method 2: In-Kindle ZenPM Store *(Zero Cables / Direct Wi-Fi)*
+1. On your Kindle running **ZenOS / ZenUI**, open **ZenPM** (Package Manager).
+2. Search for **"PipDeck"** and tap **`[ Install ]`**.
+
+### Method 3: 1-Step Drag & Drop ZIP
+1. Download **[pipdeck-kindle-easy-install.zip](dist/pipdeck-kindle-easy-install.zip)** (also hosted at [officebeats.github.io/pipdeck/dist/pipdeck-kindle-easy-install.zip](https://officebeats.github.io/pipdeck/dist/pipdeck-kindle-easy-install.zip)).
+2. Drag the unzipped `koreader` folder straight onto your Kindle drive icon.
 
 ---
 
@@ -80,37 +111,17 @@ Pip maintains a **strictly constant large bounding box ($48 \times 48\text{px}$)
 
 ---
 
-## ✨ Non-Technical Zero-Config Setup & In-App Tutorial
-
-PipDeck includes a persistent **4-Step Setup Tutorial** accessible directly on your Kindle via `[?] Guide` or the KOReader menu:
-1. **Wi-Fi Verification**: Ensures your Kindle and workstation share the same local network.
-2. **Start OMP**: Run `$ omp` in your terminal to automatically launch the background companion daemon.
-3. **Auto-Discovery**: PipDeck detects `http://omp.local:8787` via mDNS.
-4. **Live Ping Diagnostic**: Test live HTTP communication with one click.
-
----
-
 ## 🛠️ Quick Start & Installation
 
-### 1. Kindle KOReader & ZenOS Plugin Installation (Primary)
-1. Connect your jailbroken Kindle to your computer via USB.
-2. Copy the `koreader/plugins/pipdeck.koplugin` folder into your Kindle's `koreader/plugins/` directory:
-   ```bash
-   cp -r koreader/plugins/pipdeck.koplugin /media/kindle/koreader/plugins/
-   ```
-3. Open KOReader or ZenOS:
-   - **In ZenOS**: Tap the **PipDeck (OMP)** app card on your home screen.
-   - **In KOReader**: Main Menu $\to$ **PipDeck (OMP Companion)** $\to$ **Launch PipDeck E-Ink Display**.
-
-### 2. OMP Host Daemon Setup
+### 1. OMP Host Daemon Setup
 Drop the companion server into your local Oh My Pi directory:
 ```bash
 mkdir -p ~/.omp/agent/extensions
 cp firmware/host/pipdeck-server.ts ~/.omp/agent/extensions/
 ```
 
-### 3. Interactive Web Simulator
-Open [index.html](index.html) in any browser to test the **Kindle E-Ink Portrait**, **Kindle E-Ink Landscape**, **ZenOS Launcher Tile**, and **ESP32 2.8" Color LCD** simulators with Light/Dark mode, 12h time, real-time state controls, and interactive tutorial.
+### 2. Live Web Simulator
+Visit [https://officebeats.github.io/pipdeck](https://officebeats.github.io/pipdeck) in any browser to test all platforms with real-time controls, Light/Dark themes, and 1-click Kindle installer.
 
 ---
 

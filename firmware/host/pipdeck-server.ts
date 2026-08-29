@@ -32,10 +32,6 @@ export interface ToolEvent {
   args?: Record<string, unknown>;
 }
 
-/**
- * Format raw model identifiers to mandatory provider notation:
- * [Provider Icon] [Provider Name] [Model Name]
- */
 export function formatModelNotation(rawModel: string): string {
   const m = rawModel.toLowerCase();
   if (m.includes('claude') || m.includes('anthropic') || m.includes('sonnet') || m.includes('haiku') || m.includes('opus')) {
@@ -133,7 +129,6 @@ export class PipDeckServer {
         return;
       }
 
-      // Responsive HTML fallback for Kindle Browser (defaults to 12h clock)
       const timeStr = new Date().toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: '2-digit', second: '2-digit' });
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(`<!DOCTYPE html>
@@ -161,6 +156,7 @@ export class PipDeckServer {
     <p>${this.currentTelemetry.phase}</p>
     <pre style="background:#000; color:#fff; padding:8px;">${this.currentTelemetry.command}</pre>
     <p>CTX: ${this.currentTelemetry.ctx} | COST: ${this.currentTelemetry.cost} | TOKENS: ${this.currentTelemetry.tokens}</p>
+    <p style="font-size:12px; border-top:1px solid #000; padding-top:4px;">Web Simulator: <a href="https://officebeats.github.io/pipdeck">officebeats.github.io/pipdeck</a></p>
   </div>
 </body>
 </html>`);
@@ -170,6 +166,7 @@ export class PipDeckServer {
       const ip = getLocalIpAddress();
       console.log(`[PipDeck] Server listening on http://0.0.0.0:${this.port}`);
       console.log(`[PipDeck] Kindle KOReader / ZenOS endpoint: http://${ip}:${this.port}/api/status`);
+      console.log(`[PipDeck] Web Simulator & 1-Click Installer: https://officebeats.github.io/pipdeck`);
       console.log(`[PipDeck] mDNS advertised service: _pipdeck._tcp.local / _omp._tcp.local`);
     });
   }
