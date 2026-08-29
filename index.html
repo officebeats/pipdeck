@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PipDeck: Multi-Platform Hardware Companion (Kindle E-Ink &amp; ESP32)</title>
+  <title>PipDeck: Kindle KOReader, ZenOS &amp; ESP32 Hardware Companion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,11 +19,9 @@
       --text-silver: #e2e8f0;
       --text-muted: #a1a1aa;
       --matrix-green: #00ff41;
-      --matrix-green-neon: #39ff14;
       --matrix-yellow: #facc15;
       --matrix-cyan: #38bdf8;
       --matrix-orange: #fb923c;
-      --matrix-purple: #c084fc;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,14 +33,12 @@
       overflow-x: hidden;
     }
 
-    /* Layout */
     .container {
       max-width: 1240px;
       margin: 0 auto;
       padding: 24px 20px 80px;
     }
 
-    /* Header */
     header {
       background: #000000;
       border-bottom: 2px solid var(--matrix-green);
@@ -82,7 +78,7 @@
     .tag-cyan { border-color: var(--matrix-cyan); color: var(--matrix-cyan); }
     
     h1 {
-      font-size: 2.3rem;
+      font-size: 2.2rem;
       font-weight: 800;
       color: #ffffff;
       letter-spacing: -0.02em;
@@ -91,11 +87,10 @@
     .subtitle {
       color: var(--text-silver);
       font-size: 1.05rem;
-      max-width: 880px;
+      max-width: 900px;
       line-height: 1.6;
     }
 
-    /* Section Styling */
     section {
       background: #000000;
       border: 1.5px solid var(--border-subtle);
@@ -119,20 +114,6 @@
       content: "[#]";
       color: var(--matrix-green);
     }
-    h3 {
-      font-family: 'Fira Code', monospace;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--matrix-green);
-      margin: 20px 0 10px;
-    }
-    p {
-      margin-bottom: 14px;
-      color: var(--text-silver);
-      font-size: 0.98rem;
-      line-height: 1.7;
-    }
-    strong { color: #ffffff; }
 
     /* Platform Switcher Buttons */
     .platform-selector-bar {
@@ -140,15 +121,22 @@
       gap: 10px;
       margin-bottom: 24px;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .platform-btns-left {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .platform-tab-btn {
       background: #000000;
       border: 2px solid #3f3f46;
       color: #ffffff;
       font-family: 'Fira Code', monospace;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 800;
-      padding: 12px 18px;
+      padding: 10px 16px;
       border-radius: 6px;
       cursor: pointer;
       display: flex;
@@ -164,6 +152,26 @@
       font-weight: 900;
     }
 
+    .btn-tutorial-trigger {
+      background: #000000;
+      border: 2px solid var(--matrix-yellow);
+      color: var(--matrix-yellow);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .btn-tutorial-trigger:hover {
+      background: var(--matrix-yellow);
+      color: #000000;
+    }
+
     .hardware-wrapper {
       display: flex;
       flex-direction: column;
@@ -172,7 +180,7 @@
     }
 
     /* ========================================================= */
-    /* 1. PRIMARY: KINDLE KOREADER E-INK HARDWARE REPLICA        */
+    /* 1. KINDLE KOREADER / ZENOS HARDWARE ENCLOSURE             */
     /* ========================================================= */
     .kindle-case {
       display: block;
@@ -181,13 +189,13 @@
       background: #18181b;
       border: 4px solid #27272a;
       border-radius: 20px;
-      padding: 36px 28px 48px;
+      padding: 32px 26px 44px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
       position: relative;
     }
     .kindle-case.landscape-mode {
       max-width: 820px;
-      padding: 28px 36px 32px;
+      padding: 26px 34px 30px;
     }
     .kindle-logo-branding {
       text-align: center;
@@ -222,7 +230,7 @@
     .eink-header {
       border-bottom: 2px solid #000000;
       padding-bottom: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -234,7 +242,7 @@
       border: 2.5px solid #000000;
       width: 250px;
       height: 270px;
-      margin: 0 auto 16px;
+      margin: 0 auto 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -271,7 +279,7 @@
       background: #000000;
       color: #ffffff;
       padding: 8px 12px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 800;
       margin-bottom: 10px;
       white-space: nowrap;
@@ -327,6 +335,44 @@
       filter: grayscale(100%) contrast(200%);
     }
 
+    /* ZenOS Launcher Screen Preview */
+    .zenos-home-view {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .zenos-header {
+      border-bottom: 2px solid #000000;
+      padding-bottom: 8px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+    }
+    .zenos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 20px 0;
+    }
+    .zenos-app-card {
+      border: 2.5px solid #000000;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      background: #ffffff;
+      transition: all 0.15s;
+    }
+    .zenos-app-card:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+    .zenos-app-card.featured {
+      background: #000000;
+      color: #ffffff;
+    }
+
     .eink-flashing {
       animation: einkFlash 0.35s steps(2);
     }
@@ -337,7 +383,7 @@
     }
 
     /* ========================================================= */
-    /* 2. SECONDARY: ESP32 COLOR LCD (E-INK INSPIRED HIGH-CONTRAST)*/
+    /* 2. ESP32 COLOR LCD (E-INK INSPIRED HIGH-CONTRAST)         */
     /* ========================================================= */
     .esp32-pcb {
       display: none;
@@ -392,7 +438,6 @@
       box-shadow: 0 0 16px var(--matrix-green);
       border: 2px solid #ffffff;
       display: inline-block;
-      transition: all 0.3s ease;
     }
 
     .esp-screen-bezel {
@@ -423,7 +468,6 @@
       z-index: 20;
     }
 
-    /* ESP32 Touch Navigation Bar */
     .touch-tabs-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -442,13 +486,10 @@
       border-right: 1px solid #27272a;
       cursor: pointer;
       font-family: 'Fira Code', monospace;
-      transition: all 0.15s;
     }
     .touch-tab:last-child { border-right: none; }
-    .touch-tab:hover { background: #27272a; color: var(--matrix-green); }
     .touch-tab.active { color: #000000; background: #ffffff; font-weight: 900; }
 
-    /* ESP32 Screen Work Area (E-Ink Inspired High-Contrast Layout) */
     .esp-screen-work-area {
       flex: 1;
       padding: 12px 14px;
@@ -458,7 +499,6 @@
       z-index: 10;
       background: #000000;
     }
-
     .esp-screen-status-line {
       display: flex;
       justify-content: space-between;
@@ -472,7 +512,6 @@
       font-weight: 800;
     }
 
-    /* ESP32 Dashboard (E-Ink Inspired Proportional Split) */
     .esp-view-dashboard {
       display: grid;
       grid-template-columns: 200px 1fr;
@@ -487,8 +526,6 @@
       align-items: center;
       justify-content: center;
       border-radius: 4px;
-      position: relative;
-      overflow: hidden;
       width: 100%;
       height: 100%;
     }
@@ -497,17 +534,13 @@
       height: 100%;
       object-fit: fill;
       image-rendering: pixelated;
-      image-rendering: crisp-edges;
     }
-
     .esp-telemetry-viewport {
       background: #000000;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
-
-    /* E-Ink Mirrored High-Contrast Telemetry Elements */
     .esp-thread-title {
       font-size: 1.1rem;
       font-weight: 800;
@@ -515,12 +548,6 @@
       border-bottom: 2px solid #ffffff;
       padding-bottom: 4px;
       margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
     .esp-status-row {
       display: flex;
@@ -538,11 +565,7 @@
       font-weight: 800;
       margin-bottom: 8px;
       border-radius: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
-
     .esp-subagents-row {
       display: flex;
       gap: 6px;
@@ -557,17 +580,12 @@
       color: #ffffff;
       background: #000000;
       border-radius: 3px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
     }
     .esp-subagent-chip.active {
       border-color: var(--border-green);
       background: var(--matrix-green);
       color: #000000;
     }
-
-    /* ESP32 Footer (E-Ink Mirrored High-Contrast) */
     .esp-screen-footer {
       border-top: 2px solid #ffffff;
       padding-top: 6px;
@@ -577,39 +595,6 @@
       font-size: 0.88rem;
       font-weight: 800;
       color: #ffffff;
-    }
-
-    .view-subagents {
-      display: none;
-      flex: 1;
-      margin: 10px 0;
-      background: #000000;
-      border: 2px solid var(--matrix-green);
-      padding: 12px;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .agent-card {
-      border: 1.5px solid #3f3f46;
-      padding: 10px 12px;
-      background: #000000;
-      font-size: 0.85rem;
-    }
-    .agent-card.active { border-color: var(--matrix-green); }
-
-    .view-logs {
-      display: none;
-      flex: 1;
-      margin: 10px 0;
-      background: #000000;
-      border: 2px solid var(--matrix-green);
-      padding: 12px;
-      font-size: 0.85rem;
-      color: #ffffff;
-      overflow: hidden;
-      flex-direction: column;
-      justify-content: flex-end;
-      line-height: 1.6;
     }
 
     /* Stepper Scale Controls */
@@ -689,7 +674,81 @@
       font-weight: 800;
     }
 
-    /* Tables */
+    /* ========================================================= */
+    /* 3. INTERACTIVE IN-APP SETUP TUTORIAL MODAL               */
+    /* ========================================================= */
+    .tutorial-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .tutorial-dialog {
+      background: #ffffff;
+      color: #000000;
+      border: 4px solid #000000;
+      border-radius: 8px;
+      max-width: 580px;
+      width: 100%;
+      padding: 24px;
+      font-family: 'Fira Code', monospace;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.9);
+    }
+    .tutorial-header {
+      border-bottom: 2px solid #000000;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+    .tutorial-body {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .tutorial-code-box {
+      background: #000000;
+      color: var(--matrix-green);
+      padding: 10px 14px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-weight: 700;
+    }
+    .tutorial-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 2px solid #000000;
+      padding-top: 14px;
+      flex-wrap: wrap;
+    }
+    .tut-btn {
+      padding: 10px 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.88rem;
+      font-weight: 800;
+      border: 2px solid #000000;
+      background: #ffffff;
+      color: #000000;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .tut-btn-primary {
+      background: #000000;
+      color: #ffffff;
+    }
+    .tut-btn:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -714,16 +773,7 @@
     }
     td { color: var(--text-silver); }
     td strong { color: #ffffff; }
-    td code {
-      color: var(--matrix-green);
-      background: #000000;
-      padding: 2px 6px;
-      border-radius: 3px;
-      border: 1px solid #3f3f46;
-      font-family: 'Fira Code', monospace;
-    }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 36px 0;
@@ -740,55 +790,58 @@
     <div class="header-content">
       <div>
         <div class="badge-bar">
-          <span class="tag tag-primary">PRIMARY: KINDLE KOREADER E-INK</span>
+          <span class="tag tag-primary">PRIMARY: KINDLE KOREADER &amp; ZENOS</span>
           <span class="tag">SECONDARY: ESP32 LCD</span>
-          <span class="tag tag-yellow">HIGH-CONTRAST HARMONY</span>
-          <span class="tag tag-cyan">PORTRAIT &amp; LANDSCAPE</span>
+          <span class="tag tag-yellow">ZERO-CONFIG MDNS</span>
+          <span class="tag tag-cyan">IN-APP TUTORIAL</span>
         </div>
         <h1>PipDeck: Multi-Platform Hardware Companion</h1>
-        <p class="subtitle">An open-source companion display engineered in perpetuity for <strong>Amazon Kindle E-Ink Devices running KOReader (Primary)</strong> and <strong>ESP32 Micro-Displays (Secondary)</strong> with unified high-contrast layouts and subtle Matrix green accents.</p>
+        <p class="subtitle">An open-source desktop companion display engineered in perpetuity for <strong>Kindle KOReader &amp; ZenOS E-Ink (Primary Tier 1)</strong> and <strong>ESP32 Micro-Displays (Secondary Tier 2)</strong> with zero-config local Wi-Fi auto-discovery and in-app connection guide.</p>
       </div>
     </div>
   </header>
 
   <div class="container">
 
-    <!-- SECTION 1: INTERACTIVE PLATFORM & DEVICE SWITCHER -->
     <section>
-      <h2>Interactive Platform &amp; Device Simulator</h2>
-      <p>The ESP32 layout now mirrors the clean, high-contrast typography and proportional split of the E-Ink design, with tasteful Matrix green structural accents:</p>
+      <h2>Interactive Multi-Platform Simulator &amp; Connection Wizard</h2>
+      <p>Test the full Kindle KOReader, ZenOS Launcher, and ESP32 displays with the interactive connection tutorial:</p>
 
-      <!-- Platform Selection Buttons (Kindle KOReader First) -->
       <div class="platform-selector-bar">
-        <button class="platform-tab-btn active" onclick="switchPlatform('kindle-portrait')">
-          <span>📖</span> [Kindle E-Ink: Portrait (Primary)]
-        </button>
-        <button class="platform-tab-btn" onclick="switchPlatform('kindle-landscape')">
-          <span>📖</span> [Kindle E-Ink: Landscape (Primary)]
-        </button>
-        <button class="platform-tab-btn" onclick="switchPlatform('esp32')">
-          <span>📟</span> [ESP32 2.8" Color LCD (Secondary)]
+        <div class="platform-btns-left">
+          <button class="platform-tab-btn active" onclick="switchPlatform('kindle-portrait')">
+            <span>📖</span> [Kindle E-Ink: Portrait]
+          </button>
+          <button class="platform-tab-btn" onclick="switchPlatform('kindle-landscape')">
+            <span>📖</span> [Kindle E-Ink: Landscape]
+          </button>
+          <button class="platform-tab-btn" onclick="switchPlatform('zenos')">
+            <span>🌌</span> [ZenOS App Launcher Tile]
+          </button>
+          <button class="platform-tab-btn" onclick="switchPlatform('esp32')">
+            <span>📟</span> [ESP32 2.8" Color LCD]
+          </button>
+        </div>
+
+        <button class="btn-tutorial-trigger" onclick="openTutorialModal(1)">
+          <span>❓</span> [Connection Setup &amp; Tutorial]
         </button>
       </div>
 
       <div class="hardware-wrapper">
         
-        <!-- ========================================================= -->
-        <!-- PLATFORM 1 (PRIMARY): KINDLE KOREADER E-INK CHASSIS       -->
-        <!-- ========================================================= -->
+        <!-- KINDLE HARDWARE ENCLOSURE -->
         <div class="kindle-case" id="kindleContainer">
           
-          <!-- Pure 1-Bit Monochrome E-Ink Screen Surface -->
           <div class="eink-screen-surface" id="einkSurface">
             
-            <!-- PORTRAIT E-INK LAYOUT -->
+            <!-- PORTRAIT E-INK VIEW -->
             <div id="einkPortraitView">
               <div class="eink-header">
                 <span id="einkModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
                 <span id="einkClock">12:45:02</span>
               </div>
 
-              <!-- Centered, Proportional 4:5 Mascot Arena -->
               <div class="eink-mascot-box-portrait">
                 <img id="einkMascotImg" src="assets/animations/pip-swarm-32.svg" alt="Pip Mascot E-Ink">
               </div>
@@ -821,7 +874,7 @@
               </div>
             </div>
 
-            <!-- LANDSCAPE E-INK LAYOUT -->
+            <!-- LANDSCAPE E-INK VIEW -->
             <div id="einkLandscapeView" style="display:none; height: 100%;">
               <div class="eink-header">
                 <span id="einkLandModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
@@ -867,27 +920,67 @@
               </div>
             </div>
 
+            <!-- ZENOS HOME LAUNCHER VIEW -->
+            <div id="zenosHomeView" class="zenos-home-view">
+              <div>
+                <div class="zenos-header">
+                  <span>ZenOS 3.2 · Applications</span>
+                  <span>Wi-Fi: Connected (100%)</span>
+                </div>
+                <div style="margin-top: 14px; font-weight: 800; font-size: 1.1rem;">Apps &amp; Extensions:</div>
+                <div class="zenos-grid">
+                  <div class="zenos-app-card featured" onclick="switchPlatform('kindle-portrait')">
+                    <div style="font-size: 2.2rem; margin-bottom: 4px;">🤖</div>
+                    <div style="font-weight: 800; font-size: 1.1rem;">PipDeck (OMP)</div>
+                    <div style="font-size: 0.8rem; margin-top: 4px; opacity: 0.8;">Live Agent Telemetry</div>
+                  </div>
+                  <div class="zenos-app-card">
+                    <div style="font-size: 2.2rem; margin-bottom: 4px;">📚</div>
+                    <div style="font-weight: 800; font-size: 1.1rem;">Library</div>
+                    <div style="font-size: 0.8rem; margin-top: 4px; opacity: 0.8;">KOReader Reader</div>
+                  </div>
+                  <div class="zenos-app-card" onclick="openTutorialModal(1)">
+                    <div style="font-size: 2.2rem; margin-bottom: 4px;">⚙️</div>
+                    <div style="font-weight: 800; font-size: 1.1rem;">Setup Guide</div>
+                    <div style="font-size: 0.8rem; margin-top: 4px; opacity: 0.8;">Pair with OMP</div>
+                  </div>
+                  <div class="zenos-app-card">
+                    <div style="font-size: 2.2rem; margin-bottom: 4px;">🌐</div>
+                    <div style="font-weight: 800; font-size: 1.1rem;">OPDS Catalog</div>
+                    <div style="font-size: 0.8rem; margin-top: 4px; opacity: 0.8;">Calibre Sync</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="eink-footer">
+                <span>ZenPM: 1 Plugin Active</span>
+                <span>Storage: 28.4 GB Free</span>
+                <span>Battery: 94%</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Kindle Bezel Branding & E-Ink Flash Button -->
           <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
             <span class="kindle-logo-branding">kindle paperwhite</span>
-            <button onclick="triggerEinkFlash()" style="background:#27272a; color:#ffffff; border:1px solid #3f3f46; font-family:'Fira Code', monospace; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:4px; cursor:pointer;">
-              ⚡ Clear Ghosting (Flash)
-            </button>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="openTutorialModal(1)" style="background:#27272a; color:#facc15; border:1px solid #3f3f46; font-family:'Fira Code', monospace; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:4px; cursor:pointer;">
+                ❓ Guide
+              </button>
+              <button onclick="triggerEinkFlash()" style="background:#27272a; color:#ffffff; border:1px solid #3f3f46; font-family:'Fira Code', monospace; font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:4px; cursor:pointer;">
+                ⚡ Clear Ghosting
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- ========================================================= -->
-        <!-- PLATFORM 2 (SECONDARY): ESP32 DISPLAY (E-INK INSPIRED)     -->
-        <!-- ========================================================= -->
+        <!-- ESP32 DISPLAY -->
         <div class="esp32-pcb" id="esp32Container">
           <div class="standoff tl"></div>
           <div class="standoff tr"></div>
           <div class="standoff bl"></div>
           <div class="standoff br"></div>
 
-          <!-- Silkscreen Header -->
           <div class="silkscreen-top">
             <span>[ ESP32-2432S028R / CYD DEV ]</span>
             <span>OH MY PI (OMP) DESKTOP COMPANION</span>
@@ -897,33 +990,26 @@
             </div>
           </div>
 
-          <!-- Screen Bezel -->
           <div class="esp-screen-bezel">
             <div class="esp-screen-inner">
               <div class="touch-tabs-bar">
-                <button class="touch-tab active" onclick="switchTab('dash')">[1. DASHBOARD]</button>
-                <button class="touch-tab" onclick="switchTab('subagents')">[2. SUBAGENTS]</button>
-                <button class="touch-tab" onclick="switchTab('logs')">[3. TODO &amp; LOGS]</button>
+                <button class="touch-tab active">[1. DASHBOARD]</button>
+                <button class="touch-tab" onclick="openTutorialModal(1)">[2. SETUP GUIDE]</button>
+                <button class="touch-tab">[3. TODO &amp; LOGS]</button>
               </div>
 
-              <!-- Main Screen Work Area (E-Ink Mirrored High-Contrast Layout) -->
               <div class="esp-screen-work-area">
-                
-                <!-- Status Line with White Separation Border -->
                 <div class="esp-screen-status-line">
                   <span id="dspModel">OMP ❯ 🏺 Anthropic claude-3-7-sonnet</span>
-                  <span id="dspBranch" style="color: var(--matrix-green);">git:main*</span>
+                  <span style="color: var(--matrix-green);">git:main*</span>
                   <span id="dspClock" style="color: var(--matrix-yellow);">12:45:02</span>
                 </div>
 
-                <!-- DASHBOARD VIEW (Proportional E-Ink Mirrored Split) -->
-                <div class="esp-view-dashboard" id="viewDash">
-                  <!-- Proportional Mascot Viewport -->
+                <div class="esp-view-dashboard">
                   <div class="esp-mascot-viewport">
                     <img id="dspMascot" src="assets/animations/pip-swarm-32.svg" alt="Pip Mascot">
                   </div>
                   
-                  <!-- Clean Telemetry Column (Mirrors E-Ink High-Contrast Stack) -->
                   <div class="esp-telemetry-viewport">
                     <div>
                       <div class="esp-thread-title" id="dspThread">
@@ -938,7 +1024,7 @@
 
                     <div>
                       <div style="font-size: 0.8rem; color: #ffffff; font-weight: 800; margin-bottom: 4px;">ACTIVE SUBAGENTS:</div>
-                      <div class="esp-subagents-row" id="subagentRow">
+                      <div class="esp-subagents-row">
                         <span class="esp-subagent-chip active">✨ Google Scout</span>
                         <span class="esp-subagent-chip active">🏺 Anthropic Coder</span>
                         <span class="esp-subagent-chip active">🌀 OpenAI Review</span>
@@ -948,40 +1034,6 @@
                   </div>
                 </div>
 
-                <div class="view-subagents" id="viewSubagents">
-                  <div class="agent-card active">
-                    <div style="color: #ffffff; font-weight: 800;">✨ Google Scout [smol]</div>
-                    <div style="color: var(--matrix-cyan); font-size: 0.8rem; margin: 2px 0;">✨ Google gemini-3.7-flash</div>
-                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ grep "authProvider"</div>
-                  </div>
-                  <div class="agent-card active">
-                    <div style="color: #ffffff; font-weight: 800;">🏺 Anthropic Coder [default]</div>
-                    <div style="color: var(--matrix-orange); font-size: 0.8rem; margin: 2px 0;">🏺 Anthropic claude-3-7-sonnet</div>
-                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ edit src/auth.ts</div>
-                  </div>
-                  <div class="agent-card active">
-                    <div style="color: #ffffff; font-weight: 800;">🌀 OpenAI Reviewer [slow]</div>
-                    <div style="color: var(--matrix-green); font-size: 0.8rem; margin: 2px 0;">🌀 OpenAI gpt-5.2-reasoning</div>
-                    <div style="color: var(--matrix-yellow); font-size: 0.8rem;">&gt;_ lsp diagnostics</div>
-                  </div>
-                  <div class="agent-card">
-                    <div style="color: #71717a; font-weight: 700;">🦙 Local Sonic [sonic]</div>
-                    <div style="color: #71717a; font-size: 0.8rem; margin: 2px 0;">🦙 Local/Ollama qwen2.5-coder-7b</div>
-                    <div style="color: #71717a; font-size: 0.8rem;">Status: standby pool</div>
-                  </div>
-                </div>
-
-                <div class="view-logs" id="viewLogs">
-                  <div><span style="color: var(--matrix-green); font-weight:800;">[TODO]</span> Phase 1: Foundation ✓ <span style="color:#a1a1aa;">(2/2 done)</span></div>
-                  <div><span style="color: var(--matrix-yellow); font-weight:800;">[TODO]</span> Phase 2: Auth Flow ⚡ <span style="color:#ffffff;">(in_progress 3/5)</span></div>
-                  <div style="margin-top: 8px; border-top: 1.5px dashed #3f3f46; padding-top: 6px;">
-                    <div><span style="color: var(--matrix-green);">[12:45:00]</span> <strong>[✨ Google Scout]:</strong> grep "auth" (24 matches)</div>
-                    <div><span style="color: var(--matrix-orange);">[12:45:01]</span> <strong>[🏺 Anthropic Coder]:</strong> edit +42 lines in src/auth.ts</div>
-                    <div style="color: #ffffff;"><span style="color: var(--matrix-green);">[12:45:02]</span> <strong>[🌀 OpenAI Reviewer]:</strong> bash "cargo test --lib" (RUNNING)</div>
-                  </div>
-                </div>
-
-                <!-- ESP32 High-Contrast Footer (Mirrors E-Ink) -->
                 <div class="esp-screen-footer">
                   <span>CTX: <strong style="color: var(--matrix-green);" id="dspCtxText">62%</strong></span>
                   <span>COST: <strong style="color: var(--matrix-yellow);" id="dspCost">$0.38</strong></span>
@@ -1039,44 +1091,39 @@
       </div>
     </section>
 
-    <!-- SECTION 2: MULTI-PLATFORM ARCHITECTURE SPECIFICATION -->
+    <!-- SECTION 2: ARCHITECTURE SPECIFICATION -->
     <section>
-      <h2>Multi-Platform Architecture: Kindle KOReader (Primary) &amp; ESP32 (Secondary)</h2>
-      <p>PipDeck is engineered in perpetuity with Kindle KOReader as the flagship e-ink target:</p>
+      <h2>Multi-Platform Architecture: Kindle KOReader &amp; ZenOS (Primary) &amp; ESP32 (Secondary)</h2>
+      <p>PipDeck is engineered in perpetuity with Kindle KOReader &amp; ZenOS as the flagship e-ink target:</p>
 
       <table>
         <thead>
           <tr>
-            <th>Architecture Dimension</th>
-            <th>Primary Platform: Kindle KOReader E-Ink</th>
-            <th>Secondary Platform: ESP32 Micro-Displays</th>
+            <th>Dimension</th>
+            <th>Primary: Kindle KOReader &amp; ZenOS</th>
+            <th>Secondary: ESP32 Color LCD</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Display Technology</strong></td>
+            <td><strong>Display Target</strong></td>
             <td><strong>6" to 10.2" Monochrome E-Ink (1-bit / 4-bit Grayscale)</strong></td>
-            <td>2.8" &amp; 3.5" Color TFT SPI LCD (320×240 / 480×320)</td>
+            <td>2.8" &amp; 3.5" Color TFT SPI LCD (320×240)</td>
           </tr>
           <tr>
-            <td><strong>Orientation Support</strong></td>
-            <td><strong>Dynamic Auto-Rotation (Portrait &amp; Landscape)</strong></td>
-            <td>Fixed Landscape (Hardware Enclosure)</td>
+            <td><strong>Launcher Integration</strong></td>
+            <td><strong>Standard KOReader Menu + ZenOS (ZenUI) App Tile</strong></td>
+            <td>Dedicated Firmware Boot Screen</td>
           </tr>
           <tr>
-            <td><strong>Wireless Connection</strong></td>
-            <td><strong>Wireless Local Wi-Fi (mDNS auto-discovery <code>omp.local:8787</code>)</strong></td>
-            <td>USB-C Serial UART (921600 baud) or Wi-Fi WebSocket</td>
-          </tr>
-          <tr>
-            <td><strong>Non-Technical Setup</strong></td>
-            <td><strong>Drop <code>pipdeck.koreader</code> folder into <code>koreader/plugins/</code></strong></td>
-            <td>1-Click Web Installer via Chrome WebSerial</td>
+            <td><strong>Zero-Config Pairing</strong></td>
+            <td><strong>mDNS (<code>omp.local:8787</code>) + In-App 4-Step Guide</strong></td>
+            <td>USB-C Serial (921600 baud) / Wi-Fi</td>
           </tr>
           <tr>
             <td><strong>Refresh Optimization</strong></td>
-            <td><strong>1–2 FPS Stepped Waveforms + Periodic Full Flash</strong></td>
-            <td>4–8 FPS Stepped LCD Motion (DMA Framebuffer)</td>
+            <td><strong>1–2 FPS Stepped Waveforms + Anti-Ghosting Full Flash</strong></td>
+            <td>4–8 FPS Stepped LCD Motion</td>
           </tr>
         </tbody>
       </table>
@@ -1084,12 +1131,35 @@
 
   </div>
 
+  <!-- INTERACTIVE IN-APP SETUP TUTORIAL MODAL -->
+  <div class="tutorial-modal-backdrop" id="tutorialModal" onclick="if(event.target===this) closeTutorialModal();">
+    <div class="tutorial-dialog">
+      <div class="tutorial-header">
+        <span id="tutTitle">Step 1/4: Same Wi-Fi Network</span>
+        <span style="cursor:pointer; font-size:1.2rem;" onclick="closeTutorialModal()">✕</span>
+      </div>
+
+      <div class="tutorial-body" id="tutBody">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="tutorial-nav-bar">
+        <button class="tut-btn" id="tutBackBtn" onclick="prevTutorialStep()">❮ Back</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="tut-btn" onclick="testHostPing()">⚡ Test Ping</button>
+          <button class="tut-btn tut-btn-primary" id="tutNextBtn" onclick="nextTutorialStep()">Next ❯</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
-    <p>PipDeck Multi-Platform Project · Built for Oh My Pi (OMP) · Released under MIT License</p>
+    <p>PipDeck Multi-Platform Project · Built for Oh My Pi (OMP) &amp; KOReader/ZenOS · Released under MIT License</p>
   </footer>
 
   <script>
     let currentPlatform = 'kindle-portrait';
+    let currentTutorialStep = 1;
 
     function switchPlatform(platformKey) {
       currentPlatform = platformKey;
@@ -1100,6 +1170,7 @@
       const kindleBox = document.getElementById('kindleContainer');
       const kindlePortrait = document.getElementById('einkPortraitView');
       const kindleLandscape = document.getElementById('einkLandscapeView');
+      const zenosView = document.getElementById('zenosHomeView');
 
       if (platformKey === 'esp32') {
         esp32Box.style.display = 'block';
@@ -1110,12 +1181,21 @@
         kindleBox.className = 'kindle-case';
         kindlePortrait.style.display = 'block';
         kindleLandscape.style.display = 'none';
+        zenosView.style.display = 'none';
       } else if (platformKey === 'kindle-landscape') {
         esp32Box.style.display = 'none';
         kindleBox.style.display = 'block';
         kindleBox.className = 'kindle-case landscape-mode';
         kindlePortrait.style.display = 'none';
         kindleLandscape.style.display = 'block';
+        zenosView.style.display = 'none';
+      } else if (platformKey === 'zenos') {
+        esp32Box.style.display = 'none';
+        kindleBox.style.display = 'block';
+        kindleBox.className = 'kindle-case';
+        kindlePortrait.style.display = 'none';
+        kindleLandscape.style.display = 'none';
+        zenosView.style.display = 'flex';
       }
     }
 
@@ -1126,70 +1206,114 @@
       surface.classList.add('eink-flashing');
     }
 
-    const swarmIncrementData = {
-      1: {
-        img: 'assets/animations/pip-swarm-1.svg',
-        ratio: '1/32 (Solo Node)',
-        threads: '1 Worker Active',
-        cmd: '$ omp task[Scout]',
-        tokens: '12.4k',
-        cost: '$0.04',
-        ctx: '18%'
+    /* Tutorial Steps */
+    const tutorialSteps = [
+      {
+        step: 1,
+        title: "Step 1/4: Same Wi-Fi Network",
+        content: `
+          <p>Make sure your <strong>Kindle e-ink device</strong> and your <strong>computer/workstation</strong> are connected to the <strong>same Wi-Fi network</strong> or phone hotspot.</p>
+          <div style="background:#f4f4f5; border:1.5px solid #000; padding:10px; border-radius:4px; margin-top:10px;">
+            <div>📶 <strong>Kindle Wi-Fi Status:</strong> Connected ✓</div>
+            <div style="font-size:0.85rem; color:#52525b; margin-top:2px;">SSID: HomeNetwork-5G · IP: 192.168.1.142</div>
+          </div>
+        `,
+        nextText: "Next: Start OMP ❯"
       },
-      5: {
-        img: 'assets/animations/pip-swarm-5.svg',
-        ratio: '5/32 (Pentagon Wave)',
-        threads: '5 Workers Active',
-        cmd: '$ omp task[Scout1-2, Coder1-2, Rev1]',
-        tokens: '38.2k',
-        cost: '$0.12',
-        ctx: '28%'
+      {
+        step: 2,
+        title: "Step 2/4: Start OMP Harness",
+        content: `
+          <p>In your computer's terminal, simply start your <strong>Oh My Pi</strong> coding harness:</p>
+          <div class="tutorial-code-box">$ omp</div>
+          <p>Oh My Pi automatically starts the local companion server on port <strong>8787</strong> and broadcasts mDNS service <code>_pipdeck._tcp.local</code>.</p>
+        `,
+        nextText: "Next: Pairing ❯"
       },
-      10: {
-        img: 'assets/animations/pip-swarm-10.svg',
-        ratio: '10/32 (Dual Orbit)',
-        threads: '10 Workers Active',
-        cmd: '$ omp task[Scout1-3, Coder1-4, Rev1-3]',
-        tokens: '68.5k',
-        cost: '$0.22',
-        ctx: '42%'
+      {
+        step: 3,
+        title: "Step 3/4: Auto-Discovery & Pairing",
+        content: `
+          <p>PipDeck will automatically detect your workstation via mDNS: <code>http://omp.local:8787</code>.</p>
+          <p>If mDNS is blocked by your router, you can enter your computer's IP address directly or type <code>/companion</code> in OMP:</p>
+          <div class="tutorial-code-box">Host URL: http://192.168.1.50:8787</div>
+        `,
+        nextText: "Next: Diagnostic Ping ❯"
       },
-      15: {
-        img: 'assets/animations/pip-swarm-15.svg',
-        ratio: '15/32 (Triple Ring)',
-        threads: '15 Workers Active',
-        cmd: '$ omp task[Scout1-4, Coder1-7, Rev1-4]',
-        tokens: '102.1k',
-        cost: '$0.34',
-        ctx: '54%'
-      },
-      20: {
-        img: 'assets/animations/pip-swarm-20.svg',
-        ratio: '20/32 (Dense Hive)',
-        threads: '20 Workers Active',
-        cmd: '$ omp task[Scout1-5, Coder1-10, Rev1-5]',
-        tokens: '144.8k',
-        cost: '$0.48',
-        ctx: '68%'
-      },
-      25: {
-        img: 'assets/animations/pip-swarm-25.svg',
-        ratio: '25/32 (Crowded Matrix)',
-        threads: '25 Workers Active',
-        cmd: '$ omp task[Scout1-6, Coder1-13, Rev1-6]',
-        tokens: '198.4k',
-        cost: '$0.66',
-        ctx: '78%'
-      },
-      32: {
-        img: 'assets/animations/pip-swarm-32.svg',
-        ratio: '32/32 (MAX CROWD)',
-        threads: '32 Workers Active (100%)',
-        cmd: '$ omp task[Scout, Coder, Reviewer, Sonic]',
-        tokens: '114.5k',
-        cost: '$0.38',
-        ctx: '62%'
+      {
+        step: 4,
+        title: "Step 4/4: Connection Diagnostic",
+        content: `
+          <p>Ready to verify live communication between your Kindle and Oh My Pi!</p>
+          <p>Click <strong>[⚡ Test Ping]</strong> below to verify telemetry reception from your active agent session.</p>
+          <div id="pingResultBox" style="background:#f4f4f5; border:1.5px solid #000; padding:10px; border-radius:4px; margin-top:10px; font-size:0.88rem;">
+            ⚡ Status: Ready to test ping
+          </div>
+        `,
+        nextText: "Launch PipDeck 🚀"
       }
+    ];
+
+    function openTutorialModal(step) {
+      currentTutorialStep = step || 1;
+      renderTutorialStep();
+      const modal = document.getElementById('tutorialModal');
+      modal.style.display = 'flex';
+    }
+
+    function closeTutorialModal() {
+      document.getElementById('tutorialModal').style.display = 'none';
+    }
+
+    function renderTutorialStep() {
+      const data = tutorialSteps[currentTutorialStep - 1];
+      document.getElementById('tutTitle').innerText = data.title;
+      document.getElementById('tutBody').innerHTML = data.content;
+      document.getElementById('tutNextBtn').innerText = data.nextText;
+      document.getElementById('tutBackBtn').style.visibility = currentTutorialStep === 1 ? 'hidden' : 'visible';
+    }
+
+    function nextTutorialStep() {
+      if (currentTutorialStep < tutorialSteps.length) {
+        currentTutorialStep++;
+        renderTutorialStep();
+      } else {
+        closeTutorialModal();
+        switchPlatform('kindle-portrait');
+      }
+    }
+
+    function prevTutorialStep() {
+      if (currentTutorialStep > 1) {
+        currentTutorialStep--;
+        renderTutorialStep();
+      }
+    }
+
+    function testHostPing() {
+      const box = document.getElementById('pingResultBox');
+      if (box) {
+        box.innerHTML = '⚡ Pinging http://omp.local:8787/api/status...';
+        setTimeout(() => {
+          box.innerHTML = `
+            <div style="color:#15803d; font-weight:800;">✓ HTTP 200 OK (0.012s)</div>
+            <div>Connected to: <strong>🏺 Anthropic claude-3-7-sonnet</strong></div>
+            <div>Active Thread: <strong>🧵 #cleanse-workspace-diagnostics</strong></div>
+          `;
+        }, 300);
+      } else {
+        alert('✓ PING SUCCESSFUL: Connected to Oh My Pi on port 8787');
+      }
+    }
+
+    const swarmIncrementData = {
+      1: { img: 'assets/animations/pip-swarm-1.svg', ratio: '1/32 (Solo Node)', cmd: '>_ omp task[Scout]', tokens: '12.4k', cost: '$0.04', ctx: '18%' },
+      5: { img: 'assets/animations/pip-swarm-5.svg', ratio: '5/32 (Pentagon Wave)', cmd: '>_ omp task[Scout1-2, Coder1-2, Rev1]', tokens: '38.2k', cost: '$0.12', ctx: '28%' },
+      10: { img: 'assets/animations/pip-swarm-10.svg', ratio: '10/32 (Dual Orbit)', cmd: '>_ omp task[Scout1-3, Coder1-4, Rev1-3]', tokens: '68.5k', cost: '$0.22', ctx: '42%' },
+      15: { img: 'assets/animations/pip-swarm-15.svg', ratio: '15/32 (Triple Ring)', cmd: '>_ omp task[Scout1-4, Coder1-7, Rev1-4]', tokens: '102.1k', cost: '$0.34', ctx: '54%' },
+      20: { img: 'assets/animations/pip-swarm-20.svg', ratio: '20/32 (Dense Hive)', cmd: '>_ omp task[Scout1-5, Coder1-10, Rev1-5]', tokens: '144.8k', cost: '$0.48', ctx: '68%' },
+      25: { img: 'assets/animations/pip-swarm-25.svg', ratio: '25/32 (Crowded Matrix)', cmd: '>_ omp task[Scout1-6, Coder1-13, Rev1-6]', tokens: '198.4k', cost: '$0.66', ctx: '78%' },
+      32: { img: 'assets/animations/pip-swarm-32.svg', ratio: '32/32 (MAX CROWD)', cmd: '>_ omp task[Scout, Coder, Reviewer, Sonic]', tokens: '114.5k', cost: '$0.38', ctx: '62%' }
     };
 
     function setSwarmIncrement(count) {
@@ -1204,9 +1328,9 @@
       document.getElementById('einkLandMascotImg').src = data.img;
 
       document.getElementById('stepperRatio').innerText = data.ratio;
-      document.getElementById('dspCmd').innerText = `>_ ${data.cmd.replace('$ ', '')}`;
-      document.getElementById('einkCmd').innerText = `>_ ${data.cmd.replace('$ ', '')}`;
-      document.getElementById('einkLandCmd').innerText = `>_ ${data.cmd.replace('$ ', '')}`;
+      document.getElementById('dspCmd').innerText = data.cmd;
+      document.getElementById('einkCmd').innerText = data.cmd;
+      document.getElementById('einkLandCmd').innerText = data.cmd;
 
       document.getElementById('dspTokens').innerText = data.tokens;
       document.getElementById('einkTokens').innerText = data.tokens;
@@ -1309,7 +1433,6 @@
       const data = ompStateData[key];
       if (!data) return;
 
-      // ESP32 Updates
       document.getElementById('dspMascot').src = data.img;
       document.getElementById('dspModel').innerText = data.modelTag;
       document.getElementById('dspThread').innerHTML = `<span>🧵</span> <span>${data.thread.replace('🧵 ', '')}</span>`;
@@ -1320,7 +1443,6 @@
       document.getElementById('dspTokens').innerText = data.tokens;
       document.getElementById('dspCost').innerText = data.cost;
 
-      // Kindle E-Ink Updates (Portrait)
       document.getElementById('einkMascotImg').src = data.img;
       document.getElementById('einkModel').innerText = data.modelTag;
       document.getElementById('einkThread').innerText = data.thread;
@@ -1331,7 +1453,6 @@
       document.getElementById('einkCost').innerText = data.cost;
       document.getElementById('einkTokens').innerText = data.tokens;
 
-      // Kindle E-Ink Updates (Landscape)
       document.getElementById('einkLandMascotImg').src = data.img;
       document.getElementById('einkLandModel').innerText = data.modelTag;
       document.getElementById('einkLandThread').innerText = data.thread;
@@ -1343,33 +1464,10 @@
       document.getElementById('einkLandTokens').innerText = data.tokens;
 
       const led = document.getElementById('hwLed');
-      led.style.background = data.led;
-      led.style.boxShadow = `0 0 14px ${data.led}`;
-
-      const pills = document.querySelectorAll('.esp-subagent-chip');
-      pills.forEach((p, idx) => {
-        if (data.subagents[idx % 4]) p.className = 'esp-subagent-chip active';
-        else p.className = 'esp-subagent-chip';
-      });
-
-      const einkChips = document.querySelectorAll('.eink-subagent-chip');
-      einkChips.forEach((c, idx) => {
-        if (data.subagents[idx % 4]) c.className = 'eink-subagent-chip active';
-        else c.className = 'eink-subagent-chip';
-      });
-    }
-
-    function switchTab(tabKey) {
-      document.querySelectorAll('.touch-tab').forEach(t => t.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-
-      document.getElementById('viewDash').style.display = 'none';
-      document.getElementById('viewSubagents').style.display = 'none';
-      document.getElementById('viewLogs').style.display = 'none';
-
-      if (tabKey === 'dash') document.getElementById('viewDash').style.display = 'grid';
-      else if (tabKey === 'subagents') document.getElementById('viewSubagents').style.display = 'grid';
-      else if (tabKey === 'logs') document.getElementById('viewLogs').style.display = 'flex';
+      if (led) {
+        led.style.background = data.led;
+        led.style.boxShadow = `0 0 14px ${data.led}`;
+      }
     }
 
     setInterval(() => {

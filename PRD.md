@@ -6,9 +6,12 @@
 
 ### Multi-Platform Mandate (In Perpetuity)
 AI agents and contributors MUST in perpetuity maintain, support, and test both target hardware tiers across all telemetry protocols, UI layouts, and animation engines:
-1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader**:
+1. **Primary Platform (Tier 1) — Amazon Kindle E-Ink Devices Running KOReader & ZenOS**:
    - Jailbroken Kindle Paperwhite, Oasis, Basic, and Scribe e-ink readers.
-   - Native Lua plugin `koreader/plugins/pipdeck.koreader`, wireless mDNS local Wi-Fi discovery (`omp.local:8787`), pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
+   - Native Lua plugin `koreader/plugins/pipdeck.koplugin/` supporting both standard KOReader Main Menu and **ZenOS** (`zen_ui.koplugin` / ZenPM) App Launcher tiles.
+   - **Zero-Config Local Wi-Fi Pairing**: mDNS auto-discovery on `omp.local:8787` (`_pipdeck._tcp.local`) with manual IP fallback.
+   - **Persistent 4-Step In-App Connection Tutorial**: Accessible anytime via `[?] Guide` to onboard non-technical users directly on the Kindle.
+   - **Display Engine**: Pure 1-bit high-contrast monochrome rendering, responsive auto-rotating Portrait and Landscape orientation layouts, and low-power e-ink stepped refresh rate / ghosting mitigation (1–2 FPS event-stepped waveforms with periodic full flash).
 2. **Secondary Platform (Tier 2) — ESP32 Micro-Displays & Embedded Hardware**:
    - ESP32-2432S028R (CYD 2.8" & 3.5" color SPI LCDs, PlatformIO, LovyanGFX DMA framebuffer, FreeRTOS, 4–8 FPS retro LCD stepped timing).
    - **Unified High-Contrast Design**: Mirrors the clean, high-contrast, structured hierarchy of the E-Ink design on pure `#000000` OLED black with subtle, tasteful Matrix green structural accents.
@@ -56,9 +59,19 @@ PipDeck enforces a **strict size invariance rule for the central Pip mascot**: P
 
 ---
 
-## 4. Hardware Screen Layouts
+## 4. In-App Setup Tutorial & Diagnostic Wizard (Non-Technical Users)
 
-### A. Primary Platform: Kindle KOReader E-Ink (Portrait & Landscape)
+A 4-step interactive connection guide is available inside the KOReader plugin and web simulator:
+1. **Step 1: Network Check**: Verifies Kindle Wi-Fi is active and on the same subnet as the OMP workstation.
+2. **Step 2: Start Harness**: Instructs running `$ omp` in terminal (spawns daemon on port 8787).
+3. **Step 3: Auto-Discovery & Pairing**: Discovers `http://omp.local:8787` via mDNS or allows direct manual IP input with auto-save to `settings.reader.lua`.
+4. **Step 4: Live Ping Diagnostic**: Executes instant HTTP test to `/api/status` confirming telemetry streaming.
+
+---
+
+## 5. Hardware Screen Layouts
+
+### A. Primary Platform: Kindle KOReader & ZenOS E-Ink (Portrait & Landscape)
 ```
 +------------------------------------------------------------------------+
 | OMP ❯ 🏺 Anthropic claude-3-7-sonnet                          12:45:02 |
@@ -83,7 +96,7 @@ PipDeck enforces a **strict size invariance rule for the central Pip mascot**: P
 ### B. Secondary Platform: ESP32 Color LCD (E-Ink Mirrored with Subtle Matrix Green)
 ```
 +------------------------------------------------------------------------+
-| [1. DASHBOARD]            [2. SUBAGENTS]            [3. TODO & LOGS]   | <-- Touch Tabs
+| [1. DASHBOARD]            [2. SETUP GUIDE]          [3. TODO & LOGS]   | <-- Touch Tabs
 +------------------------------------------------------------------------+
 | OMP ❯ 🏺 Anthropic claude-3-7-sonnet      git:main*           12:45:02 | <-- White Separator
 +------------------------------------------------------------------------+
@@ -102,7 +115,7 @@ PipDeck enforces a **strict size invariance rule for the central Pip mascot**: P
 
 ---
 
-## 5. Standardized Provider Iconography
+## 6. Standardized Provider Iconography
 
 Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model Name]`:
 
@@ -118,36 +131,17 @@ Every model reference strictly follows: `[Provider Icon] [Provider Name] [Model 
 
 ---
 
-## 6. Hardware Specifications (ESP32-2432S028R Secondary Tier)
-
-| Subsystem | Peripheral | GPIO Pin | Bus / Protocol |
-| :--- | :--- | :--- | :--- |
-| **Display** | ILI9341 SPI MOSI | `GPIO 13` | High-speed HSPI (80 MHz DMA) |
-| | ILI9341 SPI MISO | `GPIO 12` | HSPI |
-| | ILI9341 SPI SCK | `GPIO 14` | HSPI |
-| | ILI9341 SPI CS | `GPIO 15` | Chip Select |
-| | ILI9341 D/C | `GPIO 2` | Data / Command |
-| | TFT Backlight | `GPIO 21` | PWM LEDC Dimmer |
-| **Touch** | XPT2046 SPI CLK | `GPIO 25` | Dedicated SPI / Bitbang |
-| | XPT2046 SPI CS | `GPIO 33` | Chip Select |
-| | XPT2046 MOSI | `GPIO 32` | Data In |
-| | XPT2046 MISO | `GPIO 39` | Data Out |
-| | XPT2046 IRQ | `GPIO 36` | Touch Interrupt |
-| **Sensors/LED**| Onboard RGB (Red) | `GPIO 4` | Active Low |
-| | Onboard RGB (Green) | `GPIO 16` | Active Low |
-| | Onboard RGB (Blue) | `GPIO 17` | Active Low |
-| | LDR Light Sensor | `GPIO 34` | ADC1 Channel 6 |
-| **Audio** | Mono Speaker DAC | `GPIO 26` | 8-bit DAC Output (DAC1) |
-| **Serial** | UART0 TX / RX | `GPIO 1 / GPIO 3` | CH340 / CP2102 USB Bridge |
-
----
-
 ## 7. Software Architecture & Plugin Scaffold
 
-### A. Kindle KOReader Plugin (`koreader/plugins/pipdeck.koreader/`) - Primary
-- `_meta.lua`: Plugin registration.
-- `main.lua`: mDNS network listener, orientation-responsive drawing routines, partial/full e-ink refresh controller.
+### A. Kindle KOReader & ZenOS Plugin (`koreader/plugins/pipdeck.koplugin/`) - Primary
+- `_meta.lua`: Plugin registration with `is_app = true`, `category = "app"`, `icon = "pipdeck_icon"` for ZenOS launcher and standard KOReader menus.
+- `main.lua`: mDNS network listener, 4-step tutorial modal, orientation-responsive drawing routines, partial/full e-ink refresh controller.
 
-### B. ESP32 Firmware (PlatformIO / LovyanGFX) - Secondary
+### B. OMP Host Companion Daemon (`firmware/host/pipdeck-server.ts`)
+- Background HTTP server on port `8787` (`http://0.0.0.0:8787`).
+- Broadcasts mDNS service `_pipdeck._tcp.local` and `_omp._tcp.local`.
+- Exposes `/api/status` for JSON telemetry and `/` for Kindle HTML fallback.
+
+### C. ESP32 Firmware (PlatformIO / LovyanGFX) - Secondary
 - **Core 0**: Serial UART / WebSocket parser, state machine, LED/DAC controller.
 - **Core 1**: LovyanGFX DMA framebuffer swap (60 FPS render pipeline).
