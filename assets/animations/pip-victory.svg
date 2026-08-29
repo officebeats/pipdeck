@@ -55,16 +55,9 @@
     <rect x="16" y="2" width="4" height="6" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
   </g>
 
-  <!-- Ground Levitation Floor -->
-  <g opacity="0.6" stroke="#c084fc" stroke-width="1">
-    <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
-    <line x1="35" y1="188" x2="125" y2="188"/>
-  </g>
-  <ellipse cx="80" cy="180" rx="34" ry="5" fill="#f43f5e" opacity="0.25"/>
-
-  <!-- Retro LCD Dot-Matrix Pi Mascot (Victory) -->
+  <!-- Clean Floating Pi Mascot (Victory) -->
   <g class="mascot-victory">
-    <!-- Left Hook / Serif -->
+    <!-- Left Hook -->
     <rect x="51" y="60" width="4" height="4" fill="#ff4071"/>
     <rect x="51" y="65" width="4" height="4" fill="#ff4071"/>
     <rect x="51" y="70" width="4" height="4" fill="#ff4071"/>
@@ -81,7 +74,6 @@
     <rect x="96" y="65" width="4" height="4" fill="#3b82f6"/>
     <rect x="101" y="65" width="4" height="4" fill="#0ea5e9"/>
     <rect x="106" y="65" width="4" height="4" fill="#00f0ff"/>
-    <!-- Right Tip Serif -->
     <rect x="106" y="70" width="4" height="4" fill="#00f0ff"/>
 
     <!-- Crossbar Row 2 ($y=70$) -->

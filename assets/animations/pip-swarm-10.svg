@@ -24,6 +24,7 @@
     <line x1="25" y1="0" x2="25" y2="200"/><line x1="135" y1="0" x2="135" y2="200"/>
   </g>
 
+  <!-- Corner Reticles -->
   <g stroke="#00ff41" stroke-width="1.5" fill="none">
     <path d="M2,12 L2,2 L12,2"/><path d="M158,12 L158,2 L148,2"/>
     <path d="M2,188 L2,198 L12,198"/><path d="M158,188 L158,198 L148,198"/>
@@ -133,7 +134,7 @@
 
     <!-- Right Leg -->
     <rect x="91" y="75" width="4" height="4" fill="#7c3aed"/>
-    <rect x="96" y="75" width="4" height="4" fill="#7c3aed"/>
+    <rect x="96" y="75" width="4" height="4" fill="#3b82f6"/>
     <rect x="91" y="80" width="4" height="4" fill="#3b82f6"/>
     <rect x="96" y="80" width="4" height="4" fill="#3b82f6"/>
     <rect x="91" y="85" width="4" height="4" fill="#2563eb"/>
