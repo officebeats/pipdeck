@@ -3,119 +3,477 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pip: Orca Mascot Pet</title>
+  <title>Pip: Orca Mascot Pet (OMP Companion)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #000000;
+      --bg: rgba(0, 0, 0, 0);
+      --card-bg: rgba(9, 9, 11, 0.92);
       --border-green: #00ff41;
+      --border-subtle: #27272a;
       --text: #ffffff;
-      --omp-pink: #ff3366;
+      --text-muted: #a1a1aa;
+      --omp-pink: #ff4071;
       --omp-purple: #9333ea;
       --omp-cyan: #00f0ff;
+      --omp-yellow: #facc15;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: rgba(0, 0, 0, 0);
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+
+    html, body {
+      background: var(--bg) !important;
       color: var(--text);
       font-family: 'Fira Code', monospace;
       overflow: hidden;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       width: 100vw;
-      user-select: none;
+      -webkit-app-region: drag;
     }
 
-    .pet-container {
-      width: 160px;
-      height: 140px;
+    .pet-wrapper {
       position: relative;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      width: 180px;
+      height: 220px;
+      padding: 10px;
+      -webkit-app-region: no-drag;
     }
 
-    .pet-svg-wrapper {
-      width: 100%;
-      height: 100%;
-      image-rendering: pixelated;
-      transition: transform 0.15s ease;
-    }
-    .pet-container:hover .pet-svg-wrapper {
-      transform: scale(1.08);
-    }
-    .pet-container:active .pet-svg-wrapper {
-      transform: scale(0.95);
-    }
-
+    /* Speech & Status Bubble */
     .bubble {
       position: absolute;
-      top: -10px;
+      top: 2px;
       background: #000000;
       border: 1.5px solid var(--omp-cyan);
       color: var(--omp-cyan);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 4px;
       pointer-events: none;
       opacity: 0;
-      transition: all 0.25s ease;
+      transform: translateY(4px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
-      z-index: 10;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      max-width: 170px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 30;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 240, 255, 0.3);
     }
     .bubble.show {
-      top: -26px;
       opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mascot Container */
+    .mascot-box {
+      width: 140px;
+      height: 155px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s ease;
+    }
+    .mascot-box:hover {
+      transform: scale(1.05);
+    }
+    .mascot-box:active {
+      transform: scale(0.95);
+    }
+
+    .mascot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    /* Spritesheet Canvas View */
+    .spritesheet-canvas {
+      width: 128px;
+      height: 138px;
+      image-rendering: pixelated;
+      display: none;
+    }
+
+    /* HUD Bar Under Pet */
+    .hud-bar {
+      margin-top: 4px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 9px;
+      font-weight: 700;
+      z-index: 20;
+    }
+    .state-badge {
+      color: var(--border-green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-val {
+      color: var(--omp-yellow);
+    }
+
+    /* Floating Heart on Click */
+    .heart {
+      position: absolute;
+      color: var(--omp-pink);
+      font-size: 18px;
+      font-weight: 900;
+      pointer-events: none;
+      animation: floatHeart 0.65s steps(6) forwards;
+      z-index: 40;
+      text-shadow: 0 0 8px rgba(255, 64, 113, 0.8);
+    }
+    @keyframes floatHeart {
+      0% { opacity: 1; transform: translateY(0) scale(0.7); }
+      50% { opacity: 1; transform: translateY(-18px) scale(1.25); }
+      100% { opacity: 0; transform: translateY(-36px) scale(0.9); }
+    }
+
+    /* Floating Token Crumb on Feed */
+    .crumb {
+      position: absolute;
+      color: var(--omp-yellow);
+      font-size: 11px;
+      font-weight: 800;
+      pointer-events: none;
+      animation: dropCrumb 0.5s steps(5) forwards;
+      z-index: 40;
+      text-shadow: 0 0 6px rgba(250, 204, 21, 0.8);
+    }
+    @keyframes dropCrumb {
+      0% { opacity: 1; transform: translateY(-12px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(18px) scale(0.4); }
+    }
+
+    /* Controls overlay on hover */
+    .mode-toggle-btn {
+      position: absolute;
+      bottom: 2px;
+      right: 4px;
+      font-size: 8px;
+      background: #000000;
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+      padding: 1px 4px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .pet-wrapper:hover .mode-toggle-btn {
+      opacity: 1;
+    }
+    .mode-toggle-btn:hover {
+      color: var(--omp-cyan);
+      border-color: var(--omp-cyan);
     }
   </style>
 </head>
 <body>
 
-  <div class="pet-container" id="petBox" onclick="interactPet()">
-    <div class="bubble" id="petBubble">Pip is Ready! ⚡</div>
-    <div class="pet-svg-wrapper" id="petSvgBox">
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="44 64 68 64" shape-rendering="crispEdges">
-        <style>
-          @keyframes pixelBreathe { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-3px); } }
-          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 96px; filter: drop-shadow(0 0 5px #9333ea); }
-        </style>
-        <!-- Static Grounded Floor Shadow Directly Under Base -->
-        <ellipse cx="80" cy="121" rx="26" ry="3" fill="#7e22ce" opacity="0.35"/>
-        <ellipse cx="80" cy="121" rx="15" ry="1.8" fill="#00f0ff" opacity="0.55"/>
-        <g class="mascot">
-          <!-- Continuous 16-Column LED Top Crossbar -->
-          <circle cx="48" cy="70" r="1.65" fill="#ff3366"/> <circle cx="48" cy="74" r="1.65" fill="#ff3366"/> <circle cx="52" cy="70" r="1.65" fill="#ff3366"/> <circle cx="52" cy="74" r="1.65" fill="#ff3366"/> <circle cx="52" cy="78" r="1.65" fill="#ff3366"/> <circle cx="56" cy="70" r="1.65" fill="#ff3366"/> <circle cx="56" cy="74" r="1.65" fill="#ff3366"/> <circle cx="56" cy="78" r="1.65" fill="#ff3366"/> <circle cx="60" cy="70" r="1.65" fill="#ff3366"/> <circle cx="60" cy="74" r="1.65" fill="#ff3366"/> <circle cx="60" cy="78" r="1.65" fill="#ff3366"/> <circle cx="64" cy="70" r="1.65" fill="#f43f5e"/> <circle cx="64" cy="74" r="1.65" fill="#f43f5e"/> <circle cx="64" cy="78" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="70" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="74" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="78" r="1.65" fill="#f43f5e"/> <circle cx="72" cy="70" r="1.65" fill="#f43f5e"/> <circle cx="72" cy="74" r="1.65" fill="#f43f5e"/> <circle cx="72" cy="78" r="1.65" fill="#f43f5e"/> <circle cx="76" cy="70" r="1.65" fill="#a855f7"/> <circle cx="76" cy="74" r="1.65" fill="#a855f7"/> <circle cx="76" cy="78" r="1.65" fill="#a855f7"/> <circle cx="80" cy="70" r="1.65" fill="#a855f7"/> <circle cx="80" cy="74" r="1.65" fill="#a855f7"/> <circle cx="80" cy="78" r="1.65" fill="#a855f7"/> <circle cx="84" cy="70" r="1.65" fill="#a855f7"/> <circle cx="84" cy="74" r="1.65" fill="#a855f7"/> <circle cx="84" cy="78" r="1.65" fill="#a855f7"/> <circle cx="88" cy="70" r="1.65" fill="#6366f1"/> <circle cx="88" cy="74" r="1.65" fill="#6366f1"/> <circle cx="88" cy="78" r="1.65" fill="#6366f1"/> <circle cx="92" cy="70" r="1.65" fill="#6366f1"/> <circle cx="92" cy="74" r="1.65" fill="#6366f1"/> <circle cx="92" cy="78" r="1.65" fill="#6366f1"/> <circle cx="96" cy="70" r="1.65" fill="#6366f1"/> <circle cx="96" cy="74" r="1.65" fill="#6366f1"/> <circle cx="96" cy="78" r="1.65" fill="#6366f1"/> <circle cx="100" cy="70" r="1.65" fill="#0ea5e9"/> <circle cx="100" cy="74" r="1.65" fill="#0ea5e9"/> <circle cx="100" cy="78" r="1.65" fill="#0ea5e9"/> <circle cx="104" cy="70" r="1.65" fill="#0ea5e9"/> <circle cx="104" cy="74" r="1.65" fill="#0ea5e9"/> <circle cx="104" cy="78" r="1.65" fill="#0ea5e9"/> <circle cx="108" cy="70" r="1.65" fill="#00f0ff"/> <circle cx="108" cy="74" r="1.65" fill="#00f0ff"/> <circle cx="108" cy="78" r="1.65" fill="#00f0ff"/>
-          <!-- Left Leg with Halftone Dither Fade -->
-          <circle cx="60" cy="82" r="1.65" fill="#f43f5e"/> <circle cx="64" cy="82" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="82" r="1.65" fill="#f43f5e"/> <circle cx="60" cy="86" r="1.65" fill="#f43f5e"/> <circle cx="64" cy="86" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="86" r="1.65" fill="#f43f5e"/> <circle cx="60" cy="90" r="1.65" fill="#f43f5e"/> <circle cx="64" cy="90" r="1.65" fill="#f43f5e"/> <circle cx="68" cy="90" r="1.65" fill="#f43f5e"/> <circle cx="60" cy="94" r="1.65" fill="#c026d3"/> <circle cx="64" cy="94" r="1.65" fill="#c026d3"/> <circle cx="68" cy="94" r="1.65" fill="#c026d3"/> <circle cx="60" cy="98" r="1.65" fill="#c026d3"/> <circle cx="64" cy="98" r="1.65" fill="#c026d3"/> <circle cx="68" cy="98" r="1.65" fill="#c026d3"/> <circle cx="60" cy="102" r="1.65" fill="#9333ea"/> <circle cx="64" cy="102" r="1.65" fill="#9333ea"/> <circle cx="68" cy="102" r="1.65" fill="#9333ea"/> <circle cx="60" cy="106" r="1.65" fill="#9333ea"/> <circle cx="64" cy="106" r="1.65" fill="#9333ea"/> <circle cx="68" cy="106" r="1.65" fill="#9333ea"/> <circle cx="64" cy="110" r="1.4" fill="#a855f7" opacity="0.8"/> <circle cx="60" cy="114" r="1.2" fill="#7e22ce" opacity="0.6"/> <circle cx="68" cy="114" r="1.2" fill="#7e22ce" opacity="0.6"/> <circle cx="64" cy="118" r="1.1" fill="#581c87" opacity="0.5"/>
-          <!-- Right Leg Curving to Electric Cyan -->
-          <circle cx="88" cy="82" r="1.65" fill="#8b5cf6"/> <circle cx="92" cy="82" r="1.65" fill="#8b5cf6"/> <circle cx="96" cy="82" r="1.65" fill="#8b5cf6"/> <circle cx="88" cy="86" r="1.65" fill="#8b5cf6"/> <circle cx="92" cy="86" r="1.65" fill="#8b5cf6"/> <circle cx="96" cy="86" r="1.65" fill="#8b5cf6"/> <circle cx="88" cy="90" r="1.65" fill="#8b5cf6"/> <circle cx="92" cy="90" r="1.65" fill="#8b5cf6"/> <circle cx="96" cy="90" r="1.65" fill="#8b5cf6"/> <circle cx="88" cy="94" r="1.65" fill="#3b82f6"/> <circle cx="92" cy="94" r="1.65" fill="#3b82f6"/> <circle cx="96" cy="94" r="1.65" fill="#3b82f6"/> <circle cx="88" cy="98" r="1.65" fill="#3b82f6"/> <circle cx="92" cy="98" r="1.65" fill="#3b82f6"/> <circle cx="96" cy="98" r="1.65" fill="#3b82f6"/> <circle cx="88" cy="102" r="1.65" fill="#06b6d4"/> <circle cx="92" cy="102" r="1.65" fill="#06b6d4"/> <circle cx="96" cy="102" r="1.65" fill="#06b6d4"/> <circle cx="88" cy="106" r="1.65" fill="#06b6d4"/> <circle cx="92" cy="106" r="1.65" fill="#06b6d4"/> <circle cx="96" cy="106" r="1.65" fill="#06b6d4"/> <circle cx="88" cy="110" r="1.65" fill="#00f0ff"/> <circle cx="92" cy="110" r="1.65" fill="#00f0ff"/> <circle cx="96" cy="110" r="1.65" fill="#00f0ff"/> <circle cx="100" cy="110" r="1.65" fill="#00f0ff"/> <circle cx="92" cy="114" r="1.65" fill="#00f0ff"/> <circle cx="96" cy="114" r="1.65" fill="#00f0ff"/> <circle cx="100" cy="114" r="1.65" fill="#00f0ff"/> <circle cx="104" cy="114" r="1.65" fill="#00f0ff"/> <circle cx="96" cy="118" r="1.65" fill="#00f0ff"/> <circle cx="100" cy="118" r="1.65" fill="#00f0ff"/> <circle cx="104" cy="118" r="1.65" fill="#00f0ff"/>
-        </g>
-      </svg>
+  <div class="pet-wrapper" id="petWrapper">
+    <div class="bubble" id="petBubble">Pip: OMP Active 🚀</div>
+
+    <div class="mascot-box" id="mascotBox" title="Click: Pet Pip | Double-Click / F: Feed | S: Toggle Sprite/SVG">
+      <img id="mascotSvg" class="mascot-img" src="/assets/animations/pip-idle.svg" alt="Pip OMP Mascot">
+      <canvas id="mascotCanvas" class="spritesheet-canvas" width="192" height="208"></canvas>
     </div>
+
+    <div class="hud-bar">
+      <span class="state-badge" id="hudState">IDLE</span>
+      <span style="color:var(--border-subtle)">|</span>
+      <span title="Tokens Eaten" class="stat-val" id="hudTokens">18.4k</span>
+      <span style="color:var(--border-subtle)">|</span>
+      <span title="Model" style="color:var(--omp-cyan)" id="hudModel">✨ Gemini</span>
+    </div>
+
+    <button class="mode-toggle-btn" id="modeBtn" onclick="toggleRenderMode()">SVG</button>
   </div>
 
   <script>
-    const phrases = [
-      "Pip: OMP Active 🚀",
-      "Swarm: 32 Nodes! ⚡",
-      "Coding with Claude & Gemini ✨",
-      "Purring in 8-bit 💚",
-      "Pip Loves Oh My Pi!"
-    ];
+    // Asset Mapping from PipDeck Repo
+    const SVG_STATES = {
+      idle: '/assets/animations/pip-idle.svg',
+      thinking: '/assets/animations/pip-thinking.svg',
+      bash: '/assets/animations/pip-hacking.svg',
+      running: '/assets/animations/pip-hacking.svg',
+      alert: '/assets/animations/pip-alert.svg',
+      failed: '/assets/animations/pip-alert.svg',
+      victory: '/assets/animations/pip-victory.svg',
+      review: '/assets/animations/pip-victory.svg',
+      swarm32: '/assets/animations/pip-swarm-32.svg',
+      swarm: '/assets/animations/pip-swarm-32.svg',
+    };
 
-    function interactPet() {
-      const bubble = document.getElementById('petBubble');
-      const text = phrases[Math.floor(Math.random() * phrases.length)];
-      bubble.innerText = text;
-      bubble.classList.add('show');
-      setTimeout(() => bubble.classList.remove('show'), 2400);
+    // Spritesheet animation rows (8x9 atlas from assets/orca-pet-bundle)
+    const SPRITE_ROWS = {
+      'idle': { row: 0, frames: 6, fps: 8 },
+      'running-right': { row: 1, frames: 8, fps: 12 },
+      'running-left': { row: 2, frames: 8, fps: 12 },
+      'waving': { row: 3, frames: 4, fps: 6 },
+      'jumping': { row: 4, frames: 5, fps: 10 },
+      'failed': { row: 5, frames: 6, fps: 8 },
+      'alert': { row: 5, frames: 6, fps: 8 },
+      'waiting': { row: 6, frames: 6, fps: 8 },
+      'thinking': { row: 6, frames: 6, fps: 8 },
+      'running': { row: 7, frames: 8, fps: 12 },
+      'bash': { row: 7, frames: 8, fps: 12 },
+      'review': { row: 8, frames: 6, fps: 8 },
+      'victory': { row: 8, frames: 6, fps: 8 },
+      'swarm32': { row: 7, frames: 8, fps: 14 }
+    };
+
+    let currentState = 'bash';
+    let renderMode = 'svg'; // 'svg' or 'sprite'
+    let soundEnabled = true;
+    let tokensEaten = 18400;
+    let happiness = 90;
+    let energy = 95;
+
+    // Elements
+    const mascotSvg = document.getElementById('mascotSvg');
+    const mascotCanvas = document.getElementById('mascotCanvas');
+    const mascotBox = document.getElementById('mascotBox');
+    const petBubble = document.getElementById('petBubble');
+    const hudState = document.getElementById('hudState');
+    const hudTokens = document.getElementById('hudTokens');
+    const hudModel = document.getElementById('hudModel');
+    const modeBtn = document.getElementById('modeBtn');
+
+    // Retro Chiptune Synthesizer
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playTone(freq, type = 'square', dur = 0.08, gainVal = 0.04) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioContext();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch (e) {}
     }
+
+    function sfxPurr() {
+      playTone(280, 'square', 0.05, 0.04);
+      setTimeout(() => playTone(420, 'square', 0.08, 0.05), 45);
+    }
+
+    function sfxFeed() {
+      playTone(520, 'triangle', 0.04, 0.05);
+      setTimeout(() => playTone(880, 'square', 0.06, 0.06), 40);
+    }
+
+    // Spritesheet Canvas Animator
+    const spritesheetImg = new Image();
+    spritesheetImg.src = '/assets/orca-pet-bundle/spritesheet.webp';
+    let currentFrame = 0;
+    let animTimer = null;
+
+    function renderSpriteFrame() {
+      if (renderMode !== 'sprite' || !spritesheetImg.complete) return;
+      const ctx = mascotCanvas.getContext('2d');
+      const anim = SPRITE_ROWS[currentState] || SPRITE_ROWS['idle'];
+      const cellW = 192;
+      const cellH = 208;
+      const sx = currentFrame * cellW;
+      const sy = anim.row * cellH;
+
+      ctx.clearRect(0, 0, mascotCanvas.width, mascotCanvas.height);
+      ctx.drawImage(spritesheetImg, sx, sy, cellW, cellH, 0, 0, mascotCanvas.width, mascotCanvas.height);
+
+      currentFrame = (currentFrame + 1) % anim.frames;
+    }
+
+    function startSpriteLoop() {
+      if (animTimer) clearInterval(animTimer);
+      const anim = SPRITE_ROWS[currentState] || SPRITE_ROWS['idle'];
+      const interval = Math.round(1000 / (anim.fps || 8));
+      currentFrame = 0;
+      animTimer = setInterval(renderSpriteFrame, interval);
+    }
+
+    function updateState(newState, extra = {}) {
+      currentState = newState || 'idle';
+      if (SVG_STATES[currentState]) {
+        mascotSvg.src = SVG_STATES[currentState];
+      }
+      hudState.innerText = currentState.toUpperCase();
+      if (extra.tokens) hudTokens.innerText = extra.tokens;
+      if (extra.model) {
+        let m = extra.model;
+        if (m.includes('Anthropic') || m.includes('claude')) m = '🏺 Claude';
+        else if (m.includes('Google') || m.includes('gemini')) m = '✨ Gemini';
+        else if (m.includes('OpenAI') || m.includes('gpt')) m = '🌀 OpenAI';
+        else if (m.includes('Sonic') || m.includes('Local')) m = '🦙 Sonic';
+        hudModel.innerText = m;
+      }
+      if (renderMode === 'sprite') {
+        startSpriteLoop();
+      }
+    }
+
+    function showBubble(text, dur = 2200) {
+      petBubble.innerText = text;
+      petBubble.classList.add('show');
+      setTimeout(() => petBubble.classList.remove('show'), dur);
+    }
+
+    function spawnHeart(x, y) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = '♥';
+      h.style.left = `${x || 70}px`;
+      h.style.top = `${y || 40}px`;
+      mascotBox.appendChild(h);
+      setTimeout(() => h.remove(), 650);
+    }
+
+    function spawnCrumb(x, y) {
+      const c = document.createElement('div');
+      c.className = 'crumb';
+      c.textContent = '01';
+      c.style.left = `${x || 70}px`;
+      c.style.top = `${y || 60}px`;
+      mascotBox.appendChild(c);
+      setTimeout(() => c.remove(), 500);
+    }
+
+    function petPip(e) {
+      sfxPurr();
+      const rect = mascotBox.getBoundingClientRect();
+      const x = e ? e.clientX - rect.left - 6 : rect.width / 2;
+      const y = e ? e.clientY - rect.top - 12 : rect.height / 2 - 12;
+      spawnHeart(x, y);
+      happiness = Math.min(100, happiness + 5);
+
+      const purrs = [
+        "Purring in 8-bit 💚",
+        "Pip Loves Oh My Pi! ✨",
+        "Agent Swarm Ready ⚡",
+        "Coding with Love ♥"
+      ];
+      showBubble(purrs[Math.floor(Math.random() * purrs.length)]);
+
+      fetch('/api/pet/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'pet' })
+      }).catch(() => {});
+    }
+
+    function feedPip() {
+      sfxFeed();
+      const rect = mascotBox.getBoundingClientRect();
+      spawnCrumb(rect.width / 2 - 8, rect.height / 2);
+      tokensEaten += 1024;
+      energy = Math.min(100, energy + 8);
+      hudTokens.innerText = `${(tokensEaten / 1000).toFixed(1)}k`;
+
+      showBubble("+1,024 Tokens Devoured! 🍪");
+
+      fetch('/api/pet/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'feed' })
+      }).catch(() => {});
+    }
+
+    function toggleRenderMode() {
+      if (renderMode === 'svg') {
+        renderMode = 'sprite';
+        mascotSvg.style.display = 'none';
+        mascotCanvas.style.display = 'block';
+        modeBtn.innerText = 'SPRITE';
+        startSpriteLoop();
+        showBubble("Spritesheet Mode (192x208)");
+      } else {
+        renderMode = 'svg';
+        if (animTimer) clearInterval(animTimer);
+        mascotCanvas.style.display = 'none';
+        mascotSvg.style.display = 'block';
+        modeBtn.innerText = 'SVG';
+        showBubble("Vector Stepped SVG Mode");
+      }
+    }
+
+    mascotBox.addEventListener('click', (e) => petPip(e));
+    mascotBox.addEventListener('dblclick', (e) => { e.preventDefault(); feedPip(); });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'f' || e.key === 'F') feedPip();
+      if (e.key === 'p' || e.key === 'P') petPip();
+      if (e.key === 's' || e.key === 'S') toggleRenderMode();
+      if (e.key === 'm' || e.key === 'M') {
+        soundEnabled = !soundEnabled;
+        showBubble(soundEnabled ? "SFX: Enabled 🔊" : "SFX: Muted 🔇");
+      }
+      if (e.key === '1') updateState('idle');
+      if (e.key === '2') updateState('thinking');
+      if (e.key === '3') updateState('bash');
+      if (e.key === '4') updateState('swarm32');
+      if (e.key === '5') updateState('victory');
+      if (e.key === '6') updateState('alert');
+    });
+
+    // Real-Time SSE Stream Connection
+    function connectEvents() {
+      try {
+        const es = new EventSource('/api/pet/events');
+        es.onmessage = (e) => {
+          try {
+            const data = JSON.parse(e.data);
+            if (data.state) {
+              updateState(data.state, {
+                tokens: data.tokensEaten ? `${(data.tokensEaten / 1000).toFixed(1)}k` : undefined,
+                model: data.model
+              });
+            }
+            if (data.command) {
+              showBubble(data.command.slice(0, 30));
+            }
+          } catch (err) {}
+        };
+        es.onerror = () => {
+          es.close();
+          setTimeout(connectEvents, 2000);
+        };
+      } catch (e) {
+        setTimeout(connectEvents, 2500);
+      }
+    }
+    connectEvents();
+
+    // Initial State Setup
+    updateState('bash', { tokens: '18.4k', model: '✨ Google gemini-3.7-flash' });
   </script>
 </body>
 </html>
