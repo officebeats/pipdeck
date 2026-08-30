@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oh My Pi (OMP) Mascot &amp; Platform Visual Specification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #121215;
+      --card-border: #27272a;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --omp-pink: #ff3366;
+      --omp-crimson: #f43f5e;
+      --omp-purple: #9333ea;
+      --omp-cyan: #00f0ff;
+      --omp-yellow: #facc15;
+      --omp-green: #00ff41;
+      --cli-bg: #1c2128;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding: 30px 20px 100px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 2px solid var(--omp-cyan);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-cyan { border-color: var(--omp-cyan); color: var(--omp-cyan); background: rgba(0, 240, 255, 0.08); }
+    .badge-pink { border-color: var(--omp-pink); color: var(--omp-pink); background: rgba(255, 51, 102, 0.08); }
+    .badge-green { border-color: var(--omp-green); color: var(--omp-green); background: rgba(0, 255, 65, 0.08); }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .lead {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 950px;
+    }
+
+    .section-title {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--omp-cyan);
+      margin: 40px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Comparison Grid */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .comp-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .comp-card.highlight {
+      border-color: var(--omp-cyan);
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.12);
+    }
+    .comp-header {
+      font-family: 'Fira Code', monospace;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cli-terminal-box {
+      background: var(--cli-bg);
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+    }
+
+    /* Chunky Pixel CLI Pi Logo (Exact CSS Replica) */
+    .cli-pi-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 140px;
+    }
+    .cli-crossbar {
+      width: 140px;
+      height: 28px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #ff3366 0%, #f43f5e 25%, #9333ea 55%, #3b82f6 80%, #00f0ff 100%);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .cli-legs-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100px;
+      height: 64px;
+      margin-top: 0px;
+    }
+    .cli-leg-left {
+      width: 28px;
+      height: 100%;
+      background: linear-gradient(180deg, #f43f5e 0%, #c026d3 40%, transparent 40%),
+                  repeating-conic-gradient(#7e22ce 0% 25%, #2e1065 0% 50%) 50% / 4px 4px;
+    }
+    .cli-leg-right {
+      width: 28px;
+      height: 100%;
+      position: relative;
+    }
+    .cli-leg-right-vert {
+      width: 28px;
+      height: 48px;
+      background: linear-gradient(180deg, #9333ea 0%, #3b82f6 50%, #00f0ff 100%);
+    }
+    .cli-leg-right-foot {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 44px;
+      height: 16px;
+      background: #00f0ff;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Interactive Live State Previewer */
+    .state-player-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+    .player-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .btn-state {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 5px;
+      border: 1.5px solid var(--card-border);
+      background: #000000;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-state:hover {
+      border-color: var(--omp-cyan);
+      color: var(--omp-cyan);
+    }
+    .btn-state.active {
+      border-color: var(--omp-cyan);
+      background: var(--omp-cyan);
+      color: #000000;
+    }
+
+    .player-stage {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      border: 1px dashed var(--card-border);
+      border-radius: 6px;
+      padding: 40px 20px;
+      flex-wrap: wrap;
+    }
+    .preview-box {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .preview-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    /* Use Cases Grid */
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .use-case-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .use-case-visual {
+      background: #000000;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--card-border);
+      min-height: 200px;
+    }
+    .use-case-info {
+      padding: 20px;
+      flex: 1;
+    }
+    .use-case-title {
+      font-family: 'Fira Code', monospace;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+    .use-case-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Mockups */
+    .eink-mockup-light {
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+      border-radius: 4px;
+      padding: 12px;
+      width: 100%;
+      max-width: 260px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+    }
+    .eink-mockup-dark {
+      background: #000000;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 4px;
+      padding: 12px;
+      width: 100%;
+      max-width: 260px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
+    }
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      margin-top: 16px;
+    }
+    .specs-table th, .specs-table td {
+      border: 1px solid var(--card-border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .specs-table th {
+      background: #18181b;
+      color: var(--omp-cyan);
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      margin-top: 60px;
+      padding-top: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge-row">
+        <span class="badge badge-cyan">Visual Specification</span>
+        <span class="badge badge-pink">Oh My Pi (OMP) CLI Invariant</span>
+        <span class="badge badge-green">Casio LCD Handheld Engine</span>
+      </div>
+      <h1>Official Oh My Pi (OMP) Mascot &amp; Platform Visual Spec</h1>
+      <p class="lead">Pixel-accurate blueprint aligning the desktop companion pet, Kindle KOReader/ZenOS e-ink display, ESP32 micro-displays, and web telemetry simulators with the official OMP CLI welcome screen logo.</p>
+    </header>
+
+    <!-- SECTION 1: CLI LOGO GEOMETRY BREAKDOWN -->
+    <div class="section-title">📐 1. Pixel Geometry Breakdown: CLI Welcome Logo vs Mascot</div>
+    <div class="comparison-grid">
+      
+      <!-- CLI Welcome Logo Blueprint -->
+      <div class="comp-card highlight">
+        <div class="comp-header">
+          <span>Official OMP CLI Logo</span>
+          <span class="badge badge-pink">Source of Truth</span>
+        </div>
+        <div class="cli-terminal-box">
+          <div class="cli-pi-logo">
+            <div class="cli-crossbar"></div>
+            <div class="cli-legs-row">
+              <div class="cli-leg-left"></div>
+              <div class="cli-leg-right">
+                <div class="cli-leg-right-vert"></div>
+                <div class="cli-leg-right-foot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);">
+          <strong style="color:#ffffff;">Exact Visual Specifications:</strong>
+          <ul style="margin-left: 20px; margin-top: 6px; line-height: 1.6;">
+            <li><strong>Top Crossbar</strong>: Continuous solid gradient from Hot Pink (<code>#ff3366</code>) $\to$ Purple (<code>#9333ea</code>) $\to$ Electric Cyan (<code>#00f0ff</code>).</li>
+            <li><strong>Left Leg</strong>: Solid magenta fading into a <strong>50% checkerboard dither pattern</strong> at the bottom.</li>
+            <li><strong>Right Leg</strong>: Curving foot in solid neon Cyan (<code>#00f0ff</code>).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mascot Translation -->
+      <div class="comp-card">
+        <div class="comp-header">
+          <span>Companion Pet Translation</span>
+          <span class="badge badge-cyan">8-Bit Mascot</span>
+        </div>
+        <div class="cli-terminal-box" style="background:#000000;">
+          <img src="assets/animations/pip-idle.gif" alt="Pip Mascot Idle" style="width: 140px; height: 140px; object-fit: contain; image-rendering: pixelated;">
+        </div>
+        <div style="margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);">
+          <strong style="color:#ffffff;">Companion Engine Enhancements:</strong>
+          <ul style="margin-left: 20px; margin-top: 6px; line-height: 1.6;">
+            <li><strong>Stepped Levitation</strong>: Discrete 2-step Casio LCD breathing hop (hold 380ms $\leftrightarrow$ snap $+4\text{px}$).</li>
+            <li><strong>Grounded Purple/Cyan Shadow</strong>: Pinned to floor to anchor floating mascot without obscuring terminal text.</li>
+            <li><strong>100% Alpha Transparency</strong>: Clean edge rendering across dark and light surfaces.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2: INTERACTIVE MULTI-STATE ANIMATION VIEWER -->
+    <div class="section-title">🕹️ 2. Interactive Casio LCD State Animation Matrix (All 10 Supported States)</div>
+    <div class="state-player-card">
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:16px;">Select any state below to preview its discrete 2–4 frame Casio LCD handheld game stutter animation:</p>
+      
+      <div class="player-controls">
+        <button class="btn-state active" onclick="switchState('idle', this)">💤 Idle (2-Frame Hop)</button>
+        <button class="btn-state" onclick="switchState('thinking', this)">🧠 Thinking (Chin Tap &amp; Thought Spark)</button>
+        <button class="btn-state" onclick="switchState('bash', this)">⌨️ Bash (Alternating Typing)</button>
+        <button class="btn-state" onclick="switchState('waving', this)">👋 Waving (Paw Snap &amp; Star)</button>
+        <button class="btn-state" onclick="switchState('victory', this)">🏆 Victory (Cheer Leap &amp; Confetti)</button>
+        <button class="btn-state" onclick="switchState('swarm32', this)">🌌 Swarm 32 (Mind-Control Mini Pis)</button>
+        <button class="btn-state" onclick="switchState('jumping', this)">🦘 Jumping (Click Bounce)</button>
+        <button class="btn-state" onclick="switchState('alert', this)">⚠️ Alert (Warning Strobe)</button>
+        <button class="btn-state" onclick="switchState('running-right', this)">➡️ Run Right</button>
+        <button class="btn-state" onclick="switchState('running-left', this)">⬅️ Run Left</button>
+      </div>
+
+      <div class="player-stage">
+        <div class="preview-box">
+          <img id="activeStateImg" src="assets/animations/pip-idle.gif" alt="Active Mascot Preview">
+        </div>
+        <div style="max-width: 480px;">
+          <h3 id="stateTitle" style="font-family:'Fira Code', monospace; color:var(--omp-cyan); margin-bottom:6px;">💤 IDLE: Ambient Breathing Hop</h3>
+          <p id="stateDesc" style="font-size:0.88rem; color:var(--text-muted); margin-bottom:12px;">Discrete 2-frame Casio LCD breathing loop with resting hold $\leftrightarrow$ 1-grid upward hop snap and grounded levitation core shadow.</p>
+          <div style="font-family:'Fira Code', monospace; font-size:0.8rem; background:#18181b; padding:10px; border-radius:4px; border:1px solid var(--card-border);">
+            <div><strong>Agent Trigger:</strong> <span id="stateTrigger" style="color:var(--omp-green);">Standby / Awaiting User Prompt</span></div>
+            <div><strong>Casio Pacing:</strong> <span id="statePacing" style="color:var(--omp-yellow);">2 frames @ 380ms (~2.6 FPS)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: ALL SUPPORTED PLATFORMS & USE CASES -->
+    <div class="section-title">📱 3. Supported Hardware Tiers &amp; Platform Use Cases</div>
+    <div class="use-cases-grid">
+
+      <!-- Use Case 1: Orca Desktop Active Pet -->
+      <div class="use-case-card">
+        <div class="use-case-visual" style="flex-direction:column; gap:10px;">
+          <div style="background:#18181b; border:1px solid #3f3f46; border-radius:4px; padding:12px; width:100%; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:'Fira Code', monospace; font-size:11px; color:#a1a1aa;">☕ On • Pip (OMP Pi Companion)</span>
+            <img src="assets/animations/pip-idle.gif" style="width:36px; height:36px; object-fit:contain; image-rendering:pixelated;">
+          </div>
+          <span style="font-family:'Fira Code', monospace; font-size:10px; color:var(--omp-cyan);">Orca Status Bar &amp; Overlay Area</span>
+        </div>
+        <div class="use-case-info">
+          <div class="use-case-title">🖥️ 1. Orca Desktop Pet</div>
+          <div class="use-case-desc">Sits on the bottom-right status bar in Orca IDE. Dynamically switches between the 9 animation rows based on live agent turns, mouse hover leaps, and drag strides.</div>
+        </div>
+      </div>
+
+      <!-- Use Case 2: Kindle E-Ink Light Mode -->
+      <div class="use-case-card">
+        <div class="use-case-visual">
+          <div class="eink-mockup-light">
+            <div style="display:flex; justify-content:space-between; font-weight:800; border-bottom:1.5px solid #000; padding-bottom:3px; margin-bottom:8px;">
+              <span>OMP ❯ 🏺 Claude</span>
+              <span>12:45 PM</span>
+            </div>
+            <div style="text-align:center; padding:10px 0; border:1.5px solid #000; margin-bottom:8px;">
+              <div style="font-weight:900; font-size:18px;">[ π ]</div>
+              <div style="font-size:8px;">● PARALLEL SWARM</div>
+            </div>
+            <div style="font-size:9px;">CTX: 62% | COST: $0.38</div>
+          </div>
+        </div>
+        <div class="use-case-info">
+          <div class="use-case-title">📖 2. Kindle E-Ink (Light Mode)</div>
+          <div class="use-case-desc">High-contrast 1-bit monochrome rendering on jailbroken Paperwhite devices running KOReader and ZenOS. Weeks of battery life with ghosting mitigation.</div>
+        </div>
+      </div>
+
+      <!-- Use Case 3: Kindle E-Ink Dark Mode -->
+      <div class="use-case-card">
+        <div class="use-case-visual">
+          <div class="eink-mockup-dark">
+            <div style="display:flex; justify-content:space-between; font-weight:800; border-bottom:1.5px solid #fff; padding-bottom:3px; margin-bottom:8px;">
+              <span>OMP ❯ ✨ Gemini</span>
+              <span>12:45 PM</span>
+            </div>
+            <div style="text-align:center; padding:10px 0; border:1.5px solid #fff; margin-bottom:8px;">
+              <div style="font-weight:900; font-size:18px; color:#fff;">[ π ]</div>
+              <div style="font-size:8px; color:#a1a1aa;">● BASH / TOOL</div>
+            </div>
+            <div style="font-size:9px;">CTX: 48% | TOK: 84.2k</div>
+          </div>
+        </div>
+        <div class="use-case-info">
+          <div class="use-case-title">🌙 3. Kindle E-Ink (Dark Mode)</div>
+          <div class="use-case-desc">Inverted OLED/Night mode for late-night hacking sessions with stark white typography and inverted reticles.</div>
+        </div>
+      </div>
+
+      <!-- Use Case 4: ESP32 Color LCD Display -->
+      <div class="use-case-card">
+        <div class="use-case-visual">
+          <div style="background:#000000; border:2px solid var(--omp-green); border-radius:6px; padding:12px; width:100%; max-width:260px; font-family:'Fira Code', monospace; font-size:10px;">
+            <div style="display:flex; justify-content:space-between; color:var(--omp-cyan); margin-bottom:6px;">
+              <span>[1. DASH]</span> <span>[2. SUBS]</span> <span>[3. LOGS]</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; border-top:1px solid #3f3f46; padding-top:6px;">
+              <img src="assets/animations/pip-idle.gif" style="width:48px; height:48px; object-fit:contain;">
+              <div style="font-size:9px;">
+                <div style="color:var(--omp-green); font-weight:800;">● PARALLEL SWARM</div>
+                <div style="color:var(--omp-yellow);">&gt;_ omp task[4]</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="use-case-info">
+          <div class="use-case-title">📟 4. ESP32 2.8" SPI Color LCD</div>
+          <div class="use-case-desc">AOICRIE ESP32-2432S028R dedicated desk display featuring 3 touch tabs, RGB LED alerts, and official OMP gradient rendering.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 4: DETAILED SPECIFICATIONS TABLE -->
+    <div class="section-title">📋 4. Technical Specifications &amp; Animation Row Contract</div>
+    <table class="specs-table">
+      <thead>
+        <tr>
+          <th>Row #</th>
+          <th>State ID</th>
+          <th>Animation Description</th>
+          <th>Casio Timing</th>
+          <th>OMP Agent Trigger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0</td>
+          <td><code>idle</code></td>
+          <td>Ambient 2-step discrete breathing hop</td>
+          <td>2 frames @ 380ms</td>
+          <td>Agent standby / prompt input</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td><code>running-right</code></td>
+          <td>Directional rightward stutter stride</td>
+          <td>4 frames @ 160ms</td>
+          <td>Mouse dragged right across screen</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><code>running-left</code></td>
+          <td>Directional leftward stutter stride</td>
+          <td>4 frames @ 160ms</td>
+          <td>Mouse dragged left across screen</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><code>waving</code></td>
+          <td>Articulated right paw wave with star burst</td>
+          <td>4 frames @ 280ms</td>
+          <td>Session startup &amp; resume greeting</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code>jumping</code></td>
+          <td>High-energy celebration vertical bounce</td>
+          <td>4 frames @ 200ms</td>
+          <td>Mouse hover or petting click</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><code>failed</code> / <code>alert</code></td>
+          <td>Red glitch shift + warning beacon</td>
+          <td>2 frames @ 220ms</td>
+          <td>Tool execution error / blocked prompt</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><code>waiting</code> / <code>thinking</code></td>
+          <td>Chin-tapping arm &amp; rising thought spark</td>
+          <td>4 frames @ 260ms</td>
+          <td>Claude / Gemini / OpenAI model reasoning</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><code>running</code> / <code>bash</code></td>
+          <td>Alternating cybernetic hands &amp; matrix rain</td>
+          <td>2 frames @ 180ms</td>
+          <td>Active tool execution (bash, edit, read)</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><code>review</code> / <code>victory</code></td>
+          <td>Joyful leap \o/ + golden starbursts</td>
+          <td>4 frames @ 250ms</td>
+          <td>Task completed / tests passed (agent_settled)</td>
+        </tr>
+        <tr>
+          <td>—</td>
+          <td><code>swarm32</code></td>
+          <td>Mind-control mini-Pis concentric orbit</td>
+          <td>4 frames @ 260ms</td>
+          <td>Subagent swarm concurrency (1-32 nodes)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer>
+      <div>Built with 💚 for <strong>Oh My Pi (OMP)</strong>, <strong>Kindle KOReader/ZenOS</strong>, and <strong>Orca</strong>.</div>
+      <div>Canonical Repository: <a href="https://github.com/officebeats/pipdeck" style="color:var(--omp-cyan);">github.com/officebeats/pipdeck</a></div>
+    </footer>
+  </div>
+
+  <script>
+    const stateData = {
+      'idle': {
+        title: '💤 IDLE: Ambient Breathing Hop',
+        desc: 'Discrete 2-frame Casio LCD breathing loop with resting hold ↔ 1-grid upward hop snap and grounded levitation core shadow.',
+        trigger: 'Standby / Awaiting User Prompt',
+        pacing: '2 frames @ 380ms (~2.6 FPS)',
+        src: 'assets/animations/pip-idle.gif'
+      },
+      'thinking': {
+        title: '🧠 THINKING / WAITING: Chin-Tap & Thought Spark',
+        desc: 'Articulated arm tapping chin in contemplation with sequential rising thought bubbles and golden idea starburst on breakthrough.',
+        trigger: 'Claude / Gemini / OpenAI Model Reasoning',
+        pacing: '4 frames @ 260ms (~3.8 FPS)',
+        src: 'assets/animations/pip-thinking.gif'
+      },
+      'bash': {
+        title: '⌨️ BASH / TOOL: Cybernetic Typing Hands',
+        desc: 'Discrete alternating typing hands (A ↔ B) with snappy matrix stream cues and terminal prompt indicators.',
+        trigger: 'Active Tool Execution (bash, read, edit, write)',
+        pacing: '2 frames @ 180ms (~5.5 FPS)',
+        src: 'assets/animations/pip-bash.gif'
+      },
+      'waving': {
+        title: '👋 WAVING: Articulated Paw Greeting',
+        desc: 'Right crossbar arm lifts independently and snaps through a 4-state wave cycle with shimmering golden greeting sparkle.',
+        trigger: 'Session Resume & Startup Greeting',
+        pacing: '4 frames @ 280ms (~3.5 FPS)',
+        src: 'assets/animations/pip-waving.gif'
+      },
+      'victory': {
+        title: '🏆 VICTORY: Joyful Cheer Leap & Starburst',
+        desc: 'Crouch squash → Airborne cheer leap with dual raised arms (\\o/) and dual golden LCD star sparkles.',
+        trigger: 'Task Settled & Tests Passed (agent_settled)',
+        pacing: '4 frames @ 250ms (~4.0 FPS)',
+        src: 'assets/animations/pip-victory.gif'
+      },
+      'swarm32': {
+        title: '🌌 SWARM 32: Mind-Control Mini-Pis Vortex',
+        desc: 'Central Hive Commander telepathically controlling 6 miniature micro-Pi subagents snapping across 4 quadrant orbital positions.',
+        trigger: 'Subagent Concurrency (1-32 Swarm Nodes)',
+        pacing: '4 frames @ 260ms (~3.8 FPS)',
+        src: 'assets/animations/pip-swarm32.gif'
+      },
+      'jumping': {
+        title: '🦘 JUMPING: Celebration Click Bounce',
+        desc: 'Discrete mechanical platformer jump with dynamic shadow squash & stretch on user mouse hover or petting click.',
+        trigger: 'Mouse Hover or Interactive Petting Click',
+        pacing: '4 frames @ 200ms (~5.0 FPS)',
+        src: 'assets/animations/pip-jumping.gif'
+      },
+      'alert': {
+        title: '⚠️ ALERT / FAILED: Warning Strobe Beacon',
+        desc: 'High-contrast red shift glitch toggle and warning beacon on tool execution errors or blocked user prompts.',
+        trigger: 'Tool Execution Error / Blocked Prompt',
+        pacing: '2 frames @ 220ms (~4.5 FPS)',
+        src: 'assets/animations/pip-alert.gif'
+      },
+      'running-right': {
+        title: '➡️ RUNNING-RIGHT: Directional Stride Right',
+        desc: 'Discrete mechanical forward running stride moving right across the status bar.',
+        trigger: 'Mouse Dragged Right',
+        pacing: '4 frames @ 160ms (~6.0 FPS)',
+        src: 'assets/animations/pip-running-right.gif'
+      },
+      'running-left': {
+        title: '⬅️ RUNNING-LEFT: Directional Stride Left',
+        desc: 'Mirrored discrete mechanical running stride moving leftward.',
+        trigger: 'Mouse Dragged Left',
+        pacing: '4 frames @ 160ms (~6.0 FPS)',
+        src: 'assets/animations/pip-running-left.gif'
+      }
+    };
+
+    function switchState(stateKey, btnEl) {
+      document.querySelectorAll('.btn-state').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+
+      const data = stateData[stateKey];
+      if (!data) return;
+
+      document.getElementById('activeStateImg').src = data.src;
+      document.getElementById('stateTitle').innerText = data.title;
+      document.getElementById('stateDesc').innerText = data.desc;
+      document.getElementById('stateTrigger').innerText = data.trigger;
+      document.getElementById('statePacing').innerText = data.pacing;
+    }
+  </script>
+</body>
+</html>
