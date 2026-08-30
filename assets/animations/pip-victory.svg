@@ -1,9 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 200" width="100%" height="100%" preserveAspectRatio="none" shape-rendering="crispEdges">
   <defs>
-    <pattern id="piHalftone" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
-      <rect width="4" height="4" fill="#180b2c"/>
-      <rect x="0" y="0" width="2" height="2" fill="#c084fc"/>
-      <rect x="2" y="2" width="2" height="2" fill="#c084fc"/>
+    <linearGradient id="piCrossbarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="25%" stop-color="#f43f5e"/>
+      <stop offset="55%" stop-color="#9333ea"/>
+      <stop offset="85%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+    <linearGradient id="piLeftLegGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="45%" stop-color="#c026d3"/>
+      <stop offset="85%" stop-color="#7e22ce"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="piRightLegGrad" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea"/>
+      <stop offset="35%" stop-color="#4f46e5"/>
+      <stop offset="70%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#00f0ff"/>
+    </linearGradient>
+    <pattern id="piHalftone" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="#2e1065"/>
+      <rect x="0" y="0" width="1.2" height="1.2" fill="#c084fc"/>
+      <rect x="1.5" y="1.5" width="1.2" height="1.2" fill="#e879f9"/>
     </pattern>
   </defs>
 
@@ -46,8 +65,8 @@
     <rect x="40" y="0" width="4" height="4"/><rect x="120" y="0" width="4" height="4"/><rect x="65" y="-35" width="4" height="4"/>
   </g>
 
-  <!-- Victory Trophy -->
-  <g transform="translate(70, 32)" fill="#fbbf24">
+  <!-- Victory Trophy Floating Over Head -->
+  <g transform="translate(70, 36)" fill="#fbbf24">
     <rect x="4" y="0" width="12" height="10"/>
     <rect x="6" y="10" width="8" height="4"/>
     <rect x="2" y="14" width="16" height="4"/>
@@ -55,100 +74,45 @@
     <rect x="16" y="2" width="4" height="6" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
   </g>
 
-  <!-- Clean Floating Pi Mascot (Victory) -->
+  <!-- Ground Levitation Floor -->
+  <g opacity="0.6" stroke="#c084fc" stroke-width="1">
+    <line x1="20" y1="184" x2="140" y2="184" stroke-dasharray="4,2"/>
+    <line x1="35" y1="188" x2="125" y2="188"/>
+  </g>
+  <ellipse cx="80" cy="180" rx="36" ry="5" fill="#f43f5e" opacity="0.25"/>
+
+  <!-- Unified Cohesive Pi Mascot Body -->
   <g class="mascot-victory">
-    <!-- Left Hook -->
-    <rect x="51" y="60" width="4" height="4" fill="#ff4071"/>
-    <rect x="51" y="65" width="4" height="4" fill="#ff4071"/>
-    <rect x="51" y="70" width="4" height="4" fill="#ff4071"/>
-    
-    <!-- Crossbar Row 1 ($y=65$) -->
-    <rect x="56" y="65" width="4" height="4" fill="#ff4071"/>
-    <rect x="61" y="65" width="4" height="4" fill="#f43f5e"/>
-    <rect x="66" y="65" width="4" height="4" fill="#f43f5e"/>
-    <rect x="71" y="65" width="4" height="4" fill="#ec4899"/>
-    <rect x="76" y="65" width="4" height="4" fill="#c026d3"/>
-    <rect x="81" y="65" width="4" height="4" fill="#a855f7"/>
-    <rect x="86" y="65" width="4" height="4" fill="#9333ea"/>
-    <rect x="91" y="65" width="4" height="4" fill="#7c3aed"/>
-    <rect x="96" y="65" width="4" height="4" fill="#3b82f6"/>
-    <rect x="101" y="65" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="106" y="65" width="4" height="4" fill="#00f0ff"/>
-    <rect x="106" y="70" width="4" height="4" fill="#00f0ff"/>
-
-    <!-- Crossbar Row 2 ($y=70$) -->
-    <rect x="56" y="70" width="4" height="4" fill="#ff4071"/>
-    <rect x="61" y="70" width="4" height="4" fill="#f43f5e"/>
-    <rect x="66" y="70" width="4" height="4" fill="#f43f5e"/>
-    <rect x="71" y="70" width="4" height="4" fill="#ec4899"/>
-    <rect x="76" y="70" width="4" height="4" fill="#c026d3"/>
-    <rect x="81" y="70" width="4" height="4" fill="#a855f7"/>
-    <rect x="86" y="70" width="4" height="4" fill="#9333ea"/>
-    <rect x="91" y="70" width="4" height="4" fill="#7c3aed"/>
-    <rect x="96" y="70" width="4" height="4" fill="#3b82f6"/>
-    <rect x="101" y="70" width="4" height="4" fill="#0ea5e9"/>
-
-    <!-- Crossbar Row 3 ($y=75$) -->
-    <rect x="56" y="75" width="4" height="4" fill="#f43f5e"/>
-    <rect x="71" y="75" width="4" height="4" fill="#ec4899"/>
-    <rect x="76" y="75" width="4" height="4" fill="#c026d3"/>
-    <rect x="81" y="75" width="4" height="4" fill="#a855f7"/>
-    <rect x="86" y="75" width="4" height="4" fill="#9333ea"/>
-    <rect x="101" y="75" width="4" height="4" fill="#00f0ff"/>
-
     <!-- Left Leg -->
-    <rect x="61" y="75" width="4" height="4" fill="#f43f5e"/>
-    <rect x="66" y="75" width="4" height="4" fill="#f43f5e"/>
-    <rect x="61" y="80" width="4" height="4" fill="#ec4899"/>
-    <rect x="66" y="80" width="4" height="4" fill="#ec4899"/>
-    <rect x="61" y="85" width="4" height="4" fill="#ec4899"/>
-    <rect x="66" y="85" width="4" height="4" fill="#ec4899"/>
-    <rect x="61" y="90" width="4" height="4" fill="#d946ef"/>
-    <rect x="66" y="90" width="4" height="4" fill="#d946ef"/>
-    <rect x="61" y="95" width="4" height="4" fill="#c026d3"/>
-    <rect x="66" y="95" width="4" height="4" fill="#c026d3"/>
-    <rect x="61" y="100" width="4" height="4" fill="#a855f7"/>
-    <rect x="66" y="100" width="4" height="4" fill="#a855f7"/>
-    <rect x="61" y="105" width="4" height="4" fill="#9333ea"/>
-    <rect x="66" y="105" width="4" height="4" fill="#9333ea"/>
-    <rect x="61" y="110" width="4" height="4" fill="#7e22ce"/>
-    <rect x="66" y="110" width="4" height="4" fill="#7e22ce"/>
-    <rect x="61" y="115" width="4" height="4" fill="#581c87"/>
-    <rect x="66" y="115" width="4" height="4" fill="#581c87"/>
-    <!-- Left Foot Base + Halftone -->
-    <rect x="56" y="120" width="4" height="4" fill="#701a75"/>
-    <rect x="61" y="120" width="4" height="4" fill="#581c87"/>
-    <rect x="66" y="120" width="4" height="4" fill="#581c87"/>
-    <rect x="71" y="120" width="4" height="4" fill="#701a75"/>
-    <rect x="56" y="125" width="4" height="4" fill="#3b0764"/>
-    <rect x="61" y="125" width="4" height="4" fill="#c084fc"/>
-    <rect x="66" y="125" width="4" height="4" fill="#3b0764"/>
-    <rect x="71" y="125" width="4" height="4" fill="#c084fc"/>
+    <rect x="58" y="86" width="12" height="36" fill="url(#piLeftLegGrad)"/>
+    <rect x="56" y="122" width="15" height="8" fill="url(#piHalftone)"/>
+    <rect x="54" y="126" width="6" height="4" fill="#a855f7"/>
 
     <!-- Right Leg -->
-    <rect x="91" y="75" width="4" height="4" fill="#7c3aed"/>
-    <rect x="96" y="75" width="4" height="4" fill="#7c3aed"/>
-    <rect x="91" y="80" width="4" height="4" fill="#3b82f6"/>
-    <rect x="96" y="80" width="4" height="4" fill="#3b82f6"/>
-    <rect x="91" y="85" width="4" height="4" fill="#2563eb"/>
-    <rect x="96" y="85" width="4" height="4" fill="#2563eb"/>
-    <rect x="91" y="90" width="4" height="4" fill="#1d4ed8"/>
-    <rect x="96" y="90" width="4" height="4" fill="#1d4ed8"/>
-    <rect x="91" y="95" width="4" height="4" fill="#0284c7"/>
-    <rect x="96" y="95" width="4" height="4" fill="#0284c7"/>
-    <rect x="91" y="100" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="96" y="100" width="4" height="4" fill="#0ea5e9"/>
-    <rect x="91" y="105" width="4" height="4" fill="#06b6d4"/>
-    <rect x="96" y="105" width="4" height="4" fill="#06b6d4"/>
-    <!-- Curving Outward to the Right -->
-    <rect x="91" y="110" width="4" height="4" fill="#06b6d4"/>
-    <rect x="96" y="110" width="4" height="4" fill="#00f0ff"/>
-    <rect x="101" y="110" width="4" height="4" fill="#00f0ff"/>
-    <!-- Upswept Pi Tail Foot -->
-    <rect x="96" y="115" width="4" height="4" fill="#00f0ff"/>
-    <rect x="101" y="115" width="4" height="4" fill="#00f0ff"/>
-    <rect x="106" y="115" width="4" height="4" fill="#00f0ff"/>
-    <!-- Upward Curl Tip -->
-    <rect x="106" y="110" width="4" height="4" fill="#00f0ff"/>
+    <rect x="90" y="86" width="12" height="28" fill="url(#piRightLegGrad)"/>
+    <rect x="90" y="114" width="13" height="10" fill="#0284c7"/>
+    <rect x="94" y="120" width="13" height="8" fill="#00f0ff"/>
+    <rect x="103" y="116" width="6" height="8" fill="#00f0ff"/>
+    <rect x="105" y="114" width="4" height="4" fill="#67e8f9"/>
+
+    <!-- Top Crossbar -->
+    <rect x="48" y="82" width="8" height="12" fill="#ff3366" rx="1"/>
+    <rect x="52" y="78" width="56" height="13" fill="url(#piCrossbarGrad)" rx="1"/>
+    <rect x="104" y="80" width="8" height="9" fill="#00f0ff" rx="1"/>
+    <rect x="54" y="79" width="52" height="2" fill="#ffffff" opacity="0.65"/>
+
+    <!-- Visor Bezel -->
+    <rect x="68" y="82" width="24" height="8" fill="#09090b" rx="1"/>
+    <rect x="69" y="83" width="22" height="6" fill="#18181b"/>
+
+    <!-- Happy Eyes (Neon Cyan Arcs) -->
+    <path d="M70,86 Q72.5,82 75,86" stroke="#00f0ff" stroke-width="2" fill="none"/>
+    <path d="M84,86 Q86.5,82 89,86" stroke="#00f0ff" stroke-width="2" fill="none"/>
+
+    <!-- Ear Antennas -->
+    <rect x="46" y="84" width="4" height="6" fill="#ff3366" rx="1"/>
+    <rect x="47" y="85" width="2" height="4" fill="#ffffff" opacity="0.8"/>
+    <rect x="110" y="82" width="4" height="6" fill="#00f0ff" rx="1"/>
+    <rect x="111" y="83" width="2" height="4" fill="#ffffff" opacity="0.8"/>
   </g>
 </svg>

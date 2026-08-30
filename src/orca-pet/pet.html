@@ -9,7 +9,7 @@
       --bg: #000000;
       --border-green: #00ff41;
       --text: #ffffff;
-      --omp-pink: #ff4071;
+      --omp-pink: #ff3366;
       --omp-purple: #9333ea;
       --omp-cyan: #00f0ff;
     }
@@ -29,7 +29,7 @@
     }
 
     .pet-container {
-      width: 140px;
+      width: 160px;
       height: 140px;
       position: relative;
       cursor: pointer;
@@ -39,28 +39,17 @@
       justify-content: center;
     }
 
-    .pet-img-wrapper {
+    .pet-svg-wrapper {
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       image-rendering: pixelated;
-      transition: transform 0.15s steps(2);
+      transition: transform 0.15s ease;
     }
-    .pet-container:hover .pet-img-wrapper {
-      transform: scale(1.06);
+    .pet-container:hover .pet-svg-wrapper {
+      transform: scale(1.08);
     }
-    .pet-container:active .pet-img-wrapper {
+    .pet-container:active .pet-svg-wrapper {
       transform: scale(0.95);
-    }
-
-    .pet-img-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      image-rendering: pixelated;
-      display: block;
     }
 
     .bubble {
@@ -69,22 +58,19 @@
       background: #000000;
       border: 1.5px solid var(--omp-cyan);
       color: var(--omp-cyan);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 800;
-      padding: 4px 8px;
+      padding: 4px 10px;
       border-radius: 4px;
       pointer-events: none;
       opacity: 0;
-      transition: all 0.25s steps(3);
+      transition: all 0.25s ease;
       white-space: nowrap;
       z-index: 10;
-      max-width: 220px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
     }
     .bubble.show {
-      top: -28px;
+      top: -26px;
       opacity: 1;
     }
   </style>
@@ -93,105 +79,107 @@
 
   <div class="pet-container" id="petBox" onclick="interactPet()">
     <div class="bubble" id="petBubble">Pip is Ready! ⚡</div>
-    <div class="pet-img-wrapper" id="petImgBox">
-      <img id="petImage" src="/assets/animations/pip-idle.svg" alt="Pip Mascot">
+    <div class="pet-svg-wrapper" id="petSvgBox">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="46 64 68 64" shape-rendering="crispEdges">
+        <defs>
+          <linearGradient id="piCrossbarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff3366"/>
+            <stop offset="25%" stop-color="#f43f5e"/>
+            <stop offset="55%" stop-color="#9333ea"/>
+            <stop offset="85%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#00f0ff"/>
+          </linearGradient>
+          
+          <linearGradient id="piLeftLegGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f43f5e"/>
+            <stop offset="45%" stop-color="#c026d3"/>
+            <stop offset="85%" stop-color="#7e22ce"/>
+            <stop offset="100%" stop-color="#4c1d95"/>
+          </linearGradient>
+          
+          <linearGradient id="piRightLegGrad" x1="0%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color="#9333ea"/>
+            <stop offset="35%" stop-color="#4f46e5"/>
+            <stop offset="70%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#00f0ff"/>
+          </linearGradient>
+
+          <pattern id="piHalftone" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+            <rect width="3" height="3" fill="#2e1065"/>
+            <rect x="0" y="0" width="1.2" height="1.2" fill="#c084fc"/>
+            <rect x="1.5" y="1.5" width="1.2" height="1.2" fill="#e879f9"/>
+          </pattern>
+        </defs>
+
+        <style>
+          @keyframes pixelBreathe { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+          @keyframes pixelBlink { 0%, 42%, 58%, 100% { opacity: 1; } 45%, 55% { opacity: 0; } }
+          @keyframes pixelBlinkClosed { 0%, 42%, 58%, 100% { opacity: 0; } 45%, 55% { opacity: 1; } }
+          .mascot { animation: pixelBreathe 2.4s steps(2) infinite; transform-origin: 80px 96px; filter: drop-shadow(0 0 6px #9333ea); }
+          .shadow { transform-origin: 80px 122px; animation: pixelBreathe 2.4s steps(2) infinite reverse; }
+          .eye-open { animation: pixelBlink 4s steps(1) infinite; }
+          .eye-closed { animation: pixelBlinkClosed 4s steps(1) infinite; }
+        </style>
+
+        <ellipse cx="80" cy="122" rx="24" ry="3" fill="#7e22ce" opacity="0.4" class="shadow"/>
+        <ellipse cx="80" cy="122" rx="14" ry="1.8" fill="#00f0ff" opacity="0.65" class="shadow"/>
+
+        <g class="mascot">
+          <rect x="58" y="76" width="12" height="36" fill="url(#piLeftLegGrad)"/>
+          <rect x="56" y="112" width="15" height="8" fill="url(#piHalftone)"/>
+          <rect x="54" y="116" width="6" height="4" fill="#a855f7"/>
+
+          <rect x="90" y="76" width="12" height="28" fill="url(#piRightLegGrad)"/>
+          <rect x="90" y="104" width="13" height="10" fill="#0284c7"/>
+          <rect x="94" y="110" width="13" height="8" fill="#00f0ff"/>
+          <rect x="103" y="106" width="6" height="8" fill="#00f0ff"/>
+          <rect x="105" y="104" width="4" height="4" fill="#67e8f9"/>
+
+          <rect x="48" y="72" width="8" height="12" fill="#ff3366" rx="1"/>
+          <rect x="52" y="68" width="56" height="13" fill="url(#piCrossbarGrad)" rx="1"/>
+          <rect x="104" y="70" width="8" height="9" fill="#00f0ff" rx="1"/>
+          
+          <rect x="54" y="69" width="52" height="2" fill="#ffffff" opacity="0.65"/>
+
+          <rect x="68" y="72" width="24" height="8" fill="#09090b" rx="1"/>
+          <rect x="69" y="73" width="22" height="6" fill="#18181b"/>
+
+          <g class="eye-closed">
+            <rect x="71" y="76" width="5" height="2" fill="#00f0ff"/>
+            <rect x="84" y="76" width="5" height="2" fill="#00f0ff"/>
+          </g>
+          <g class="eye-open">
+            <rect x="71" y="74" width="5" height="4" fill="#00f0ff"/>
+            <rect x="72" y="75" width="2" height="2" fill="#ffffff"/>
+            <rect x="84" y="74" width="5" height="4" fill="#00f0ff"/>
+            <rect x="85" y="75" width="2" height="2" fill="#ffffff"/>
+          </g>
+
+          <rect x="46" y="74" width="4" height="6" fill="#ff3366" rx="1"/>
+          <rect x="47" y="75" width="2" height="4" fill="#ffffff" opacity="0.8"/>
+          <rect x="110" y="72" width="4" height="6" fill="#00f0ff" rx="1"/>
+          <rect x="111" y="73" width="2" height="4" fill="#ffffff" opacity="0.8"/>
+        </g>
+      </svg>
     </div>
   </div>
 
   <script>
-    const ANIMATIONS = {
-      idle: '/assets/animations/pip-idle.svg',
-      thinking: '/assets/animations/pip-thinking.svg',
-      bash: '/assets/animations/pip-hacking.svg',
-      running: '/assets/animations/pip-hacking.svg',
-      alert: '/assets/animations/pip-alert.svg',
-      failed: '/assets/animations/pip-alert.svg',
-      waiting: '/assets/animations/pip-thinking.svg',
-      victory: '/assets/animations/pip-victory.svg',
-      review: '/assets/animations/pip-victory.svg',
-      swarm: '/assets/animations/pip-swarm-32.svg',
-      swarm32: '/assets/animations/pip-swarm-32.svg'
-    };
-
-    let currentState = 'idle';
-    let currentModel = '🏺 Anthropic claude-3-7-sonnet';
-    let currentCommand = '>_ omp --ready';
-    let bubbleTimer = null;
-
-    function setMascotState(stateName, command = '', model = '') {
-      if (!stateName) return;
-      const key = stateName.toLowerCase();
-      const nextSvg = ANIMATIONS[key] || ANIMATIONS.idle;
-      const img = document.getElementById('petImage');
-      if (img && img.getAttribute('src') !== nextSvg) {
-        img.setAttribute('src', nextSvg);
-      }
-      currentState = key;
-      if (command) currentCommand = command;
-      if (model) currentModel = model;
-    }
-
-    function showBubble(text, duration = 3000) {
-      const bubble = document.getElementById('petBubble');
-      if (!bubble) return;
-      bubble.innerText = text;
-      bubble.classList.add('show');
-      if (bubbleTimer) clearTimeout(bubbleTimer);
-      bubbleTimer = setTimeout(() => bubble.classList.remove('show'), duration);
-    }
+    const phrases = [
+      "Pip: OMP Active 🚀",
+      "Swarm: 32 Nodes! ⚡",
+      "Coding with Claude & Gemini ✨",
+      "Purring in 8-bit 💚",
+      "Pip Loves Oh My Pi!"
+    ];
 
     function interactPet() {
-      const phrases = [
-        `Pip: ${currentState.toUpperCase()} ⚡`,
-        currentCommand || 'Pip Loves Oh My Pi!',
-        currentModel || '🏺 Claude & ✨ Gemini',
-        'Swarm Matrix: 32 Nodes! 🚀'
-      ];
+      const bubble = document.getElementById('petBubble');
       const text = phrases[Math.floor(Math.random() * phrases.length)];
-      showBubble(text, 2500);
-      
-      fetch('/api/pet/action', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'pet' })
-      }).catch(() => {});
+      bubble.innerText = text;
+      bubble.classList.add('show');
+      setTimeout(() => bubble.classList.remove('show'), 2400);
     }
-
-    // Connect to Live SSE Stream from OMP Companion / Orca Server
-    function connectEvents() {
-      const evtSource = new EventSource('/api/pet/events');
-      evtSource.onmessage = function(e) {
-        try {
-          const data = JSON.parse(e.data);
-          if (data.state) {
-            setMascotState(data.state, data.command, data.model);
-            if (data.state === 'bash' && data.command) {
-              showBubble(data.command, 2000);
-            }
-          }
-        } catch (err) {}
-      };
-      evtSource.onerror = function() {
-        evtSource.close();
-        setTimeout(connectEvents, 2000);
-      };
-    }
-
-    // Fallback Polling
-    async function pollState() {
-      try {
-        const res = await fetch('/api/pet/state');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.state) {
-            setMascotState(data.state, data.command, data.model);
-          }
-        }
-      } catch (err) {}
-    }
-
-    connectEvents();
-    setInterval(pollState, 3000);
   </script>
 </body>
 </html>
