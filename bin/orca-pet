@@ -41,8 +41,8 @@ launch_desktop_window() {
     hyprctl keyword windowrule "float, class:^(pip-mascot-pet)$" >/dev/null 2>&1 || true
     hyprctl keyword windowrule "float, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
     hyprctl keyword windowrule "pin, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "size 90 110, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "move 100%-110 100%-125, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "size 38 62, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "move 100%-55 100%-78, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
     hyprctl keyword windowrule "noborder, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
     hyprctl keyword windowrule "noshadow, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true
     hyprctl keyword windowrule "noblur, title:^(Pip: Mascot Pet)$" >/dev/null 2>&1 || true

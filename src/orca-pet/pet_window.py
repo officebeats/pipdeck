@@ -17,7 +17,7 @@ class PipPetWindow:
     def __init__(self):
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         self.window.set_title("Pip: Mascot Pet")
-        self.window.set_default_size(140, 165)
+        self.window.set_default_size(52, 88)
         self.window.set_decorated(False)
         self.window.set_app_paintable(True)
         self.window.set_keep_above(True)

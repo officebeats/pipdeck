@@ -38,13 +38,13 @@ start_server() {
 launch_desktop_window() {
   echo "[Codex Pet] Configuring Hyprland floating companion rules..."
   if command -v hyprctl >/dev/null 2>&1; then
-    hyprctl keyword windowrule "float, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "pin, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "size 80 80, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "move 100%-100 100%-110, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "noborder, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "noshadow, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
-    hyprctl keyword windowrule "noblur, class:^(org.pipdeck.codex.pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "float, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "pin, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "size 38 62, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "move 100%-55 100%-78, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noborder, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noshadow, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
+    hyprctl keyword windowrule "noblur, class:^(pip-codex-mascot-pet)$" >/dev/null 2>&1 || true
   fi
 
   echo "[Codex Pet] Launching native 100% transparent LED pixel sprite..."

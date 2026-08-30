@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 const PORT = 8790;
 const ROOT_DIR = path.resolve(__dirname, '../..');
 const STATUS_FILE = '/tmp/codex-live-status.json';
+const HOME_DIR = process.env.HOME || '/home/beats-omarchy';
+const SESSIONS_DIR = path.join(HOME_DIR, '.omp/agent/sessions');
 
 export interface CodexPetState {
   happiness: number;
@@ -30,7 +32,6 @@ const currentPetState: CodexPetState = {
   command: '>_ codex: live session',
   lastInteraction: Date.now(),
 };
-
 const sseClients: http.ServerResponse[] = [];
 
 function broadcastState() {
@@ -46,12 +47,15 @@ function broadcastState() {
 }
 
 export function updateCodexPetState(partial: Partial<CodexPetState>) {
+  const previous = JSON.stringify(currentPetState);
   Object.assign(currentPetState, partial);
   currentPetState.lastInteraction = Date.now();
-  try {
-    fs.writeFileSync(STATUS_FILE, JSON.stringify(currentPetState), 'utf8');
-  } catch (e) {}
-  broadcastState();
+  if (JSON.stringify(currentPetState) !== previous) {
+    try {
+      fs.writeFileSync(STATUS_FILE, JSON.stringify(currentPetState), 'utf8');
+    } catch (e) {}
+    broadcastState();
+  }
 }
 
 function getMimeType(filePath: string): string {
@@ -65,6 +69,125 @@ function getMimeType(filePath: string): string {
     case '.webp': return 'image/webp';
     case '.png': return 'image/png';
     default: return 'application/octet-stream';
+  }
+}
+
+let lastReadSessionFile = '';
+let lastReadSessionOffset = 0;
+let lastActivityTs = Date.now();
+
+function findLatestSessionFile(): string | null {
+  try {
+    if (!fs.existsSync(SESSIONS_DIR)) return null;
+    let newestFile: string | null = null;
+    let newestMtime = 0;
+
+    function scanDir(dir: string) {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const ent of entries) {
+        const full = path.join(dir, ent.name);
+        if (ent.isDirectory()) {
+          scanDir(full);
+        } else if (ent.isFile() && ent.name.endsWith('.jsonl')) {
+          const stat = fs.statSync(full);
+          if (stat.mtimeMs > newestMtime) {
+            newestMtime = stat.mtimeMs;
+            newestFile = full;
+          }
+        }
+      }
+    }
+
+    scanDir(SESSIONS_DIR);
+    return newestFile;
+  } catch (e) {
+    return null;
+  }
+}
+
+function processSessionLine(line: string) {
+  if (!line.trim()) return;
+  try {
+    const entry = JSON.parse(line);
+    lastActivityTs = Date.now();
+
+    if (entry.type === 'custom' && entry.customType === 'tool_execution_start') {
+      const data = entry.data || {};
+      const toolName = data.toolName || 'tool';
+      const args = data.args || {};
+      const isTask = toolName === 'task';
+      let preview = `>_ ${toolName}`;
+      if (toolName === 'bash') {
+        preview = `>_ bash: ${(args.command || '').slice(0, 32)}`;
+      } else if (toolName === 'read' || toolName === 'write' || toolName === 'edit') {
+        const p = args.path || args.file || '';
+        preview = `>_ ${toolName}: ${p.split('/').pop() || p}`;
+      } else if (toolName === 'grep' || toolName === 'glob') {
+        preview = `>_ ${toolName}: ${(args.pattern || args.path || '').slice(0, 24)}`;
+      } else if (isTask) {
+        const tasks = Array.isArray(args.tasks) ? args.tasks.length : 1;
+        preview = `>_ codex task: ${tasks} subagents`;
+      }
+
+      updateCodexPetState({
+        state: isTask ? 'swarm32' : 'bash',
+        command: preview,
+        energy: Math.min(100, currentPetState.energy + 1),
+      });
+    } else if (entry.type === 'message' && entry.message?.role === 'assistant') {
+      const content = entry.message.content;
+      if (Array.isArray(content)) {
+        for (const part of content) {
+          if (part.type === 'thinking') {
+            updateCodexPetState({
+              state: 'thinking',
+              command: '>_ codex: reasoning & thinking',
+            });
+            break;
+          }
+        }
+      }
+    } else if (entry.type === 'message' && entry.message?.role === 'user') {
+      updateCodexPetState({
+        state: 'thinking',
+        command: '>_ codex: prompt received',
+      });
+    }
+  } catch (e) {}
+}
+
+function pollOmpActivity() {
+  const latestFile = findLatestSessionFile();
+  if (!latestFile) return;
+
+  try {
+    const stat = fs.statSync(latestFile);
+    if (latestFile !== lastReadSessionFile) {
+      lastReadSessionFile = latestFile;
+      lastReadSessionOffset = Math.max(0, stat.size - 8192);
+    }
+
+    if (stat.size > lastReadSessionOffset) {
+      const fd = fs.openSync(latestFile, 'r');
+      const len = stat.size - lastReadSessionOffset;
+      const buffer = Buffer.alloc(len);
+      fs.readSync(fd, buffer, 0, len, lastReadSessionOffset);
+      fs.closeSync(fd);
+      lastReadSessionOffset = stat.size;
+
+      const text = buffer.toString('utf8');
+      const lines = text.split('\n');
+      for (const line of lines) {
+        processSessionLine(line);
+      }
+    }
+  } catch (e) {}
+
+  if (Date.now() - lastActivityTs > 12000 && currentPetState.state !== 'idle') {
+    updateCodexPetState({
+      state: 'idle',
+      command: '>_ codex: ready',
+    });
   }
 }
 
@@ -85,6 +208,8 @@ export function startCodexPetServer(port: number = PORT): http.Server {
       }
     } catch (e) {}
   });
+
+  setInterval(pollOmpActivity, 150);
 
   const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

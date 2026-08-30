@@ -52,17 +52,29 @@ AI agents and contributors MUST in perpetuity maintain, support, and test both t
 
 PipDeck enforces a **pure floating, shadowless 25% scaled $\pi$ mascot** ($43 \times 50\text{px}$ bounding box centered at $(80, 100)$) across all swarm counts (1 to 32 nodes) and all lifecycle states (`IDLE`, `THINKING`, `BASH`, `SWARM`, `ALERT`, `VICTORY`).
 
+### Micro-Compact Slender Desktop Companion Sizing
+- **Micro-Compact Slender Profile**: The floating pet companion window and container geometry is slimmed down to an ultra-slender footprint ($52 \times 88\text{px}$ GTK/WebKit window, $42 \times 63\text{px}$ HTML container, and Hyprland `size 38 62` floating rule) with micro speech bubble and responsive stepped animations.
 - **Zero Drop Shadows**: All overlapping ground shadow disks and floor meshes have been eliminated for a weightless floating aesthetic.
-- **Interactive Orca Pet Bundle**: Includes a full 9-row $\times$ 8-column spritesheet bundle (`assets/orca-pet-bundle/`) that dynamically reflects live OMP agent turns and Orca chat activity:
-  - **Row 0 (`idle`)**: Ambient floating levitation when agent is standby / idle.
+- **Interactive Orca & Codex Pet Bundle**: Includes native floating desktop companions (`bin/orca-pet`, `bin/codex-pet`) and a full 9-row $\times$ 8-column spritesheet bundle (`assets/orca-pet-bundle/`) that dynamically reflects live OMP agent turns:
+  - **Row 0 (`idle`)**: Ambient floating levitation when agent is standby / idle (`assets/animations/pip-idle.svg`).
   - **Row 1 & 2 (`running-right` / `running-left`)**: Directional tilt and dash when dragged.
   - **Row 3 (`waving`)**: Crossbar waving greeting.
   - **Row 4 (`jumping`)**: Golden sparkle victory leap on mouse hover or task completion.
-  - **Row 5 (`failed`)**: Strobe alert and warning triangle on errors / blocked prompt.
-  - **Row 6 (`waiting`)**: Luminous thought ring orbital when agent is thinking or awaiting input.
-  - **Row 7 (`running`)**: Cybernetic typing hands and matrix stream on active tool execution (`bash`, `read`, `edit`, `write`).
-  - **Row 8 (`review`)**: Floating trophy and celebration confetti on `agent_settled` (job passed).
+  - **Row 5 (`failed` / `alert`)**: Strobe alert and warning triangle on errors / user prompts (`assets/animations/pip-alert.svg`).
+  - **Row 6 (`waiting` / `thinking`)**: Luminous thought ring orbital when agent is thinking or planning (`assets/animations/pip-thinking.svg`).
+  - **Row 7 (`running` / `bash`)**: Cybernetic typing hands and matrix stream on active tool execution (`assets/animations/pip-hacking.svg`).
+  - **Row 8 (`review` / `victory`)**: Floating trophy and celebration confetti on `agent_settled` (`assets/animations/pip-victory.svg`).
 
+### Multi-Layer Real-Time OMP Activity Reactivity Engine
+PipDeck features a 3-tier fault-tolerant activity detection pipeline guaranteeing zero drift and sub-second reactivity:
+1. **Tier A (In-Process OMP Extension Hook)**: `firmware/host/pipdeck-server.ts` installs to `~/.omp/agent/extensions/pipdeck-server.ts`, intercepting `before_agent_start`, `agent_start`, `tool_execution_start`, `tool_call`, `tool_execution_end`, `agent_settled`, `agent_end` with atomic `/tmp/pip-live-status.json` write and non-blocking HTTP push.
+2. **Tier B (Live JSONL Session Log Watcher)**: `src/orca-pet/server.ts` scans `~/.omp/agent/sessions/` every 150ms for newly appended tool calls (`bash`, `read`, `edit`, `write`, `grep`, `glob`, `task`, `eval`), thinking events, and user prompts.
+3. **Tier C (E-Ink Daemon Polling & SSE Stream)**: Background poller checks port 8787 (`/api/status`) and streams instantaneous state changes over Server-Sent Events (`/api/pet/events` on port 8788 and `/api/codex/events` on port 8790).
+
+### Interactive Mascot Actions & Chiptune Audio
+- **Click (Petting)**: Spawns floating hearts (♥ with `steps(4)` keyframes), plays 8-bit square-wave purr SFX, and increments happiness.
+- **Double-Click / 'F' (Feeding)**: Drops token crumb (`01` with `steps(4)` keyframes), plays chiptune bite SFX, and increments energy & tokens eaten.
+- **Reactive Speech Bubble**: Automatically surfaces active tool command (`>_ bash: ...`, `>_ edit: ...`), model badge (`[Provider Icon] [Provider Name] [Model Name]`), and thinking status.
 ### 5-Agent Incremental Swarm Hierarchy
 
 | Swarm Level | Combo HUD Tag | Mascot Invariant | Stepped Animation Timing | Visual Density Feeling |

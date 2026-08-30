@@ -1,6 +1,6 @@
 import * as http from 'http';
+import * as fs from 'fs';
 import * as os from 'os';
-
 export interface PipDeckSubagent {
   name: string;
   active: boolean;
@@ -24,12 +24,13 @@ export interface PipDeckTelemetry {
 export interface OmpEngine {
   getSessionName?(): string;
   getModel?(): string;
-  on(event: string, handler: (event: ToolEvent, ctx: unknown) => void): void;
+  on(event: string, handler: (event: ToolEvent | Record<string, unknown>, ctx?: unknown) => void): void;
 }
 
 export interface ToolEvent {
   toolName?: string;
   args?: Record<string, unknown>;
+  input?: Record<string, unknown>;
 }
 
 export function formatModelNotation(rawModel: string): string {
@@ -101,6 +102,7 @@ export class PipDeckServer {
       ...partial,
       ts: Date.now(),
     };
+    syncPetStatus(this.currentTelemetry);
   }
 
   public start(): void {
@@ -179,6 +181,136 @@ export class PipDeckServer {
   }
 }
 
+const PIP_STATUS_FILE = '/tmp/pip-live-status.json';
+const CODEX_STATUS_FILE = '/tmp/codex-live-status.json';
+
+function syncPetStatus(telemetry: PipDeckTelemetry): void {
+  let petState = 'idle';
+  const rawState = telemetry.state.toLowerCase();
+  if (rawState.includes('executing') || rawState.includes('bash') || rawState.includes('tool')) {
+    petState = 'bash';
+  } else if (rawState.includes('thinking') || rawState.includes('plan')) {
+    petState = 'thinking';
+  } else if (rawState.includes('passed') || rawState.includes('victory') || rawState.includes('pass')) {
+    petState = 'victory';
+  } else if (rawState.includes('alert') || rawState.includes('error') || rawState.includes('fail')) {
+    petState = 'alert';
+  } else if (rawState.includes('swarm') || telemetry.swarm_nodes > 1) {
+    petState = 'swarm32';
+  } else {
+    petState = 'idle';
+  }
+
+  const petPayload = {
+    happiness: petState === 'victory' ? 100 : 92,
+    energy: petState === 'bash' ? 98 : 95,
+    tokensEaten: 18400,
+    state: petState,
+    model: telemetry.model,
+    thread: telemetry.thread,
+    command: telemetry.command,
+    phase: telemetry.phase,
+    lastInteraction: Date.now(),
+  };
+
+  try {
+    fs.writeFileSync(PIP_STATUS_FILE, JSON.stringify(petPayload), 'utf8');
+    fs.writeFileSync(CODEX_STATUS_FILE, JSON.stringify(petPayload), 'utf8');
+  } catch (e) {}
+  // Non-blocking notification to live pet servers
+  for (const port of [8788, 8790]) {
+    try {
+      const req = http.request({
+        hostname: '127.0.0.1',
+        port,
+        path: port === 8788 ? '/api/pet/action' : '/api/codex/action',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        timeout: 150,
+      }, () => {});
+      req.on('error', () => {});
+      req.on('timeout', () => req.destroy());
+      req.write(JSON.stringify({
+        type: 'setState',
+        state: petState,
+        model: telemetry.model,
+        command: telemetry.command,
+      }));
+      req.end();
+    } catch (e) {}
+  }
+}
+
+function deriveToolPreview(toolName: string = 'tool', args: Record<string, unknown> = {}): string {
+  if (toolName === 'bash') {
+    const cmd = typeof args.command === 'string' ? args.command : (typeof args.cmd === 'string' ? args.cmd : '');
+    return `>_ bash: ${cmd.slice(0, 45)}`;
+  }
+  if (toolName === 'read' || toolName === 'write' || toolName === 'edit') {
+    const p = typeof args.path === 'string' ? args.path : (typeof args.file === 'string' ? args.file : '');
+    return `>_ ${toolName}: ${p.split('/').pop() || p}`;
+  }
+  if (toolName === 'grep' || toolName === 'glob') {
+    const pattern = typeof args.pattern === 'string' ? args.pattern : (typeof args.path === 'string' ? args.path : '');
+    return `>_ ${toolName}: ${pattern.slice(0, 35)}`;
+  }
+  if (toolName === 'task') {
+    const tasks = Array.isArray(args.tasks) ? args.tasks : [];
+    return `>_ omp task: ${tasks.length || 1} subagent(s)`;
+  }
+  return `>_ ${toolName} active`;
+}
+function postToOrcaAgentHook(hookEventName: string, extra: Record<string, unknown> = {}): void {
+  let port = process.env.ORCA_AGENT_HOOK_PORT || '';
+  let token = process.env.ORCA_AGENT_HOOK_TOKEN || '';
+  const paneKey = process.env.ORCA_PANE_KEY || '';
+
+  if (!port || !token) {
+    try {
+      const endpointPath = process.env.ORCA_AGENT_HOOK_ENDPOINT || '/home/beats-omarchy/.config/orca/agent-hooks/endpoint.env';
+      if (fs.existsSync(endpointPath)) {
+        const lines = fs.readFileSync(endpointPath, 'utf8').split('\n');
+        for (const line of lines) {
+          const m = line.match(/^([A-Z0-9_]+)=(.*)$/);
+          if (m) {
+            if (m[1] === 'ORCA_AGENT_HOOK_PORT') port = m[2].trim();
+            if (m[1] === 'ORCA_AGENT_HOOK_TOKEN') token = m[2].trim();
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
+  if (!port || !token || !paneKey) return;
+
+  try {
+    const req = http.request({
+      hostname: '127.0.0.1',
+      port: parseInt(port, 10),
+      path: '/hook/omp',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Orca-Agent-Hook-Token': token,
+      },
+      timeout: 200,
+    }, () => {});
+    req.on('error', () => {});
+    req.on('timeout', () => req.destroy());
+    req.write(JSON.stringify({
+      paneKey,
+      launchToken: process.env.ORCA_AGENT_LAUNCH_TOKEN || '',
+      tabId: process.env.ORCA_TAB_ID || '',
+      worktreeId: process.env.ORCA_WORKTREE_ID || '',
+      payload: {
+        hook_event_name: hookEventName,
+        ...extra,
+      },
+    }));
+    req.end();
+  } catch (e) {}
+}
+
 /**
  * Oh My Pi Extension Hook
  */
@@ -186,36 +318,91 @@ export default function (pi: OmpEngine): void {
   const daemon = new PipDeckServer();
   daemon.start();
 
-  pi.on('agent_start', () => {
+  pi.on('before_agent_start', () => {
+    postToOrcaAgentHook('before_agent_start');
     daemon.updateTelemetry({
       state: '● THINKING',
       phase: '📋 Analyzing request & codebase',
       command: '>_ omp agent: plan step',
       model: formatModelNotation(pi.getModel?.() || 'claude-3-7-sonnet'),
-      thread: `🧵 #${pi.getSessionName?.() || 'active-thread'}`,
+      thread: `🧵 #${pi.getSessionName?.() || 'omp-active'}`,
+    });
+  });
+
+  pi.on('agent_start', () => {
+    postToOrcaAgentHook('agent_start');
+    daemon.updateTelemetry({
+      state: '● THINKING',
+      phase: '📋 Analyzing request & codebase',
+      command: '>_ omp agent: plan step',
+      model: formatModelNotation(pi.getModel?.() || 'claude-3-7-sonnet'),
+      thread: `🧵 #${pi.getSessionName?.() || 'omp-active'}`,
     });
   });
 
   pi.on('tool_execution_start', (event: ToolEvent) => {
+    const toolName = event.toolName || 'tool';
+    const args = event.args || event.input || {};
+    const isTask = toolName === 'task';
+    const taskCount = isTask && Array.isArray(args.tasks) ? args.tasks.length : 1;
+
+    postToOrcaAgentHook('tool_execution_start', {
+      tool_name: toolName,
+      tool_input: args,
+    });
+
+    daemon.updateTelemetry({
+      state: isTask ? '● PARALLEL SWARM' : '● EXECUTING TOOL',
+      phase: isTask ? `⚡ Swarm: ${taskCount} Agents` : `⚙️ Running ${toolName}`,
+      command: deriveToolPreview(toolName, args),
+      swarm_nodes: isTask ? Math.max(taskCount, 4) : 1,
+    });
+  });
+
+  pi.on('tool_call', (event: ToolEvent) => {
+    const toolName = event.toolName || 'tool';
+    const args = event.input || event.args || {};
+
+    postToOrcaAgentHook('tool_call', {
+      tool_name: toolName,
+      tool_input: args,
+    });
+
     daemon.updateTelemetry({
       state: '● EXECUTING TOOL',
-      command: `>_ ${event.toolName || 'tool'} ${JSON.stringify(event.args || {})}`,
+      command: deriveToolPreview(toolName, args),
+    });
+  });
+
+  pi.on('tool_execution_end', (event: ToolEvent) => {
+    const toolName = event.toolName || 'tool';
+    postToOrcaAgentHook('tool_execution_end', {
+      tool_name: toolName,
+    });
+    daemon.updateTelemetry({
+      state: '● THINKING',
+      phase: '📋 Processing tool result',
+      command: '>_ omp: analyzing output',
     });
   });
 
   pi.on('agent_settled', () => {
+    postToOrcaAgentHook('agent_settled');
     daemon.updateTelemetry({
       state: '● JOB PASSED',
       phase: '✓ Verification Complete',
       command: '>_ omp: check verified [PASS]',
+      swarm_nodes: 1,
     });
   });
 
   pi.on('agent_end', () => {
+    postToOrcaAgentHook('agent_end');
     daemon.updateTelemetry({
       state: '● IDLE / READY',
       phase: '📋 Awaiting prompt',
       command: '>_ omp --ready',
+      swarm_nodes: 1,
     });
   });
 }
